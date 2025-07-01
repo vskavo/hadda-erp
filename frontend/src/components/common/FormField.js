@@ -15,7 +15,6 @@ import {
   FormGroup,
   IconButton,
   InputAdornment,
-  OutlinedInput,
   Autocomplete,
   Chip
 } from '@mui/material';

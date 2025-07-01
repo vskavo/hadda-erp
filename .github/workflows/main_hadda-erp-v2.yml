@@ -27,9 +27,8 @@ jobs:
         run: |
           npm install
           cd backend && npm install
-          cd ../frontend && npm install
-          npm run build
           cd ..
+          npm run build
           npm run test --if-present
 
       - name: Zip artifact for deployment
