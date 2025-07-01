@@ -105,6 +105,13 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
 
   // El rol de admin se maneja dentro de hasPermission ahora
   const isAdmin = user?.rol && user.rol.toLowerCase() === 'administrador'; 
+  
+  // Debug logs
+  console.log('DEBUG SideBar - user:', user);
+  console.log('DEBUG SideBar - user.rol:', user?.rol);
+  console.log('DEBUG SideBar - isAdmin:', isAdmin);
+  console.log('DEBUG SideBar - adminMenuItems:', adminMenuItems);
+  console.log('DEBUG SideBar - filteredAdminMenuItems:', filteredAdminMenuItems);
 
   // Filtrar menú principal basado en permisos
   const filteredMenuItems = menuItems.filter((item) => 
