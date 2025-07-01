@@ -119,9 +119,14 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
   );
   
   // Filtrar menú admin basado en permisos (si se definieron)
-  const filteredAdminMenuItems = adminMenuItems.filter((item) => 
-    hasPermission(item.permission)
-  );
+  const filteredAdminMenuItems = adminMenuItems.filter((item) => {
+    // Si es el menú de configuraciones y el usuario es admin, siempre mostrarlo
+    if (item.path === '/admin/configuraciones-erp' && isAdmin) {
+      return true;
+    }
+    // Para otros items, verificar el permiso normalmente
+    return hasPermission(item.permission);
+  });
 
   const handleAdminClick = () => {
     setAdminOpen(!adminOpen);
