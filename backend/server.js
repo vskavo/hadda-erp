@@ -60,8 +60,8 @@ app.use(cookieParser()); // Para gestionar cookies
 app.use(express.json({ limit: '10mb' })); // Limitar tamaño del payload
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Servir archivos estáticos del frontend desde la carpeta '../public' relativa a este archivo
-app.use(express.static(path.join(__dirname, '../public')));
+// Servir archivos estáticos del frontend desde la carpeta '../frontend/build' relativa a este archivo
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // DESACTIVAMOS temporalmente el middleware de transacciones automáticas que causa problemas
 // app.use(dbConnectionMiddleware); // Middleware para gestionar conexiones a la BD
@@ -122,7 +122,7 @@ app.get('*', (req, res, next) => {
   // Solo procesar si la solicitud no es para la API para evitar conflictos
   // y si la solicitud acepta HTML (para no interferir con solicitudes de assets que podrían fallar)
   if (!req.originalUrl.startsWith('/api') && req.accepts('html')) {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'), (err) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'), (err) => {
       if (err) {
         // Si index.html no se encuentra por alguna razón, pasa al siguiente manejador (404)
         next(err);

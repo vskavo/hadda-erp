@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 const { logInfo, logError } = require('./utils/logger');
 
 const app = express();
@@ -15,6 +16,9 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Servir archivos estáticos del frontend
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Rutas
 try {
@@ -30,6 +34,19 @@ try {
   console.error('Error al cargar las rutas:', error);
   logError('Error al cargar las rutas:', error);
 }
+
+// Manejo de rutas del cliente (React Router)
+app.get('*', (req, res, next) => {
+  if (!req.originalUrl.startsWith('/api') && req.accepts('html')) {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'), (err) => {
+      if (err) {
+        next(err);
+      }
+    });
+  } else {
+    next(); 
+  }
+});
 
 // Middleware para rutas no encontradas
 app.use((req, res, next) => {
