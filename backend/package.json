@@ -1,7 +1,7 @@
 {
-  "name": "erp-otec-backend",
+  "name": "hadda-erp-backend",
   "version": "1.0.0",
-  "description": "Backend para el ERP especializado para OTEC",
+  "description": "Backend para Hadda - ERP, sistema de gestión empresarial",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -24,7 +24,7 @@ try {
   
   // Ruta de prueba
   app.get('/', (req, res) => {
-    res.json({ message: 'API básica de ERP para OTEC funcionando correctamente' });
+    res.json({ message: 'API básica de Hadda - ERP funcionando correctamente' });
   });
 } catch (error) {
   console.error('Error al cargar las rutas:', error);

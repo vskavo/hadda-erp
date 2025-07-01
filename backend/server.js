@@ -93,7 +93,7 @@ try {
   
   // Ruta de prueba
   app.get('/', (req, res) => {
-    res.json({ message: 'API de ERP para OTEC funcionando correctamente' });
+    res.json({ message: 'API de Hadda - ERP funcionando correctamente' });
   });
   
   logInfo('Rutas completas cargadas correctamente');

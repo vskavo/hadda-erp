@@ -1,76 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a ERP OTEC</title>
+    <title>Bienvenido a Hadda - ERP</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
         .container {
             max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         .header {
-            background-color: #4a86e8;
-            color: white;
-            padding: 15px;
+            background-color: #2c3e50;
+            color: #ffffff;
+            padding: 20px;
             text-align: center;
-            border-radius: 5px 5px 0 0;
         }
         .content {
-            padding: 20px;
-        }
-        .footer {
-            background-color: #f5f5f5;
-            padding: 15px;
-            text-align: center;
-            font-size: 12px;
-            border-radius: 0 0 5px 5px;
+            padding: 30px;
         }
         .button {
             display: inline-block;
-            background-color: #4a86e8;
-            color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
-            margin: 15px 0;
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>¡Bienvenido a ERP OTEC!</h1>
+            <h1>¡Bienvenido a Hadda - ERP!</h1>
         </div>
         <div class="content">
             <h2>Hola {{nombre}},</h2>
-            <p>Gracias por registrarte en nuestro sistema de Planificación de Recursos Empresariales para Organismos Técnicos de Capacitación.</p>
-            <p>Tu cuenta ha sido creada exitosamente. A continuación, encontrarás tus detalles de acceso:</p>
-            <ul>
-                <li><strong>Usuario:</strong> {{email}}</li>
-                <li><strong>Rol:</strong> {{rol}}</li>
-            </ul>
-            <p>Si no has recibido una contraseña, puedes crear una utilizando el siguiente enlace:</p>
+            <p>Te damos la bienvenida a nuestro sistema de gestión empresarial.</p>
+            <p>Para comenzar a utilizar tu cuenta, necesitas crear tu contraseña:</p>
+            
             <p style="text-align: center;">
-                <a href="{{resetUrl}}" class="button">Crear Contraseña</a>
+                <a href="{{linkActivacion}}" class="button">Crear mi Contraseña</a>
             </p>
-            <p>Si tienes alguna pregunta o problema, no dudes en contactarnos.</p>
-            <p>¡Esperamos que disfrutes utilizando nuestro sistema!</p>
-            <p>Saludos cordiales,<br>El equipo de ERP OTEC</p>
+            
+            <p><strong>Nota importante:</strong> Este enlace expirará en 24 horas por motivos de seguridad.</p>
+            
+            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>
+            
+            <p>Saludos cordiales,<br>El equipo de Hadda - ERP</p>
         </div>
         <div class="footer">
-            <p>Este correo fue enviado a {{email}}. Si no solicitaste esta cuenta, por favor ignora este mensaje o contacta a soporte.</p>
-            <p>&copy; {{año}} ERP OTEC. Todos los derechos reservados.</p>
+            <p>&copy; {{año}} Hadda - ERP. Todos los derechos reservados.</p>
         </div>
     </div>
 </body>

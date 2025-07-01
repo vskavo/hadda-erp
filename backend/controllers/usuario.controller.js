@@ -169,15 +169,14 @@ exports.create = async (req, res) => {
 
     // Enviar correo de bienvenida con enlace para crear contraseña
     const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/auth/recuperar/${token_recuperacion}`;
-    await emailService.enviarCorreoConPlantilla({
+    const emailEnviado = await emailService.enviarCorreo({
       to: email,
-      subject: 'Bienvenido a ERP OTEC - Crea tu contraseña',
-      templateName: 'bienvenida',
+      subject: 'Bienvenido a Hadda - ERP - Crea tu contraseña',
+      template: 'bienvenida',
       data: {
         nombre,
-        email,
-        rol: rolNombreParaCorreo,
-        resetUrl
+        linkActivacion: resetUrl,
+        año: new Date().getFullYear()
       }
     });
     
