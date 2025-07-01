@@ -77,10 +77,16 @@ function App() {
   const { isAuthenticated, loading, user } = useAuth();
   const { theme } = useTheme();
 
-  // Corregido: Usar user?.rol y aceptar 'administrador'
-  const isAdmin = user?.rol === 'admin' || user?.rol === 'administrador';
-  const isFinanciero = isAdmin || user?.rol === 'finanzas';
-  const canViewReportes = isAdmin || user?.rol === 'gerencia' || user?.rol === 'finanzas'; // Nueva variable para reportes
+  // Corregido: Usar user?.rol y aceptar 'administrador' - insensible a mayúsculas
+  const isAdmin = user?.rol && (user.rol.toLowerCase() === 'admin' || user.rol.toLowerCase() === 'administrador');
+  const isFinanciero = isAdmin || (user?.rol && user.rol.toLowerCase() === 'finanzas');
+  const canViewReportes = isAdmin || (user?.rol && ['gerencia', 'finanzas'].includes(user.rol.toLowerCase())); // Nueva variable para reportes
+
+  // Debug logs
+  console.log('DEBUG App - user:', user);
+  console.log('DEBUG App - user.rol:', user?.rol);
+  console.log('DEBUG App - isAdmin:', isAdmin);
+  console.log('DEBUG App - isFinanciero:', isFinanciero);
 
   if (loading) {
     return (

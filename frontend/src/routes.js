@@ -54,11 +54,42 @@ const AppRoutes = () => {
       {/* Cursos */}
       <Route path="/cursos" element={<PrivateRoute><CursosList /></PrivateRoute>} />
       
+      {/* Administración - Usuarios */}
+      <Route 
+        path="/admin/users" 
+        element={<PrivateRoute><UsersList /></PrivateRoute>} 
+      />
+      <Route 
+        path="/admin/users/:id" 
+        element={<PrivateRoute><UserDetail /></PrivateRoute>} 
+      />
+      
+      {/* Administración - Gestión de Roles */}
+      <Route 
+        path="/admin/roles" 
+        element={<PrivateRoute><RolesList /></PrivateRoute>} 
+      />
+      <Route 
+        path="/admin/roles/nuevo" 
+        element={<PrivateRoute><RolForm /></PrivateRoute>} 
+      />
+      <Route 
+        path="/admin/roles/editar/:id" 
+        element={<PrivateRoute><RolForm /></PrivateRoute>} 
+      />
+      
+      {/* Administración - Configuraciones */}
+      <Route 
+        path="/admin/configuraciones-erp" 
+        element={<PrivateRoute><ConfiguracionesERP /></PrivateRoute>} 
+      />
+      
+      {/* Mantener las rutas antiguas para compatibilidad */}
       {/* Usuarios */}
       <Route path="/users" element={<PrivateRoute><UsersList /></PrivateRoute>} />
       <Route path="/users/:id" element={<PrivateRoute><UserDetail /></PrivateRoute>} />
       
-      {/* Administración - Gestión de Roles */}
+      {/* Gestión de Roles antigua */}
       <Route 
         path="/administracion/roles" 
         element={<PrivateRoute><RolesList /></PrivateRoute>} 
@@ -70,11 +101,6 @@ const AppRoutes = () => {
       <Route 
         path="/administracion/roles/editar/:id" 
         element={<PrivateRoute><RolForm /></PrivateRoute>} 
-      />
-      {/* Administración - Configuraciones */}
-      <Route 
-        path="/admin/configuraciones-erp" 
-        element={<PrivateRoute><ConfiguracionesERP /></PrivateRoute>} 
       />
       
       {/* Finanzas */}

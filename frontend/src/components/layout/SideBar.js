@@ -10,7 +10,7 @@ import {
   ListItemText, 
   Toolbar, 
   Typography,
-  Collapse 
+  Collapse
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -106,13 +106,6 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
   // El rol de admin se maneja dentro de hasPermission ahora
   const isAdmin = user?.rol && user.rol.toLowerCase() === 'administrador'; 
   
-  // Debug logs
-  console.log('DEBUG SideBar - user:', user);
-  console.log('DEBUG SideBar - user.rol:', user?.rol);
-  console.log('DEBUG SideBar - isAdmin:', isAdmin);
-  console.log('DEBUG SideBar - adminMenuItems:', adminMenuItems);
-  console.log('DEBUG SideBar - filteredAdminMenuItems:', filteredAdminMenuItems);
-
   // Filtrar menú principal basado en permisos
   const filteredMenuItems = menuItems.filter((item) => 
     hasPermission(item.permission) 
@@ -127,6 +120,13 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
     // Para otros items, verificar el permiso normalmente
     return hasPermission(item.permission);
   });
+  
+  // Debug logs
+  console.log('DEBUG SideBar - user:', user);
+  console.log('DEBUG SideBar - user.rol:', user?.rol);
+  console.log('DEBUG SideBar - isAdmin:', isAdmin);
+  console.log('DEBUG SideBar - adminMenuItems:', adminMenuItems);
+  console.log('DEBUG SideBar - filteredAdminMenuItems:', filteredAdminMenuItems);
 
   const handleAdminClick = () => {
     setAdminOpen(!adminOpen);
@@ -150,14 +150,22 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
     return false;
   };
 
+  // Menú de administración - mostrar siempre si es admin
+  const showAdminMenu = isAdmin && filteredAdminMenuItems.length > 0;
+
+  // Debug final
+  console.log('DEBUG SideBar - showAdminMenu:', showAdminMenu);
+
   const drawer = (
     <div>
       <Toolbar>
-        <Typography variant="h6" noWrap component="div">
+        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
           ERP OTEC
         </Typography>
       </Toolbar>
       <Divider />
+      
+      {/* Menú principal siempre visible para usuarios autenticados */}
       <List>
         {filteredMenuItems.map((item) => (
           <React.Fragment key={item.name}>
@@ -204,42 +212,42 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
             )}
           </React.Fragment>
         ))}
-
-        {/* Menú de administración */}
-        {isAdmin && filteredAdminMenuItems.length > 0 && (
-          <>
-            <Divider sx={{ mt: 2, mb: 2 }} />
-            <ListItem disablePadding>
-              <ListItemButton onClick={handleAdminClick}>
-                <ListItemIcon>
-                  <AdminPanelSettingsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Administración" />
-                {adminOpen ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-            </ListItem>
-            <Collapse in={adminOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {filteredAdminMenuItems.map((item) => (
-                  <ListItem key={item.name} disablePadding>
-                    <ListItemButton
-                      selected={location.pathname.startsWith(item.path)}
-                      onClick={() => {
-                        navigate(item.path);
-                        if (mobileOpen) handleDrawerToggle();
-                      }}
-                      sx={{ pl: 4 }}
-                    >
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.name} />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
-          </>
-        )}
       </List>
+      
+      {/* Menú de administración solo para administradores */}
+      {isAdmin && (
+        <>
+          <Divider sx={{ mt: 2, mb: 2 }} />
+          <ListItem disablePadding>
+            <ListItemButton onClick={handleAdminClick}>
+              <ListItemIcon>
+                <AdminPanelSettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Administración" />
+              {adminOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          </ListItem>
+          <Collapse in={adminOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {adminMenuItems.map((item) => (
+                <ListItem key={item.name} disablePadding>
+                  <ListItemButton
+                    selected={location.pathname.startsWith(item.path)}
+                    onClick={() => {
+                      navigate(item.path);
+                      if (mobileOpen) handleDrawerToggle();
+                    }}
+                    sx={{ pl: 4 }}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.name} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        </>
+      )}
     </div>
   );
 
