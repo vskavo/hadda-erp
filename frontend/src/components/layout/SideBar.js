@@ -160,7 +160,7 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
     <div>
       <Toolbar>
         <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
-          ERP OTEC
+          Hadda - ERP
         </Typography>
       </Toolbar>
       <Divider />

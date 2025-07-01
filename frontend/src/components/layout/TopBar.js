@@ -80,8 +80,8 @@ const TopBar = ({ open, drawerWidth, toggleDrawer, handleDrawerToggle }) => {
           <MenuIcon />
         </IconButton>
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          ERP OTEC
+        <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+          Hadda - ERP
         </Typography>
         
         <Box sx={{ display: 'flex', alignItems: 'center' }}>

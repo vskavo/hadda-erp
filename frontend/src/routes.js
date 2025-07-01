@@ -1,120 +1,174 @@
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 
-// Importación de componentes de autenticación
-import { Login, Register, ForgotPassword, ResetPassword } from './pages/auth';
-import { Dashboard } from './pages/dashboard';
-import { NotFound } from './pages';
-import { PrivateRoute } from './components/auth';
+// Layout
+import MainLayout from './components/layout/MainLayout';
 
-// Importaciones de módulos
-import { ClientesList, ClienteDetail } from './pages/clientes';
-import { ProyectosList, ProyectoRentabilidad, ProyectoSeguimiento, ProyectoForm } from './pages/proyectos';
-import { CursosList } from './pages/cursos';
-import { UsersList, UserDetail } from './pages/users';
-import { FacturasList, FacturaDetail } from './pages/finanzas';
+// Pages - Auth
+import Login from './pages/auth/Login';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import ResetPassword from './pages/auth/ResetPassword';
+
+// Pages - Core
+import Dashboard from './pages/dashboard/Dashboard';
+import NotFound from './pages/NotFound';
+import UserProfile from './pages/users/UserProfile';
+import UserManagement from './pages/users/UserManagement';
+
+// Pages - Clientes
+import ClientesList from './pages/clientes/ClientesList';
+import ClienteDetail from './pages/clientes/ClienteDetail';
+import ClienteForm from './pages/clientes/ClienteForm';
+import ContactoForm from './pages/clientes/contactos/ContactoForm';
+import ActividadForm from './pages/clientes/actividades/ActividadForm';
+import HoldingsListPage from './pages/clientes/HoldingsListPage';
+import HoldingDetailPage from './pages/clientes/HoldingDetailPage';
+
+// Pages - Cursos
+import CursosList from './pages/cursos/CursosList';
+import CursoForm from './pages/cursos/CursoForm';
+import ParticipanteForm from './pages/cursos/participantes/ParticipanteForm';
+import SesionForm from './pages/cursos/sesiones/SesionForm';
+import AsistenciaForm from './pages/cursos/sesiones/AsistenciaForm';
+
+// Pages - Finanzas
+import FacturasList from './pages/finanzas/FacturasList';
+import FacturaForm from './pages/finanzas/FacturaForm';
+import MovimientosList from './pages/finanzas/MovimientosList';
+import FinancierosDashboard from './pages/finanzas/FinancierosDashboard';
+import ConciliacionBancaria from './pages/finanzas/ConciliacionBancaria';
+
+// Pages - Ventas
 import { VentasList, VentaForm, VentaDetail } from './pages/ventas';
 
-// Importaciones de rutas para reportes
-import { ReportesList, ReporteDetail, GeneradorReportes } from './pages/reportes';
+// Pages - Proyectos
+import { 
+  ProyectosList,
+  ProyectoForm,
+  ProyectoRentabilidad,
+  ProyectoSeguimiento
+} from './pages/proyectos';
 
-// Importar los nuevos componentes de gestión de roles
-import { RolesList, RolForm } from './pages/administracion/roles'; // Asegúrate que la ruta de importación sea correcta
-// Importar el componente de configuraciones
+// Pages - Reportes
+import ReportesList from './pages/reportes/ReportesList';
+import GeneradorReportes from './pages/reportes/GeneradorReportes';
+
+// Pages - Administración
+import RolesList from './pages/administracion/roles/RolesList';
+import RolForm from './pages/administracion/roles/RolForm';
 import ConfiguracionesERP from './pages/administracion/configuraciones/ConfiguracionesERP';
 
+// Protección de rutas
+import ProtectedRoute from './components/auth/ProtectedRoute';
+
+// Hooks
+import { useAuth } from './hooks/useAuth';
+
+// Componente auxiliar para redireccionar a nueva venta con el ID del cliente
+const RedirectToNewVenta = () => {
+  const { clienteId } = useParams();
+  return <Navigate to="/ventas/nueva" state={{ clienteId }} replace />;
+};
+
 const AppRoutes = () => {
+  const { isAuthenticated, user } = useAuth();
+  
+  // Permisos basados en roles
+  const isAdmin = user?.rol && (user.rol.toLowerCase() === 'admin' || user.rol.toLowerCase() === 'administrador');
+  const isFinanciero = isAdmin || (user?.rol && user.rol.toLowerCase() === 'finanzas');
+  const canViewReportes = isAdmin || (user?.rol && ['gerencia', 'finanzas'].includes(user.rol.toLowerCase()));
+
   return (
     <Routes>
-      {/* Rutas de autenticación */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password/:token" element={<ResetPassword />} />
+      {/* Rutas públicas */}
+      <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/dashboard" />} />
+      <Route path="/forgot-password" element={!isAuthenticated ? <ForgotPassword /> : <Navigate to="/dashboard" />} />
+      <Route path="/reset-password/:token" element={!isAuthenticated ? <ResetPassword /> : <Navigate to="/dashboard" />} />
+      <Route path="/auth/recuperar/:token" element={!isAuthenticated ? <ResetPassword /> : <Navigate to="/dashboard" />} />
       
       {/* Rutas protegidas */}
-      <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-      
-      {/* Clientes */}
-      <Route path="/clientes" element={<PrivateRoute><ClientesList /></PrivateRoute>} />
-      <Route path="/clientes/:id" element={<PrivateRoute><ClienteDetail /></PrivateRoute>} />
-      
-      {/* Proyectos */}
-      <Route path="/proyectos" element={<PrivateRoute><ProyectosList /></PrivateRoute>} />
-      <Route path="/proyectos/:id" element={<PrivateRoute><ProyectoForm /></PrivateRoute>} />
-      <Route path="/proyectos/:id/rentabilidad" element={<PrivateRoute><ProyectoRentabilidad /></PrivateRoute>} />
-      <Route path="/proyectos/:id/seguimiento" element={<PrivateRoute><ProyectoSeguimiento /></PrivateRoute>} />
-      
-      {/* Ventas */}
-      <Route path="/ventas" element={<PrivateRoute><VentasList /></PrivateRoute>} />
-      <Route path="/ventas/nueva" element={<PrivateRoute><VentaForm /></PrivateRoute>} />
-      <Route path="/ventas/editar/:id" element={<PrivateRoute><VentaForm /></PrivateRoute>} />
-      <Route path="/ventas/:id" element={<PrivateRoute><VentaDetail /></PrivateRoute>} />
-      
-      {/* Cursos */}
-      <Route path="/cursos" element={<PrivateRoute><CursosList /></PrivateRoute>} />
-      
-      {/* Administración - Usuarios */}
-      <Route 
-        path="/admin/users" 
-        element={<PrivateRoute><UsersList /></PrivateRoute>} 
-      />
-      <Route 
-        path="/admin/users/:id" 
-        element={<PrivateRoute><UserDetail /></PrivateRoute>} 
-      />
-      
-      {/* Administración - Gestión de Roles */}
-      <Route 
-        path="/admin/roles" 
-        element={<PrivateRoute><RolesList /></PrivateRoute>} 
-      />
-      <Route 
-        path="/admin/roles/nuevo" 
-        element={<PrivateRoute><RolForm /></PrivateRoute>} 
-      />
-      <Route 
-        path="/admin/roles/editar/:id" 
-        element={<PrivateRoute><RolForm /></PrivateRoute>} 
-      />
-      
-      {/* Administración - Configuraciones */}
-      <Route 
-        path="/admin/configuraciones-erp" 
-        element={<PrivateRoute><ConfiguracionesERP /></PrivateRoute>} 
-      />
-      
-      {/* Mantener las rutas antiguas para compatibilidad */}
-      {/* Usuarios */}
-      <Route path="/users" element={<PrivateRoute><UsersList /></PrivateRoute>} />
-      <Route path="/users/:id" element={<PrivateRoute><UserDetail /></PrivateRoute>} />
-      
-      {/* Gestión de Roles antigua */}
-      <Route 
-        path="/administracion/roles" 
-        element={<PrivateRoute><RolesList /></PrivateRoute>} 
-      />
-      <Route 
-        path="/administracion/roles/nuevo" 
-        element={<PrivateRoute><RolForm /></PrivateRoute>} 
-      />
-      <Route 
-        path="/administracion/roles/editar/:id" 
-        element={<PrivateRoute><RolForm /></PrivateRoute>} 
-      />
-      
-      {/* Finanzas */}
-      <Route path="/facturas" element={<PrivateRoute><FacturasList /></PrivateRoute>} />
-      <Route path="/facturas/:id" element={<PrivateRoute><FacturaDetail /></PrivateRoute>} />
-      
-      {/* Reportes */}
-      <Route path="/reportes" element={<PrivateRoute><ReportesList /></PrivateRoute>} />
-      <Route path="/reportes/generador" element={<PrivateRoute><GeneradorReportes /></PrivateRoute>} />
-      <Route path="/reportes/:id" element={<PrivateRoute><ReporteDetail /></PrivateRoute>} />
-      
-      {/* Ruta para página no encontrada */}
-      <Route path="/404" element={<NotFound />} />
-      <Route path="*" element={<Navigate to="/404" replace />} />
+      <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+        <Route index element={<Navigate to="/dashboard" />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="profile" element={<UserProfile />} />
+        
+        {/* Rutas de administración */}
+        <Route path="admin">
+          <Route index element={isAdmin ? <Navigate to="users" /> : <Navigate to="/dashboard" />} />
+          <Route path="users" element={isAdmin ? <UserManagement /> : <Navigate to="/dashboard" />} />
+          <Route path="roles" element={isAdmin ? <RolesList /> : <Navigate to="/dashboard" />} />
+          <Route path="roles/nuevo" element={isAdmin ? <RolForm /> : <Navigate to="/dashboard" />} />
+          <Route path="roles/editar/:id" element={isAdmin ? <RolForm /> : <Navigate to="/dashboard" />} />
+          <Route path="configuraciones-erp" element={isAdmin ? <ConfiguracionesERP /> : <Navigate to="/dashboard" />} />
+        </Route>
+        
+        {/* Clientes */}
+        <Route path="clientes">
+          <Route index element={<ClientesList />} />
+          <Route path=":id" element={<ClienteDetail />} />
+          <Route path="nuevo" element={<ClienteForm />} />
+          <Route path="editar/:id" element={<ClienteForm />} />
+          <Route path=":clienteId/contactos/nuevo" element={<ContactoForm />} />
+          <Route path=":clienteId/contactos/editar/:id" element={<ContactoForm />} />
+          <Route path=":clienteId/actividades/nueva" element={<ActividadForm />} />
+          <Route path=":clienteId/actividades/:id" element={<ActividadForm />} />
+          <Route path=":clienteId/actividades/editar/:id" element={<ActividadForm />} />
+          <Route path=":clienteId/ventas/nueva" element={<RedirectToNewVenta />} />
+          <Route path="holdings-summary" element={<HoldingsListPage />} />
+          <Route path="holdings-summary/:nombreHolding/detalles" element={<HoldingDetailPage />} />
+        </Route>
+        
+        {/* Cursos */}
+        <Route path="cursos">
+          <Route index element={<CursosList />} />
+          <Route path="nuevo" element={<Navigate to="/dashboard" replace />} />
+          <Route path="editar/:id" element={<CursoForm />} />
+          <Route path=":cursoId/participantes/nuevo" element={<ParticipanteForm />} />
+          <Route path=":cursoId/participantes/editar/:id" element={<ParticipanteForm />} />
+          <Route path=":cursoId/sesiones/nueva" element={<SesionForm />} />
+          <Route path=":cursoId/sesiones/editar/:id" element={<SesionForm />} />
+          <Route path=":cursoId/sesiones/:sesionId/asistencia" element={<AsistenciaForm />} />
+          <Route path=":cursoId/declaraciones/:id" element={<Navigate to="/dashboard" />} />
+        </Route>
+        
+        {/* Finanzas */}
+        <Route path="finanzas">
+          <Route index element={isFinanciero ? <FinancierosDashboard /> : <Navigate to="/dashboard" />} />
+          <Route path="dashboard" element={isFinanciero ? <FinancierosDashboard /> : <Navigate to="/dashboard" />} />
+          <Route path="facturas" element={isFinanciero ? <FacturasList /> : <Navigate to="/dashboard" />} />
+          <Route path="facturas/nueva" element={isFinanciero ? <FacturaForm /> : <Navigate to="/dashboard" />} />
+          <Route path="facturas/:id" element={isFinanciero ? <FacturaForm /> : <Navigate to="/dashboard" />} />
+          <Route path="facturas/editar/:id" element={isFinanciero ? <FacturaForm /> : <Navigate to="/dashboard" />} />
+          <Route path="movimientos" element={isFinanciero ? <MovimientosList /> : <Navigate to="/dashboard" />} />
+          <Route path="conciliacion" element={isFinanciero ? <ConciliacionBancaria /> : <Navigate to="/dashboard" />} />
+        </Route>
+        
+        {/* Ventas */}
+        <Route path="ventas">
+          <Route index element={<VentasList />} />
+          <Route path="nueva" element={<VentaForm />} />
+          <Route path=":id" element={<VentaDetail />} />
+          <Route path="editar/:id" element={<VentaForm />} />
+        </Route>
+        
+        {/* Proyectos */}
+        <Route path="proyectos">
+          <Route index element={<ProyectosList />} />
+          <Route path="nuevo" element={<ProyectoForm />} />
+          <Route path=":id/editar" element={<ProyectoForm />} />
+          <Route path=":id/rentabilidad" element={<ProyectoRentabilidad />} />
+          <Route path=":id/seguimiento" element={<ProyectoSeguimiento />} />
+        </Route>
+        
+        {/* Reportes */}
+        <Route path="reportes">
+          <Route index element={canViewReportes ? <ReportesList /> : <Navigate to="/dashboard" />} />
+          <Route path="generador" element={canViewReportes ? <GeneradorReportes /> : <Navigate to="/dashboard" />} />
+        </Route>
+      </Route>
+
+      {/* Ruta de 404 */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

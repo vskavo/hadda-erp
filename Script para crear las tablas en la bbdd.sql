@@ -1,4 +1,4 @@
--- Script para crear las tablas en la base de datos PostgreSQL para el ERP OTEC
+-- Script para crear las tablas en la base de datos PostgreSQL para Hadda - ERP
 
 -- Crear tipos ENUM necesarios
 CREATE TYPE estado_cliente AS ENUM ('activo', 'inactivo', 'prospecto');
