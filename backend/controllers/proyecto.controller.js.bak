@@ -1,0 +1,2890 @@
+const { Proyecto, Cliente, Usuario, Rol, Permiso, CostoProyecto, sequelize, AvanceProyecto, HitoProyecto, Curso, Venta, DetalleVenta, Ingreso, Egreso } = require('../models');
+const { Op } = require('sequelize');
+const Sequelize = require('sequelize'); // Importar la librería Sequelize
+
+// Obtener todos los proyectos con paginación y filtros
+exports.findAll = async (req, res) => {
+  try {
+    const { 
+      page = 1, 
+      limit = 10, 
+      search = '', 
+      estado, 
+      clienteId, 
+      sortBy = 'created_at', 
+      sortOrder = 'DESC' 
+    } = req.query;
+    const offset = (page - 1) * limit;
+    
+    // --- Lógica de Permisos --- 
+    const userId = req.usuario.id;
+    let puedeVerTodos = false;
+
+    // 1. Verificar si es Admin
+    if (req.usuario.rol === 'administrador') {
+      puedeVerTodos = true;
+      console.log(`[findAllProyectos] Usuario ${userId} es admin. Viendo todos.`);
+    } else {
+      // 2. Si no es admin, verificar permiso 'proyectos:read:all'
+      console.log(`[findAllProyectos] Usuario ${userId} no es admin. Verificando permiso 'proyectos:read:all'...`);
+      // Necesitamos cargar los permisos del rol del usuario
+      const rolUsuario = await Rol.findOne({
+          where: { nombre: req.usuario.rol },
+          include: [{
+              model: Permiso,
+              as: 'permisos',
+              attributes: ['codigo'],
+              through: { attributes: [] }
+          }]
+      });
+      const permisosUsuario = rolUsuario?.permisos?.map(p => p.codigo) || [];
+      console.log(`[findAllProyectos] Permisos encontrados:`, permisosUsuario);
+      if (permisosUsuario.includes('proyectos:read:all')) {
+        puedeVerTodos = true;
+        console.log(`[findAllProyectos] Usuario ${userId} tiene permiso 'proyectos:read:all'. Viendo todos.`);
+      } else {
+        console.log(`[findAllProyectos] Usuario ${userId} NO tiene permiso 'proyectos:read:all'. Filtrando por responsable.`);
+      }
+    }
+    // --- Fin Lógica de Permisos ---
+    
+    // Construir condiciones de búsqueda
+    const whereConditions = {};
+    
+    if (search) {
+      whereConditions[Op.or] = [
+        { nombre: { [Op.iLike]: `%${search}%` } },
+        { descripcion: { [Op.iLike]: `%${search}%` } },
+        // Podrías añadir búsqueda por nombre de cliente si haces JOIN
+      ];
+    }
+    
+    if (estado) {
+      whereConditions.estado = estado;
+    }
+
+    if (clienteId) {
+      whereConditions.cliente_id = clienteId;
+    }
+
+    // --- Aplicar filtro por responsable SI NO puede ver todos ---
+    if (!puedeVerTodos) {
+      whereConditions.responsable_id = userId;
+    }
+    // --- Fin Filtro por responsable ---
+    
+    // Ejecutar la consulta
+    const { count, rows: proyectos } = await Proyecto.findAndCountAll({
+      where: whereConditions,
+      include: [
+        { model: Cliente, attributes: ['id', 'razon_social'] }, // Incluir nombre del cliente
+        { 
+          model: Usuario, 
+          as: 'Responsable', // Usar el alias definido en la asociación
+          attributes: ['id', 'nombre', 'apellido'] // Incluir nombre del responsable
+        } 
+      ],
+      limit: parseInt(limit),
+      offset,
+      order: [[sortBy, sortOrder]],
+      distinct: true // Necesario si el include genera duplicados
+    });
+    
+    res.status(200).json({
+      total: count,
+      totalPages: Math.ceil(count / limit),
+      currentPage: parseInt(page),
+      proyectos
+    });
+  } catch (error) {
+    console.error('Error al obtener proyectos:', error);
+    res.status(500).json({ message: 'Error al obtener proyectos', error: error.message });
+  }
+};
+
+// Obtener un proyecto por ID
+exports.findOne = async (req, res) => {
+  try {
+    const proyecto = await Proyecto.findByPk(req.params.id, {
+      attributes: { exclude: [] }, // Asegurarse de incluir todos los atributos
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social', 'rut', 'giro', 'direccion', 'email', 'telefono']
+        },
+        {
+          model: Usuario,
+          as: 'Responsable',
+          attributes: ['id', 'nombre', 'apellido', 'email', 'telefono']
+        },
+        {
+          model: CostoProyecto,
+          as: 'CostoProyectos',
+          attributes: [
+            'id', 
+            'proyecto_id', 
+            'concepto', 
+            'tipo_costo', 
+            'monto', 
+            'fecha', 
+            'estado', 
+            'proveedor', 
+            'aprobado', 
+            'aprobado_por',
+            'aplica_iva', // <-- Agregar
+            'aplica_honorarios' // <-- Agregar
+          ]
+        },
+        {
+          model: Curso,
+          as: 'Cursos',
+          attributes: ['id', 'nombre', 'codigo_sence', 'duracion_horas', 'valor_total', 'nro_participantes', 'modalidad', 'estado_sence', 'tipo_de_contrato', 'estado_pre_contrato'] // <-- Corregido: Eliminar 'aprobado'
+        }
+      ]
+    });
+    
+    if (!proyecto) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    res.status(200).json(proyecto);
+  } catch (error) {
+    console.error('Error al obtener proyecto:', error);
+    res.status(500).json({ message: 'Error al obtener proyecto', error: error.message });
+  }
+};
+
+// Crear un proyecto nuevo
+exports.create = async (req, res) => {
+  const t = await sequelize.transaction();
+  let committed = false;
+  
+  try {
+    // Desestructurar los nuevos campos del body
+    const { 
+      nombre, 
+      descripcion, 
+      cliente_id, 
+      fecha_inicio, 
+      fecha_fin, 
+      presupuesto, 
+      costo_real,
+      estado, 
+      responsable_id,
+      observaciones,
+      prioridad,
+      porcentaje_avance,
+      // Datos para los cursos
+      cursos = [],
+      aprobado = false, // <-- Añadir aprobado (default a false)
+      comision_proyecto = 0,
+      porcentaje_comision = 0
+    } = req.body;
+    
+    // Validar cliente_id
+    const cliente = await Cliente.findByPk(cliente_id);
+    if (!cliente) {
+      await t.rollback();
+      return res.status(400).json({ message: 'El cliente especificado no existe' });
+    }
+    
+    // Validar responsable_id si se proporciona
+    if (responsable_id) {
+      const responsable = await Usuario.findByPk(responsable_id);
+      if (!responsable) {
+        await t.rollback();
+        return res.status(400).json({ message: 'El responsable especificado no existe' });
+      }
+    }
+    
+    // Crear el proyecto
+    const proyecto = await Proyecto.create({
+      nombre,
+      descripcion,
+      cliente_id,
+      fecha_inicio,
+      fecha_fin,
+      presupuesto,
+      costo_real: costo_real || 0,
+      estado,
+      responsable_id,
+      observaciones,
+      prioridad,
+      porcentaje_avance,
+      comision_proyecto,
+      porcentaje_comision,
+      usuario_creacion_id: req.usuario.id,
+      aprobado
+    }, { transaction: t });
+    
+    // Crear venta automáticamente si el estado es "en_curso" o "completado"
+    if (estado === 'en_curso' || estado === 'completado') {
+      try {
+        // Crear registro de venta
+        const Venta = sequelize.models.Venta;
+        
+        if (!Venta) {
+          console.error('Error: Modelo de Venta no encontrado');
+        } else {
+          // Definir solo los campos que existen en la tabla real
+          const ventaData = {
+            cliente_id,
+            proyecto_id: proyecto.id,
+            titulo: `Venta de proyecto: ${nombre}`,
+            descripcion,
+            fecha_venta: new Date(),
+            monto_neto: presupuesto,
+            iva: presupuesto * 0.19, // IVA 19%
+            monto_total: presupuesto * 1.19,
+            estado: 'en_proceso',
+            usuario_id: req.usuario.id
+          };
+          
+          // Especificar exactamente los campos existentes en la tabla
+          await Venta.create(ventaData, { 
+            transaction: t,
+            fields: [
+              'cliente_id',
+              'proyecto_id',
+              'titulo',
+              'descripcion',
+              'fecha_venta',
+              'monto_neto',
+              'iva',
+              'monto_total',
+              'estado',
+              'usuario_id'
+            ]
+          });
+          
+          console.log(`Proyecto ${proyecto.id} creado con venta automática por estado ${estado}`);
+        }
+      } catch (ventaError) {
+        console.error('Error al crear venta automática para el nuevo proyecto:', ventaError);
+        // No hacemos rollback para permitir que el proyecto se cree incluso si hay errores al crear la venta
+      }
+    }
+    
+    // Si se proporcionaron cursos, crear los cursos asociados
+    if (cursos && cursos.length > 0) {
+      try {
+        const { Curso } = require('../models');
+        
+        // Crear cada curso asociado al proyecto
+        for (const cursoData of cursos) {
+          await Curso.create({
+            nombre: cursoData.nombre_curso || nombre,
+            codigo_sence: cursoData.codigo_sence || '',
+            id_sence: cursoData.id_sence || '', // Agregar id_sence
+            duracion_horas: parseInt(cursoData.horas_curso) || 0,
+            valor_total: parseFloat(cursoData.valor_total) || 0,
+            valor_participante: parseFloat(cursoData.valor_participante) || 0,
+            nro_participantes: parseInt(cursoData.cantidad_participantes) || 0,
+            fecha_creacion: new Date(),
+            fecha_actualizacion: new Date(),
+            fecha_inicio: fecha_inicio, // Agregamos la fecha_inicio del proyecto
+            fecha_fin: fecha_fin, // Agregamos la fecha_fin del proyecto
+            modalidad: cursoData.modalidad || 'presencial',
+            valor_hora: cursoData.horas_curso > 0 ? parseFloat(cursoData.valor_por_persona) / parseInt(cursoData.horas_curso) : 0,
+            proyecto_id: proyecto.id,
+            estado_sence: cursoData.estado_sence || 'pendiente',
+            tipo_de_contrato: cursoData.tipo_de_contrato || 'Normal',
+            estado_pre_contrato: cursoData.estado_pre_contrato || 'No Aplica', // <-- Corregido: Eliminar 'aprobado'
+            aprobado: cursoData.aprobado || false
+          }, { transaction: t });
+        }
+      } catch (cursoError) {
+        console.error('Error al crear cursos asociados:', cursoError);
+        // No hacemos rollback aquí para permitir que el proyecto se cree incluso si hay errores con los cursos
+      }
+    }
+    
+    // -- INICIO: Modificación para crear costos desde el array (si viene)
+    // Verificar si req.body.costos existe y es un array
+    if (req.body.costos && Array.isArray(req.body.costos)) {
+      for (const costoData of req.body.costos) {
+        // Validar campos obligatorios del costo
+        if (!costoData.concepto || !costoData.monto) {
+          throw new Error('El concepto y monto son obligatorios para cada costo.');
+        }
+        // Crear el costo asociado
+        let aplicaIvaFinal = costoData.aplica_iva !== undefined ? costoData.aplica_iva : true;
+        if (costoData.aplica_honorarios === true) {
+          aplicaIvaFinal = false; // Forzar IVA a false si honorarios es true
+        }
+        await CostoProyecto.create({
+          proyecto_id: proyecto.id,
+          concepto: costoData.concepto,
+          tipo_costo: costoData.tipo_costo || 'recursos_humanos',
+          monto: parseFloat(costoData.monto),
+          fecha: costoData.fecha || new Date(),
+          proveedor: costoData.proveedor,
+          estado: costoData.estado || 'ejecutado',
+          aprobado: costoData.aprobado || false,
+          aprobado_por: costoData.aprobado_por,
+          tipo_documento: costoData.tipo_documento || 'factura',
+          incluido_rentabilidad: costoData.incluido_rentabilidad !== undefined ? costoData.incluido_rentabilidad : true,
+          aplica_iva: aplicaIvaFinal, // <-- Usar el valor forzado
+          aplica_honorarios: costoData.aplica_honorarios || false
+        }, { transaction: t });
+      }
+    }
+    // -- FIN: Modificación para crear costos desde el array
+    
+    await t.commit();
+    committed = true;
+    
+    res.status(201).json({
+      message: 'Proyecto creado exitosamente',
+      proyecto
+    });
+  } catch (error) {
+    console.error('Error al crear proyecto:', error);
+    if (!committed) {
+      try {
+        await t.rollback();
+      } catch (rollbackError) {
+        console.error('Error al hacer rollback de la transacción:', rollbackError);
+      }
+    }
+    res.status(500).json({ message: 'Error al crear proyecto', error: error.message });
+  }
+};
+
+// Actualizar un proyecto
+exports.update = async (req, res) => {
+  const t = await sequelize.transaction();
+  let committed = false;
+
+  try {
+    // Desestructurar los nuevos campos del body
+    const { 
+      nombre, 
+      descripcion, 
+      fecha_inicio, 
+      fecha_fin, 
+      presupuesto, 
+      estado, 
+      prioridad,
+      cliente_id,
+      responsable_id,
+      porcentaje_avance,
+      cursos, // Array de cursos asociados
+      aprobado,
+      comision_proyecto = 0,
+      porcentaje_comision = 0
+    } = req.body;
+    
+    const usuario_modificacion_id = req.usuario.id;
+
+    // Validar que el proyecto existe
+    const proyecto = await Proyecto.findByPk(req.params.id, { transaction: t });
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+
+    // Validar que el cliente existe si se proporciona cliente_id
+    if (cliente_id) {
+        const cliente = await Cliente.findByPk(cliente_id, { transaction: t });
+        if (!cliente) {
+            await t.rollback();
+            return res.status(404).json({ message: 'Cliente no encontrado' });
+        }
+    }
+
+    // Validar que el responsable existe si se proporciona responsable_id
+    if (responsable_id) {
+        const responsable = await Usuario.findByPk(responsable_id, { transaction: t });
+        if (!responsable) {
+            await t.rollback();
+            return res.status(404).json({ message: 'Responsable no encontrado' });
+        }
+    }
+
+    // Guardar estado anterior para lógica posterior
+    const estadoAnterior = proyecto.estado;
+    const presupuestoAnterior = proyecto.presupuesto;
+
+    // Actualizar los datos del proyecto
+    await proyecto.update({
+      nombre,
+      descripcion,
+      fecha_inicio,
+      fecha_fin,
+      presupuesto,
+      estado,
+      prioridad: prioridad || proyecto.prioridad,
+      porcentaje_avance: porcentaje_avance === undefined ? proyecto.porcentaje_avance : porcentaje_avance,
+      usuario_modificacion_id,
+      fecha_actualizacion: new Date(),
+      aprobado: aprobado === undefined ? proyecto.aprobado : aprobado,
+      comision_proyecto: comision_proyecto === undefined ? proyecto.comision_proyecto : comision_proyecto,
+      porcentaje_comision: porcentaje_comision === undefined ? proyecto.porcentaje_comision : porcentaje_comision
+    }, { transaction: t });
+
+    // --- Sincronizar ingreso si el presupuesto cambió y el proyecto está aprobado ---
+    if (proyecto.aprobado && presupuesto !== undefined && presupuesto !== presupuestoAnterior) {
+      // Buscar ingreso asociado
+      const ingreso = await Ingreso.findOne({
+        where: { proyecto_id: proyecto.id },
+        transaction: t
+      });
+      if (ingreso) {
+        await ingreso.update({
+          monto: presupuesto,
+          descripcion: `Ingreso por aprobación del proyecto: ${proyecto.nombre}`
+        }, { transaction: t });
+      }
+    }
+
+    // --- Sincronizar egresos con costos ejecutados si el proyecto está aprobado ---
+    if (proyecto.aprobado) {
+      // Obtener todos los costos ejecutados del proyecto
+      const costosEjecutados = await CostoProyecto.findAll({
+        where: { proyecto_id: proyecto.id, estado: 'ejecutado' },
+        transaction: t
+      });
+      for (const costo of costosEjecutados) {
+        // Preparar datos para el egreso
+        const egresoData = {
+          descripcion: costo.concepto || costo.descripcion || 'Costo de proyecto',
+          monto: costo.monto,
+          fecha: costo.fecha,
+          proyecto_id: costo.proyecto_id,
+          proveedor_nombre: costo.proveedor,
+          tipo_documento: costo.tipo_documento || 'factura',
+          numero_documento: costo.numero_documento,
+          fecha_documento: costo.fecha_documento,
+          observaciones: costo.observaciones,
+          usuario_id: costo.usuario_id || req.usuario.id,
+          estado: 'pendiente',
+          // IVA y retención se calculan automáticamente en el modelo si corresponde
+        };
+        if (costo.egreso_id) {
+          // Actualizar egreso existente
+          await Egreso.update(egresoData, { where: { id: costo.egreso_id }, transaction: t });
+        } else {
+          // Crear nuevo egreso y asociar al costo
+          const nuevoEgreso = await Egreso.create(egresoData, { transaction: t });
+          await costo.update({ egreso_id: nuevoEgreso.id }, { transaction: t });
+        }
+      }
+    }
+
+    // --- Manejo de Cursos ---
+    if (cursos && Array.isArray(cursos)) { // Verificar si se envió un array de cursos
+        const cursosActuales = await Curso.findAll({
+            where: { proyecto_id: req.params.id },
+            attributes: ['id'], // Solo necesitamos los IDs
+            transaction: t
+        });
+        const idsCursosActuales = cursosActuales.map(c => c.id);
+        const idsCursosRequest = cursos.map(c => c.id).filter(id => id != null); // IDs de cursos en la solicitud (filtrando nulos/undefined)
+
+        const idsParaEliminar = idsCursosActuales.filter(id => !idsCursosRequest.includes(id));
+        const cursosParaAgregar = cursos.filter(c => c.id == null || !idsCursosActuales.includes(c.id));
+        const cursosParaActualizar = cursos.filter(c => c.id != null && idsCursosActuales.includes(c.id));
+
+        // 1. Eliminar cursos que ya no están en la lista
+        if (idsParaEliminar.length > 0) {
+            try {
+                await Curso.destroy({
+                    where: {
+                        id: { [Op.in]: idsParaEliminar },
+                        proyecto_id: req.params.id // Doble seguridad
+                    },
+                    transaction: t
+                });
+            } catch (deleteError) {
+                // Si es un error de constraint (ej. por participantes), lanzamos un error claro
+                // Usar Sequelize (con S mayúscula) importado de la librería
+                if (deleteError instanceof Sequelize.ForeignKeyConstraintError) { 
+                     console.error('Error de constraint al eliminar curso:', deleteError);
+                     // Podrías querer lanzar un error más específico aquí si necesitas info detallada en el frontend
+                     throw new Error(`No se puede eliminar uno o más cursos porque tienen participantes asociados. IDs: ${idsParaEliminar.join(', ')}`);
+                }
+                 console.error('Error al eliminar cursos:', deleteError);
+                 throw new Error('Error al intentar eliminar cursos asociados.'); // Lanzar error para que el catch principal haga rollback
+            }
+        }
+
+        // 2. Actualizar cursos existentes
+        for (const cursoData of cursosParaActualizar) {
+           // Asegúrate de parsear los valores numéricos correctamente y manejar nulos/undefined
+            const valorTotalParsed = cursoData.valor_total !== undefined && cursoData.valor_total !== null ? parseFloat(cursoData.valor_total) : undefined;
+            const valorParticipanteParsed = cursoData.valor_participante !== undefined && cursoData.valor_participante !== null ? parseFloat(cursoData.valor_participante) : undefined;
+            const nroParticipantesParsed = cursoData.cantidad_participantes !== undefined && cursoData.cantidad_participantes !== null ? parseInt(cursoData.cantidad_participantes) : undefined;
+            const duracionHorasParsed = cursoData.horas_curso !== undefined && cursoData.horas_curso !== null ? parseInt(cursoData.horas_curso) : undefined;
+            const valorHoraCalculado = (duracionHorasParsed && duracionHorasParsed > 0 && valorParticipanteParsed !== undefined) ? valorParticipanteParsed / duracionHorasParsed : undefined;
+
+            await Curso.update({
+                 nombre: cursoData.nombre || nombre, // Usar nombre del curso o del proyecto como fallback
+                 codigo_sence: cursoData.codigo_sence,
+                 id_sence: cursoData.id_sence,
+                 duracion_horas: duracionHorasParsed,
+                 // Solo actualiza valor_total si viene en cursoData, si no, mantiene el existente
+                 ...(valorTotalParsed !== undefined && { valor_total: valorTotalParsed }),
+                 valor_participante: valorParticipanteParsed,
+                 nro_participantes: nroParticipantesParsed,
+                 fecha_actualizacion: new Date(),
+                 fecha_inicio: fecha_inicio, // Actualizar fechas si cambian en el proyecto
+                 fecha_fin: fecha_fin,
+                 modalidad: cursoData.modalidad,
+                 ...(valorHoraCalculado !== undefined && { valor_hora: valorHoraCalculado }), // Actualizar valor_hora si es calculable
+                 estado_sence: cursoData.estado_sence,
+                 tipo_de_contrato: cursoData.tipo_de_contrato,
+                 estado_pre_contrato: cursoData.estado_pre_contrato
+                 // <-- Corregido: Asegurarse que no haya referencia a 'aprobado' aquí
+             }, {
+                 where: { id: cursoData.id, proyecto_id: req.params.id },
+                 transaction: t
+             });
+         }
+
+
+        // 3. Agregar nuevos cursos
+        for (const cursoData of cursosParaAgregar) {
+            // Parsear valores numéricos para nuevos cursos, estableciendo 0 si no vienen
+             const valorTotalParsed = parseFloat(cursoData.valor_total) || 0;
+             const valorParticipanteParsed = parseFloat(cursoData.valor_participante) || 0;
+             const nroParticipantesParsed = parseInt(cursoData.cantidad_participantes) || 0;
+             const duracionHorasParsed = parseInt(cursoData.horas_curso) || 0;
+             const valorHoraCalculado = (duracionHorasParsed > 0 && valorParticipanteParsed) ? valorParticipanteParsed / duracionHorasParsed : 0;
+
+            await Curso.create({
+                nombre: cursoData.nombre || nombre,
+                codigo_sence: cursoData.codigo_sence || '',
+                id_sence: cursoData.id_sence || '',
+                duracion_horas: duracionHorasParsed,
+                valor_total: valorTotalParsed, // Guardar valor_total
+                valor_participante: valorParticipanteParsed,
+                nro_participantes: nroParticipantesParsed,
+                fecha_creacion: new Date(),
+                fecha_actualizacion: new Date(),
+                fecha_inicio: fecha_inicio,
+                fecha_fin: fecha_fin,
+                modalidad: cursoData.modalidad || 'presencial',
+                valor_hora: valorHoraCalculado,
+                proyecto_id: req.params.id,
+                estado_sence: cursoData.estado_sence || 'pendiente',
+                tipo_de_contrato: cursoData.tipo_de_contrato || 'Normal',
+                estado_pre_contrato: cursoData.estado_pre_contrato || 'No Aplica', // <-- Corregido: Eliminar 'aprobado'
+                aprobado: cursoData.aprobado || false
+            }, { transaction: t });
+        }
+    } // Fin manejo de cursos
+
+    // --- INICIO: Manejo de Costos (similar a create) ---
+    // Verificar si req.body.costos existe (para actualizar/agregar/eliminar costos)
+    if (req.body.costos && Array.isArray(req.body.costos)) {
+      const costosRequest = req.body.costos;
+      const costosActuales = await CostoProyecto.findAll({
+        where: { proyecto_id: req.params.id },
+        attributes: ['id'],
+        transaction: t
+      });
+      const idsCostosActuales = costosActuales.map(c => c.id);
+      const idsCostosRequest = costosRequest.map(c => c.id).filter(id => id != null);
+
+      const idsParaEliminar = idsCostosActuales.filter(id => !idsCostosRequest.includes(id));
+      const costosParaAgregar = costosRequest.filter(c => c.id == null);
+      const costosParaActualizar = costosRequest.filter(c => c.id != null && idsCostosActuales.includes(c.id));
+
+      // 1. Eliminar costos que ya no están
+      if (idsParaEliminar.length > 0) {
+        await CostoProyecto.destroy({
+          where: { id: { [Op.in]: idsParaEliminar }, proyecto_id: req.params.id },
+          transaction: t
+        });
+      }
+
+      // 2. Actualizar costos existentes
+      for (const costoData of costosParaActualizar) {
+        if (!costoData.concepto || !costoData.monto) {
+           throw new Error('El concepto y monto son obligatorios para cada costo.');
+        }
+        let aplicaIvaFinalUpdate = costoData.aplica_iva !== undefined ? costoData.aplica_iva : true;
+        if (costoData.aplica_honorarios === true) {
+          aplicaIvaFinalUpdate = false; // Forzar IVA a false si honorarios es true
+        }
+        await CostoProyecto.update({
+            concepto: costoData.concepto,
+            tipo_costo: costoData.tipo_costo || 'recursos_humanos',
+            monto: parseFloat(costoData.monto),
+            fecha: costoData.fecha || new Date(),
+            proveedor: costoData.proveedor,
+            estado: costoData.estado || 'ejecutado',
+            aprobado: costoData.aprobado || false,
+            aprobado_por: costoData.aprobado_por,
+            tipo_documento: costoData.tipo_documento || 'factura',
+            incluido_rentabilidad: costoData.incluido_rentabilidad !== undefined ? costoData.incluido_rentabilidad : true,
+            aplica_iva: aplicaIvaFinalUpdate, // <-- Usar el valor forzado
+            aplica_honorarios: costoData.aplica_honorarios || false
+          }, {
+            where: { id: costoData.id, proyecto_id: req.params.id },
+            transaction: t
+          });
+      }
+
+      // 3. Agregar nuevos costos
+      for (const costoData of costosParaAgregar) {
+          if (!costoData.concepto || !costoData.monto) {
+            throw new Error('El concepto y monto son obligatorios para cada costo.');
+          }
+          let aplicaIvaFinalAdd = costoData.aplica_iva !== undefined ? costoData.aplica_iva : true;
+          if (costoData.aplica_honorarios === true) {
+            aplicaIvaFinalAdd = false; // Forzar IVA a false si honorarios es true
+          }
+          await CostoProyecto.create({
+            proyecto_id: req.params.id,
+            concepto: costoData.concepto,
+            tipo_costo: costoData.tipo_costo || 'recursos_humanos',
+            monto: parseFloat(costoData.monto),
+            fecha: costoData.fecha || new Date(),
+            proveedor: costoData.proveedor,
+            estado: costoData.estado || 'ejecutado',
+            aprobado: costoData.aprobado || false,
+            aprobado_por: costoData.aprobado_por,
+            tipo_documento: costoData.tipo_documento || 'factura',
+            incluido_rentabilidad: costoData.incluido_rentabilidad !== undefined ? costoData.incluido_rentabilidad : true,
+            aplica_iva: aplicaIvaFinalAdd, // <-- Usar el valor forzado
+            aplica_honorarios: costoData.aplica_honorarios || false
+          }, { transaction: t });
+      }
+    }
+    // --- FIN: Manejo de Costos ---
+
+    // Lógica para crear venta automática si el estado cambia a 'adjudicado' (si existe)
+    if (estado === 'adjudicado' && estadoAnterior !== 'adjudicado' && presupuesto > 0 && cliente_id) {
+        try {
+             // (Tu lógica existente para crear Venta y DetalleVenta)
+             // Aquí deberías incluir la lógica real para crear la venta y sus detalles, usando la transacción 't'
+             // Ejemplo placeholder:
+             /*
+             const nuevaVenta = await Venta.create({
+                 cliente_id: cliente_id,
+                 usuario_id: usuario_modificacion_id, // O el usuario relevante
+                 fecha_venta: new Date(),
+                 monto_total: presupuesto, // O un cálculo basado en cursos/proyecto
+                 estado: 'pendiente', // O el estado inicial apropiado
+                 proyecto_id: req.params.id
+             }, { transaction: t });
+
+             // Crear detalles de la venta si es necesario (ej. basado en cursos)
+             if (cursos && Array.isArray(cursos)) {
+                 for (const cursoData of cursos) {
+                     // Asume que tienes información suficiente en cursoData o necesitas buscarla
+                     const valorCurso = parseFloat(cursoData.valor_total) || 0;
+                     if (valorCurso > 0) {
+                         await DetalleVenta.create({
+                             venta_id: nuevaVenta.id,
+                             curso_id: cursoData.id, // Necesitarías el ID del curso recién creado/actualizado si aplica
+                             descripcion: `Curso: ${cursoData.nombre_curso || nombre}`,
+                             cantidad: 1,
+                             precio_unitario: valorCurso,
+                             subtotal: valorCurso
+                         }, { transaction: t });
+                     }
+                 }
+             } else {
+                  // Si no hay cursos, quizás crear un detalle genérico para el proyecto
+                  await DetalleVenta.create({
+                      venta_id: nuevaVenta.id,
+                      descripcion: `Proyecto: ${nombre}`,
+                      cantidad: 1,
+                      precio_unitario: presupuesto,
+                      subtotal: presupuesto
+                  }, { transaction: t });
+             }
+             */
+             console.log('Placeholder: Lógica de creación de venta automática ejecutada.');
+
+
+        } catch (ventaError) {
+            console.error('Error al crear venta automática para el proyecto:', ventaError);
+            // Si la creación de la venta falla, lanzamos el error para hacer rollback general
+             throw new Error('Error al crear la venta asociada al proyecto adjudicado.');
+        }
+    }
+
+    // Si cambiaron las fechas del proyecto, actualizar también las fechas de los cursos asociados
+    // (Esta lógica ahora se maneja dentro del bucle de actualización de cursos si 'cursos' viene en el request)
+    // Si 'cursos' no viene en el request pero las fechas sí cambian, podrías necesitar mantener esta lógica separada:
+    if ( (!cursos || !Array.isArray(cursos)) && (fecha_inicio !== proyecto.fecha_inicio || fecha_fin !== proyecto.fecha_fin) ) {
+         try {
+             await Curso.update(
+                 { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, fecha_actualizacion: new Date() },
+                 { where: { proyecto_id: req.params.id }, transaction: t }
+             );
+         } catch (error) {
+             console.error('Error al actualizar fechas de cursos asociados (sin array cursos):', error);
+              // Lanzar error para hacer rollback
+              throw new Error('Error al actualizar las fechas de los cursos asociados.');
+         }
+    }
+
+
+    // --- Commit Final ---
+    await t.commit();
+    committed = true; // Marcar que el commit fue exitoso
+
+    // Obtener el proyecto actualizado con sus relaciones para la respuesta
+    const proyectoActualizado = await Proyecto.findByPk(req.params.id, {
+      include: [
+         { model: Cliente, as: 'Cliente', attributes: ['id', 'razon_social', 'rut', 'giro', 'direccion', 'email', 'telefono'] },
+         { model: Usuario, as: 'Responsable', attributes: ['id', 'nombre', 'apellido', 'email', 'telefono'] },
+         { model: CostoProyecto, as: 'CostoProyectos', attributes: ['id', 'proyecto_id', 'concepto', 'tipo_costo', 'monto', 'fecha', 'estado', 'proveedor', 'aprobado', 'aprobado_por'] },
+         { model: Curso, as: 'Cursos', attributes: ['id', 'nombre', 'codigo_sence', 'id_sence', 'duracion_horas', 'valor_total', 'nro_participantes', 'modalidad', 'estado_sence', 'tipo_de_contrato', 'estado_pre_contrato'] } // Corregido: Eliminar 'aprobado'
+      ]
+    });
+
+    res.status(200).json({
+      message: 'Proyecto actualizado exitosamente',
+      proyecto: proyectoActualizado
+    });
+
+  } catch (error) {
+    console.error('Error detallado al actualizar proyecto:', error); // Loguear el error completo
+    // Si no se hizo commit (por error previo o por error en commit), hacer rollback
+    if (!committed) {
+      try {
+        await t.rollback();
+        console.log('Rollback de transacción realizado.');
+      } catch (rollbackError) {
+        console.error('Error al hacer rollback de la transacción:', rollbackError);
+      }
+    }
+    // Devolver el mensaje de error específico si lo lanzamos nosotros, o uno genérico
+    res.status(500).json({ message: error.message || 'Error interno al actualizar proyecto' });
+  }
+};
+
+// --- INICIO: Nueva función para aprobar/desaprobar proyecto ---
+exports.aprobarProyecto = async (req, res) => {
+  const t = await sequelize.transaction();
+  let committed = false;
+
+  try {
+    const { id } = req.params;
+    const { aprobado } = req.body; // Espera un booleano: true o false
+
+    // Validar que `aprobado` sea un booleano
+    if (typeof aprobado !== 'boolean') {
+      await t.rollback();
+      return res.status(400).json({ message: 'El estado de aprobación debe ser un valor booleano (true o false).' });
+    }
+
+    // Buscar el proyecto
+    const proyecto = await Proyecto.findByPk(id, { transaction: t });
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+
+    // Actualizar el estado de aprobación
+    await proyecto.update({
+      aprobado,
+      usuario_modificacion_id: req.usuario.id,
+      fecha_actualizacion: new Date()
+    }, { transaction: t });
+
+    // Si se aprueba el proyecto, crear ingreso si no existe
+    if (aprobado) {
+      // Buscar si ya existe un ingreso para este proyecto
+      const ingresoExistente = await Ingreso.findOne({
+        where: { proyecto_id: proyecto.id },
+        transaction: t
+      });
+      if (!ingresoExistente) {
+        // Crear el ingreso con los datos del proyecto
+        await Ingreso.create({
+          descripcion: `Ingreso por aprobación del proyecto: ${proyecto.nombre}`,
+          monto: proyecto.presupuesto,
+          fecha: new Date(),
+          proyecto_id: proyecto.id,
+          cliente_id: proyecto.cliente_id,
+          tipo_ingreso: 'otro',
+          estado: 'pendiente',
+          usuario_id: req.usuario.id
+        }, { transaction: t });
+      }
+      // --- Sincronizar egresos con costos ejecutados ---
+      const costosEjecutados = await CostoProyecto.findAll({
+        where: { proyecto_id: proyecto.id, estado: 'ejecutado' },
+        transaction: t
+      });
+      for (const costo of costosEjecutados) {
+        const egresoData = {
+          descripcion: costo.concepto || costo.descripcion || 'Costo de proyecto',
+          monto: costo.monto,
+          fecha: costo.fecha,
+          proyecto_id: costo.proyecto_id,
+          proveedor_nombre: costo.proveedor,
+          tipo_documento: costo.tipo_documento || 'factura',
+          numero_documento: costo.numero_documento,
+          fecha_documento: costo.fecha_documento,
+          observaciones: costo.observaciones,
+          usuario_id: costo.usuario_id || req.usuario.id,
+          estado: 'pendiente',
+        };
+        if (costo.egreso_id) {
+          await Egreso.update(egresoData, { where: { id: costo.egreso_id }, transaction: t });
+        } else {
+          const nuevoEgreso = await Egreso.create(egresoData, { transaction: t });
+          await costo.update({ egreso_id: nuevoEgreso.id }, { transaction: t });
+        }
+      }
+    }
+
+    await t.commit();
+    committed = true;
+
+    res.status(200).json({
+      message: `Proyecto ${aprobado ? 'aprobado' : 'desaprobado'} exitosamente`,
+      proyecto: {
+        id: proyecto.id,
+        nombre: proyecto.nombre,
+        aprobado: proyecto.aprobado
+      }
+    });
+
+  } catch (error) {
+    console.error('Error al cambiar estado de aprobación del proyecto:', error);
+    if (!committed) {
+      try {
+        await t.rollback();
+      } catch (rollbackError) {
+        console.error('Error al hacer rollback:', rollbackError);
+      }
+    }
+    res.status(500).json({ message: 'Error al cambiar estado de aprobación del proyecto', error: error.message });
+  }
+};
+// --- FIN: Nueva función para aprobar/desaprobar proyecto ---
+
+// Eliminar un proyecto (soft delete)
+exports.delete = async (req, res) => {
+  const t = await sequelize.transaction();
+  let committed = false;
+  
+  try {
+    const proyecto = await Proyecto.findByPk(req.params.id);
+    
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Verificar si ya tiene costos asociados
+    const costos = await CostoProyecto.count({
+      where: { proyecto_id: proyecto.id }
+    });
+    
+    if (costos > 0) {
+      // Cambiar estado a cancelado en lugar de eliminar
+      await proyecto.update({ 
+        estado: 'cancelado',
+        usuario_modificacion_id: req.usuario.id
+      }, { transaction: t });
+      
+      await t.commit();
+      committed = true;
+      return res.status(200).json({ 
+        message: 'Proyecto cancelado exitosamente. No se puede eliminar porque tiene costos asociados.' 
+      });
+    }
+    
+    // Eliminar proyecto (soft delete)
+    await proyecto.destroy({ transaction: t });
+    
+    await t.commit();
+    committed = true;
+    
+    res.status(200).json({ message: 'Proyecto eliminado exitosamente' });
+  } catch (error) {
+    console.error('Error al eliminar proyecto:', error);
+    if (!committed) {
+      try {
+        await t.rollback();
+      } catch (rollbackError) {
+        console.error('Error al hacer rollback de la transacción:', rollbackError);
+      }
+    }
+    res.status(500).json({ message: 'Error al eliminar proyecto', error: error.message });
+  }
+};
+
+// Eliminar un proyecto permanentemente (hard delete - solo admin)
+exports.hardDelete = async (req, res) => {
+  const t = await sequelize.transaction();
+  let committed = false;
+  
+  try {
+    const proyecto = await Proyecto.findByPk(req.params.id, { paranoid: false });
+    
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Eliminar costos asociados
+    await CostoProyecto.destroy({
+      where: { proyecto_id: proyecto.id },
+      force: true,
+      transaction: t
+    });
+    
+    // Eliminar proyecto permanentemente
+    await proyecto.destroy({ force: true, transaction: t });
+    
+    await t.commit();
+    committed = true;
+    
+    res.status(200).json({ message: 'Proyecto eliminado permanentemente' });
+  } catch (error) {
+    console.error('Error al eliminar permanentemente el proyecto:', error);
+    if (!committed) {
+      try {
+        await t.rollback();
+      } catch (rollbackError) {
+        console.error('Error al hacer rollback de la transacción:', rollbackError);
+      }
+    }
+    res.status(500).json({ message: 'Error al eliminar permanentemente el proyecto', error: error.message });
+  }
+};
+
+// Obtener estadísticas básicas de proyectos
+exports.getEstadisticas = async (req, res) => {
+  try {
+    // Total de proyectos por estado
+    const proyectosPorEstado = await Proyecto.count({
+      group: ['estado']
+    });
+    
+    // Total de proyectos por prioridad
+    const proyectosPorPrioridad = await Proyecto.count({
+      group: ['prioridad']
+    });
+    
+    // Proyectos con fecha de fin cercana (próximos 30 días)
+    const fechaActual = new Date();
+    const fecha30Dias = new Date();
+    fecha30Dias.setDate(fecha30Dias.getDate() + 30);
+    
+    const proyectosProximosAFinalizar = await Proyecto.count({
+      where: {
+        fecha_fin: {
+          [Op.between]: [fechaActual, fecha30Dias]
+        },
+        estado: 'en_curso'
+      }
+    });
+    
+    // Proyectos con avance menor al esperado
+    const proyectosRetrasados = await Proyecto.findAll({
+      attributes: [
+        'id', 
+        'nombre', 
+        'fecha_inicio', 
+        'fecha_fin', 
+        'porcentaje_avance',
+        [
+          sequelize.literal(`
+            CASE
+              WHEN fecha_fin IS NULL THEN 0
+              ELSE 
+                ROUND(
+                  (CURRENT_DATE - fecha_inicio::DATE)::FLOAT / 
+                  NULLIF((fecha_fin::DATE - fecha_inicio::DATE), 0) * 100
+                )
+            END
+          `),
+          'avance_esperado'
+        ]
+      ],
+      where: {
+        estado: 'en_curso'
+      },
+      having: sequelize.literal('porcentaje_avance < "avance_esperado" - 10')
+    });
+    
+    res.status(200).json({
+      proyectosPorEstado,
+      proyectosPorPrioridad,
+      proyectosProximosAFinalizar,
+      proyectosRetrasados: proyectosRetrasados.length,
+      detalleProyectosRetrasados: proyectosRetrasados
+    });
+  } catch (error) {
+    console.error('Error al obtener estadísticas de proyectos:', error);
+    res.status(500).json({ message: 'Error al obtener estadísticas de proyectos', error: error.message });
+  }
+};
+
+// Calcular rentabilidad de un proyecto
+exports.calcularRentabilidad = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const proyecto = await Proyecto.findByPk(id, {
+      include: [
+        {
+          model: CostoProyecto,
+          as: 'CostoProyectos',
+          attributes: ['id', 'proyecto_id', 'concepto', 'tipo_costo', 'monto', 'fecha', 'estado', 'proveedor'],
+          where: { 
+            estado: 'ejecutado',
+            incluido_rentabilidad: true
+          },
+          required: false
+        }
+      ]
+    });
+    
+    if (!proyecto) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Calcular costos totales ejecutados
+    const costosTotales = proyecto.CostoProyectos.reduce((sum, costo) => sum + parseFloat(costo.monto), 0);
+    
+    // Obtener ingresos facturados para este proyecto desde la tabla de facturas
+    // Esto requeriría una relación entre proyectos y facturas
+    // Por ahora usamos el presupuesto como ingresos esperados
+    const ingresosEsperados = parseFloat(proyecto.presupuesto || 0);
+    
+    // Cálculos de rentabilidad
+    const margenEsperado = ingresosEsperados > 0 
+      ? ((ingresosEsperados - costosTotales) / ingresosEsperados * 100).toFixed(2)
+      : 0;
+    
+    const roi = costosTotales > 0 
+      ? ((ingresosEsperados - costosTotales) / costosTotales * 100).toFixed(2) 
+      : 0;
+    
+    // Calcular rentabilidad por tipo de costo
+    const rentabilidadPorTipoCosto = await CostoProyecto.findAll({
+      attributes: [
+        'tipo_costo',
+        [sequelize.fn('SUM', sequelize.col('monto')), 'total'],
+        [sequelize.literal(`ROUND((SUM(monto) / ${costosTotales || 1}) * 100, 2)`), 'porcentaje']
+      ],
+      where: {
+        proyecto_id: id,
+        estado: 'ejecutado',
+        incluido_rentabilidad: true
+      },
+      group: ['tipo_costo'],
+      order: [[sequelize.literal('total'), 'DESC']]
+    });
+    
+    // Actualizar costo real en el proyecto
+    await proyecto.update({
+      costo_real: costosTotales
+    });
+    
+    res.status(200).json({
+      proyecto: {
+        id: proyecto.id,
+        nombre: proyecto.nombre,
+        presupuesto: ingresosEsperados,
+        costos_totales: costosTotales,
+        margen_bruto: ingresosEsperados - costosTotales,
+        margen_porcentaje: parseFloat(margenEsperado),
+        roi: parseFloat(roi),
+        estado: proyecto.estado,
+        porcentaje_avance: proyecto.porcentaje_avance
+      },
+      desglose_costos: rentabilidadPorTipoCosto,
+      detalle_costos: proyecto.CostoProyectos
+    });
+  } catch (error) {
+    console.error('Error al calcular rentabilidad:', error);
+    res.status(500).json({ message: 'Error al calcular rentabilidad', error: error.message });
+  }
+};
+
+// Obtener dashboard de rentabilidad de proyectos
+exports.dashboardRentabilidad = async (req, res) => {
+  try {
+    const { 
+      mes_inicio, 
+      mes_fin,
+      anio,
+      cliente_id
+    } = req.query;
+    
+    // Construir filtros de fechas
+    const whereConditions = {};
+    
+    if (mes_inicio && mes_fin && anio) {
+      const fechaInicio = new Date(anio, mes_inicio - 1, 1);
+      const fechaFin = new Date(anio, mes_fin, 0);
+      
+      whereConditions.fecha_inicio = {
+        [Op.between]: [fechaInicio, fechaFin]
+      };
+    } else if (anio) {
+      const fechaInicio = new Date(anio, 0, 1);
+      const fechaFin = new Date(anio, 11, 31);
+      
+      whereConditions.fecha_inicio = {
+        [Op.between]: [fechaInicio, fechaFin]
+      };
+    }
+    
+    if (cliente_id) {
+      whereConditions.cliente_id = cliente_id;
+    }
+    
+    // Proyectos más rentables
+    const proyectosMasRentables = await Proyecto.findAll({
+      attributes: [
+        'id', 
+        'nombre', 
+        'presupuesto', 
+        'costo_real',
+        'estado',
+        'fecha_inicio',
+        'fecha_fin'
+      ],
+      where: {
+        ...whereConditions,
+        estado: {
+          [Op.in]: ['en_curso', 'finalizado']
+        }
+      },
+      order: [[sequelize.literal('(presupuesto - costo_real) / NULLIF(presupuesto, 0) * 100'), 'DESC']],
+      limit: 10,
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social']
+        }
+      ]
+    });
+    
+    // Proyectos menos rentables
+    const proyectosMenosRentables = await Proyecto.findAll({
+      attributes: [
+        'id', 
+        'nombre', 
+        'presupuesto', 
+        'costo_real',
+        'estado',
+        'fecha_inicio',
+        'fecha_fin'
+      ],
+      where: {
+        ...whereConditions,
+        estado: {
+          [Op.in]: ['en_curso', 'finalizado']
+        }
+      },
+      order: [[sequelize.literal('(presupuesto - costo_real) / NULLIF(presupuesto, 0) * 100'), 'ASC']],
+      limit: 10,
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social']
+        }
+      ]
+    });
+    
+    // Rentabilidad promedio por tipo de proyecto (basándonos en el nombre como aproximación)
+    const rentabilidadPromedioPorTipo = await Proyecto.findAll({
+      attributes: [
+        [sequelize.fn('substring', sequelize.col('nombre'), 1, 20), 'tipo_proyecto'],
+        [sequelize.literal('AVG((presupuesto - costo_real) / NULLIF(presupuesto, 0) * 100)'), 'margen_promedio'],
+        [sequelize.fn('COUNT', sequelize.col('id')), 'cantidad_proyectos']
+      ],
+      where: {
+        ...whereConditions
+      },
+      group: [sequelize.fn('substring', sequelize.col('nombre'), 1, 20)],
+      having: sequelize.literal('COUNT(id) > 1'),
+      order: [[sequelize.literal('margen_promedio'), 'DESC']]
+    });
+    
+    // Calcular rentabilidad general
+    const rentabilidadGeneral = await Proyecto.findAll({
+      attributes: [
+        [sequelize.fn('SUM', sequelize.col('presupuesto')), 'presupuesto_total'],
+        [sequelize.fn('SUM', sequelize.col('costo_real')), 'costo_total'],
+        [
+          sequelize.literal(`
+            CASE 
+              WHEN SUM(presupuesto) = 0 THEN 0
+              ELSE (SUM(presupuesto) - SUM(costo_real)) / SUM(presupuesto) * 100
+            END
+          `),
+          'margen_promedio'
+        ]
+      ],
+      where: {
+        ...whereConditions,
+        estado: {
+          [Op.in]: ['en_curso', 'finalizado']
+        },
+        presupuesto: {
+          [Op.not]: null
+        },
+        costo_real: {
+          [Op.not]: null
+        }
+      }
+    });
+    
+    // Distribución de costos por categoría
+    const distribucionCostos = await CostoProyecto.findAll({
+      attributes: [
+        'tipo_costo',
+        [sequelize.fn('SUM', sequelize.col('monto')), 'total']
+      ],
+      include: [
+        {
+          model: Proyecto,
+          as: 'Proyecto',
+          attributes: [],
+          where: whereConditions,
+          required: true
+        }
+      ],
+      where: {
+        estado: 'ejecutado',
+        incluido_rentabilidad: true
+      },
+      group: ['tipo_costo'],
+      order: [[sequelize.literal('total'), 'DESC']]
+    });
+    
+    res.status(200).json({
+      rentabilidad_general: rentabilidadGeneral[0] || {
+        presupuesto_total: 0,
+        costo_total: 0,
+        margen_promedio: 0
+      },
+      proyectos_mas_rentables: proyectosMasRentables,
+      proyectos_menos_rentables: proyectosMenosRentables,
+      rentabilidad_promedio_por_tipo: rentabilidadPromedioPorTipo,
+      distribucion_costos: distribucionCostos
+    });
+  } catch (error) {
+    console.error('Error al obtener dashboard de rentabilidad:', error);
+    res.status(500).json({ message: 'Error al obtener dashboard de rentabilidad', error: error.message });
+  }
+};
+
+// Comparar rentabilidad entre proyectos
+exports.compararRentabilidad = async (req, res) => {
+  try {
+    const { proyectos } = req.body;
+    
+    if (!proyectos || !Array.isArray(proyectos) || proyectos.length < 2) {
+      return res.status(400).json({ message: 'Se requieren al menos dos IDs de proyectos para comparar' });
+    }
+    
+    const resultados = await Promise.all(
+      proyectos.map(async (proyectoId) => {
+        const proyecto = await Proyecto.findByPk(proyectoId, {
+          include: [
+            {
+              model: CostoProyecto,
+              as: 'CostoProyectos',
+              attributes: ['id', 'proyecto_id', 'concepto', 'tipo_costo', 'monto', 'estado', 'incluido_rentabilidad', 'proveedor'],
+              where: { 
+                estado: 'ejecutado',
+                incluido_rentabilidad: true
+              },
+              required: false
+            },
+            {
+              model: Cliente,
+              as: 'Cliente',
+              attributes: ['id', 'razon_social']
+            }
+          ]
+        });
+        
+        if (!proyecto) return null;
+        
+        // Calcular costos totales ejecutados
+        const costosTotales = proyecto.CostoProyectos.reduce((sum, costo) => sum + parseFloat(costo.monto), 0);
+        
+        // Por ahora usamos el presupuesto como ingresos esperados
+        const ingresosEsperados = parseFloat(proyecto.presupuesto || 0);
+        
+        // Desglose de costos por tipo
+        const costosPorTipo = {};
+        proyecto.CostoProyectos.forEach(costo => {
+          if (!costosPorTipo[costo.tipo_costo]) {
+            costosPorTipo[costo.tipo_costo] = 0;
+          }
+          costosPorTipo[costo.tipo_costo] += parseFloat(costo.monto);
+        });
+        
+        // Cálculos de rentabilidad
+        const margenEsperado = ingresosEsperados > 0 
+          ? ((ingresosEsperados - costosTotales) / ingresosEsperados * 100).toFixed(2)
+          : 0;
+        
+        return {
+          id: proyecto.id,
+          nombre: proyecto.nombre,
+          cliente: proyecto.Cliente ? proyecto.Cliente.razon_social : 'Sin cliente',
+          presupuesto: ingresosEsperados,
+          costos_totales: costosTotales,
+          margen_bruto: ingresosEsperados - costosTotales,
+          margen_porcentaje: parseFloat(margenEsperado),
+          estado: proyecto.estado,
+          fecha_inicio: proyecto.fecha_inicio,
+          fecha_fin: proyecto.fecha_fin,
+          duracion_dias: proyecto.fecha_fin && proyecto.fecha_inicio
+            ? Math.ceil((new Date(proyecto.fecha_fin) - new Date(proyecto.fecha_inicio)) / (1000 * 60 * 60 * 24))
+            : null,
+          desglose_costos: costosPorTipo
+        };
+      })
+    );
+    
+    // Filtrar proyectos no encontrados
+    const resultadosFiltrados = resultados.filter(r => r !== null);
+    
+    if (resultadosFiltrados.length < 2) {
+      return res.status(404).json({ message: 'No se encontraron suficientes proyectos para comparar' });
+    }
+    
+    // Mejores proyectos
+    const mejoresProyectos = resultadosFiltrados.map(p => ({
+      id: p.id,
+      nombre: p.nombre,
+      cliente: p.cliente,
+      presupuesto: p.presupuesto,
+      costo_real: p.costos_totales,
+      margen_calculado: p.margen_bruto,
+      fecha_inicio: p.fecha_inicio,
+      fecha_fin: p.fecha_fin
+    })).sort((a, b) => b.margen_calculado - a.margen_calculado).slice(0, 5);
+    
+    // Peores proyectos
+    const peoresProyectos = [...resultadosFiltrados.map(p => ({
+      id: p.id,
+      nombre: p.nombre,
+      cliente: p.cliente,
+      presupuesto: p.presupuesto,
+      costo_real: p.costos_totales,
+      margen_calculado: p.margen_bruto,
+      fecha_inicio: p.fecha_inicio,
+      fecha_fin: p.fecha_fin
+    }))].sort((a, b) => a.margen_calculado - b.margen_calculado).slice(0, 5);
+
+    // Calcular cuántos proyectos son rentables vs deficitarios
+    const proyectosRentables = resultadosFiltrados.filter(p => (p.margen_bruto > 0)).length;
+    const proyectosDeficitarios = resultadosFiltrados.filter(p => (p.margen_bruto < 0)).length;
+    
+    res.status(200).json({
+      comparacion: resultadosFiltrados,
+      mejorRentabilidad: mejoresProyectos[0],
+      peorRentabilidad: peoresProyectos[0],
+      proyectos_rentables: proyectosRentables,
+      proyectos_deficitarios: proyectosDeficitarios
+    });
+  } catch (error) {
+    console.error('Error al comparar rentabilidad:', error);
+    res.status(500).json({ message: 'Error al comparar rentabilidad', error: error.message });
+  }
+};
+
+// Actualizar porcentaje de avance de un proyecto
+exports.actualizarAvance = async (req, res) => {
+  const t = await sequelize.transaction();
+  
+  try {
+    const { id } = req.params;
+    const { 
+      porcentaje_avance, 
+      nota_avance,
+      fecha_reporte = new Date()
+    } = req.body;
+    
+    if (porcentaje_avance === undefined || porcentaje_avance < 0 || porcentaje_avance > 100) {
+      await t.rollback();
+      return res.status(400).json({ 
+        message: 'El porcentaje de avance debe ser un valor entre 0 y 100' 
+      });
+    }
+    
+    const proyecto = await Proyecto.findByPk(id);
+    
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Guardar el registro histórico de avance
+    await AvanceProyecto.create({
+      proyecto_id: id,
+      porcentaje_anterior: proyecto.porcentaje_avance,
+      porcentaje_nuevo: porcentaje_avance,
+      nota: nota_avance,
+      fecha: fecha_reporte,
+      usuario_id: req.usuario.id
+    }, { transaction: t });
+    
+    // Actualizar el porcentaje en el proyecto
+    await proyecto.update({
+      porcentaje_avance,
+      usuario_modificacion_id: req.usuario.id
+    }, { transaction: t });
+    
+    await t.commit();
+    
+    res.status(200).json({
+      message: 'Avance de proyecto actualizado exitosamente',
+      proyecto: {
+        id: proyecto.id,
+        nombre: proyecto.nombre,
+        porcentaje_avance,
+        fecha_reporte
+      }
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al actualizar avance de proyecto:', error);
+    res.status(500).json({ 
+      message: 'Error al actualizar avance de proyecto', 
+      error: error.message 
+    });
+  }
+};
+
+// Obtener historial de avance de un proyecto
+exports.historialAvance = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const proyecto = await Proyecto.findByPk(id, {
+      attributes: ['id', 'nombre', 'porcentaje_avance', 'fecha_inicio', 'fecha_fin']
+    });
+    
+    if (!proyecto) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    const historial = await AvanceProyecto.findAll({
+      where: { proyecto_id: id },
+      order: [['fecha', 'DESC']],
+      include: [{
+        model: Usuario,
+        as: 'Usuario',
+        attributes: ['id', 'nombre', 'apellido']
+      }]
+    });
+    
+    res.status(200).json({
+      proyecto,
+      historial
+    });
+  } catch (error) {
+    console.error('Error al obtener historial de avance:', error);
+    res.status(500).json({ 
+      message: 'Error al obtener historial de avance', 
+      error: error.message 
+    });
+  }
+};
+
+// Gestionar hitos (milestones) del proyecto
+// Crear un nuevo hito
+exports.crearHito = async (req, res) => {
+  const t = await sequelize.transaction();
+  
+  try {
+    const { id } = req.params;
+    const { 
+      nombre, 
+      descripcion, 
+      fecha_objetivo, 
+      prioridad = 'media',
+      porcentaje_proyecto,
+      completado = false
+    } = req.body;
+    
+    const proyecto = await Proyecto.findByPk(id);
+    
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    const hito = await HitoProyecto.create({
+      proyecto_id: id,
+      nombre,
+      descripcion,
+      fecha_objetivo,
+      prioridad,
+      porcentaje_proyecto,
+      completado,
+      usuario_id: req.usuario.id
+    }, { transaction: t });
+    
+    await t.commit();
+    
+    res.status(201).json({
+      message: 'Hito creado exitosamente',
+      hito
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al crear hito de proyecto:', error);
+    res.status(500).json({ 
+      message: 'Error al crear hito de proyecto', 
+      error: error.message 
+    });
+  }
+};
+
+// Obtener hitos de un proyecto
+exports.listarHitos = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const proyecto = await Proyecto.findByPk(id, {
+      attributes: ['id', 'nombre']
+    });
+    
+    if (!proyecto) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    const hitos = await HitoProyecto.findAll({
+      where: { proyecto_id: id },
+      order: [
+        ['completado', 'ASC'],
+        ['fecha_objetivo', 'ASC']
+      ]
+    });
+    
+    res.status(200).json({
+      proyecto,
+      hitos
+    });
+  } catch (error) {
+    console.error('Error al obtener hitos del proyecto:', error);
+    res.status(500).json({ 
+      message: 'Error al obtener hitos del proyecto', 
+      error: error.message 
+    });
+  }
+};
+
+// Actualizar un hito
+exports.actualizarHito = async (req, res) => {
+  const t = await sequelize.transaction();
+  
+  try {
+    const { id, hitoId } = req.params;
+    const { 
+      nombre, 
+      descripcion, 
+      fecha_objetivo, 
+      prioridad,
+      porcentaje_proyecto,
+      completado
+    } = req.body;
+    
+    const hito = await HitoProyecto.findOne({
+      where: {
+        id: hitoId,
+        proyecto_id: id
+      }
+    });
+    
+    if (!hito) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Hito no encontrado' });
+    }
+    
+    await hito.update({
+      nombre,
+      descripcion,
+      fecha_objetivo,
+      prioridad,
+      porcentaje_proyecto,
+      completado,
+      fecha_completado: completado && !hito.completado ? new Date() : hito.fecha_completado
+    }, { transaction: t });
+    
+    // Si el hito se marca como completado, actualizamos el avance del proyecto
+    if (completado && !hito.completado && hito.porcentaje_proyecto) {
+      const proyecto = await Proyecto.findByPk(id);
+      
+      if (proyecto) {
+        // Calculamos el nuevo porcentaje basado en los hitos completados
+        const hitosCompletados = await HitoProyecto.findAll({
+          where: {
+            proyecto_id: id,
+            completado: true
+          }
+        });
+        
+        const porcentajeTotal = hitosCompletados.reduce(
+          (sum, h) => sum + (h.porcentaje_proyecto || 0), 
+          0
+        );
+        
+        await proyecto.update({
+          porcentaje_avance: Math.min(porcentajeTotal, 100),
+          usuario_modificacion_id: req.usuario.id
+        }, { transaction: t });
+        
+        // Registrar el avance automático
+        await AvanceProyecto.create({
+          proyecto_id: id,
+          porcentaje_anterior: proyecto.porcentaje_avance,
+          porcentaje_nuevo: Math.min(porcentajeTotal, 100),
+          nota: `Avance automático por completar hito: ${hito.nombre}`,
+          fecha: new Date(),
+          usuario_id: req.usuario.id
+        }, { transaction: t });
+      }
+    }
+    
+    await t.commit();
+    
+    res.status(200).json({
+      message: 'Hito actualizado exitosamente',
+      hito
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al actualizar hito:', error);
+    res.status(500).json({ 
+      message: 'Error al actualizar hito', 
+      error: error.message 
+    });
+  }
+};
+
+// Eliminar un hito
+exports.eliminarHito = async (req, res) => {
+  const t = await sequelize.transaction();
+  
+  try {
+    const { id, hitoId } = req.params;
+    
+    const hito = await HitoProyecto.findOne({
+      where: {
+        id: hitoId,
+        proyecto_id: id
+      }
+    });
+    
+    if (!hito) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Hito no encontrado' });
+    }
+    
+    await hito.destroy({ transaction: t });
+    
+    await t.commit();
+    
+    res.status(200).json({
+      message: 'Hito eliminado exitosamente'
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al eliminar hito:', error);
+    res.status(500).json({ 
+      message: 'Error al eliminar hito', 
+      error: error.message 
+    });
+  }
+};
+
+// Generar informe de avance de proyecto
+exports.generarInformeAvance = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const proyecto = await Proyecto.findByPk(id, {
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social', 'rut']
+        },
+        {
+          model: Usuario,
+          as: 'Responsable',
+          attributes: ['id', 'nombre', 'apellido', 'email']
+        }
+      ]
+    });
+    
+    if (!proyecto) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Obtener hitos
+    const hitos = await HitoProyecto.findAll({
+      where: { proyecto_id: id },
+      order: [['fecha_objetivo', 'ASC']]
+    });
+    
+    // Calcular hitos completados y pendientes
+    const hitosCompletados = hitos.filter(h => h.completado);
+    const hitosPendientes = hitos.filter(h => !h.completado);
+    
+    // Obtener historial de avance reciente
+    const avanceReciente = await AvanceProyecto.findAll({
+      where: { proyecto_id: id },
+      order: [['fecha', 'DESC']],
+      limit: 5,
+      include: [{
+        model: Usuario,
+        as: 'Usuario',
+        attributes: ['id', 'nombre', 'apellido']
+      }]
+    });
+    
+    // Calcular días transcurridos y restantes
+    const hoy = new Date();
+    const diasTranscurridos = Math.ceil((hoy - new Date(proyecto.fecha_inicio)) / (1000 * 60 * 60 * 24));
+    
+    let diasRestantes = null;
+    let avanceEsperado = null;
+    
+    if (proyecto.fecha_fin) {
+      diasRestantes = Math.ceil((new Date(proyecto.fecha_fin) - hoy) / (1000 * 60 * 60 * 24));
+      
+      const duracionTotal = Math.ceil(
+        (new Date(proyecto.fecha_fin) - new Date(proyecto.fecha_inicio)) / (1000 * 60 * 60 * 24)
+      );
+      
+      avanceEsperado = duracionTotal > 0 
+        ? Math.round((diasTranscurridos / duracionTotal) * 100) 
+        : null;
+    }
+    
+    // Analizar desviación del avance
+    let estadoAvance = 'A tiempo';
+    let desviacion = 0;
+    
+    if (avanceEsperado !== null && proyecto.porcentaje_avance !== null) {
+      desviacion = proyecto.porcentaje_avance - avanceEsperado;
+      
+      if (desviacion < -10) {
+        estadoAvance = 'Retrasado';
+      } else if (desviacion > 10) {
+        estadoAvance = 'Adelantado';
+      }
+    }
+    
+    // Construir informe
+    const informe = {
+      proyecto: {
+        id: proyecto.id,
+        nombre: proyecto.nombre,
+        descripcion: proyecto.descripcion,
+        cliente: proyecto.Cliente ? proyecto.Cliente.razon_social : 'Sin cliente',
+        responsable: proyecto.Responsable ? 
+          `${proyecto.Responsable.nombre} ${proyecto.Responsable.apellido}` : 
+          'Sin responsable',
+        fecha_inicio: proyecto.fecha_inicio,
+        fecha_fin: proyecto.fecha_fin,
+        estado: proyecto.estado,
+        presupuesto_total: proyecto.presupuesto_total,
+        costo_estimado: proyecto.costo_real
+      },
+      avance: {
+        porcentaje_actual: proyecto.porcentaje_avance,
+        porcentaje_esperado: avanceEsperado,
+        desviacion,
+        estado_avance: estadoAvance,
+        dias_transcurridos: diasTranscurridos,
+        dias_restantes: diasRestantes
+      },
+      hitos: {
+        total: hitos.length,
+        completados: hitosCompletados.length,
+        pendientes: hitosPendientes.length,
+        proximos_hitos: hitosPendientes.slice(0, 3)
+      },
+      historial_reciente: avanceReciente,
+      fecha_informe: new Date()
+    };
+    
+    res.status(200).json(informe);
+  } catch (error) {
+    console.error('Error al generar informe de avance:', error);
+    res.status(500).json({ 
+      message: 'Error al generar informe de avance', 
+      error: error.message 
+    });
+  }
+};
+
+// Generar reporte general de proyectos
+exports.reporteGeneral = async (req, res) => {
+  try {
+    const { 
+      cliente_id, 
+      estado, 
+      prioridad,
+      responsable_id,
+      fecha_inicio_desde,
+      fecha_inicio_hasta,
+      fecha_fin_desde,
+      fecha_fin_hasta
+    } = req.query;
+    
+    // Construir condiciones de filtrado
+    const whereConditions = {};
+    
+    if (cliente_id) {
+      whereConditions.cliente_id = cliente_id;
+    }
+    
+    if (estado) {
+      whereConditions.estado = estado;
+    }
+    
+    if (prioridad) {
+      whereConditions.prioridad = prioridad;
+    }
+    
+    if (responsable_id) {
+      whereConditions.responsable_id = responsable_id;
+    }
+    
+    if (fecha_inicio_desde && fecha_inicio_hasta) {
+      whereConditions.fecha_inicio = {
+        [Op.between]: [new Date(fecha_inicio_desde), new Date(fecha_inicio_hasta)]
+      };
+    } else if (fecha_inicio_desde) {
+      whereConditions.fecha_inicio = {
+        [Op.gte]: new Date(fecha_inicio_desde)
+      };
+    } else if (fecha_inicio_hasta) {
+      whereConditions.fecha_inicio = {
+        [Op.lte]: new Date(fecha_inicio_hasta)
+      };
+    }
+    
+    if (fecha_fin_desde && fecha_fin_hasta) {
+      whereConditions.fecha_fin = {
+        [Op.between]: [new Date(fecha_fin_desde), new Date(fecha_fin_hasta)]
+      };
+    } else if (fecha_fin_desde) {
+      whereConditions.fecha_fin = {
+        [Op.gte]: new Date(fecha_fin_desde)
+      };
+    } else if (fecha_fin_hasta) {
+      whereConditions.fecha_fin = {
+        [Op.lte]: new Date(fecha_fin_hasta)
+      };
+    }
+    
+    // Obtener proyectos según filtros
+    const proyectos = await Proyecto.findAll({
+      where: whereConditions,
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social', 'rut']
+        },
+        {
+          model: Usuario,
+          as: 'Responsable',
+          attributes: ['id', 'nombre', 'apellido']
+        }
+      ],
+      order: [['fecha_inicio', 'DESC']]
+    });
+    
+    // Calcular totales y resúmenes
+    const totalPresupuesto = proyectos.reduce((sum, p) => sum + parseFloat(p.presupuesto || 0), 0);
+    const totalCostoReal = proyectos.reduce((sum, p) => sum + parseFloat(p.costo_real || 0), 0);
+    
+    const proyectosPorEstado = {};
+    const proyectosPorPrioridad = {};
+    const proyectosPorCliente = {};
+    
+    proyectos.forEach(proyecto => {
+      // Contar por estado
+      if (!proyectosPorEstado[proyecto.estado]) {
+        proyectosPorEstado[proyecto.estado] = 0;
+      }
+      proyectosPorEstado[proyecto.estado]++;
+      
+      // Contar por prioridad
+      if (!proyectosPorPrioridad[proyecto.prioridad]) {
+        proyectosPorPrioridad[proyecto.prioridad] = 0;
+      }
+      proyectosPorPrioridad[proyecto.prioridad]++;
+      
+      // Contar por cliente
+      const clienteNombre = proyecto.Cliente ? proyecto.Cliente.razon_social : 'Sin cliente';
+      if (!proyectosPorCliente[clienteNombre]) {
+        proyectosPorCliente[clienteNombre] = 0;
+      }
+      proyectosPorCliente[clienteNombre]++;
+    });
+    
+    // Calcular métricas de avance
+    const avancePromedio = proyectos.length > 0 
+      ? proyectos.reduce((sum, p) => sum + (p.porcentaje_avance || 0), 0) / proyectos.length 
+      : 0;
+    
+    // Calcular rentabilidad promedio de proyectos que tienen costo y presupuesto
+    const proyectosConMargen = proyectos.filter(p => 
+      p.presupuesto !== null && 
+      p.presupuesto > 0 && 
+      p.costo_real !== null
+    );
+    
+    const margenPromedio = proyectosConMargen.length > 0
+      ? proyectosConMargen.reduce((sum, p) => {
+          const margen = ((p.presupuesto - p.costo_real) / p.presupuesto) * 100;
+          return sum + margen;
+        }, 0) / proyectosConMargen.length
+      : 0;
+    
+    // Construir datos de reporte
+    const reporte = {
+      fecha_generacion: new Date(),
+      filtros_aplicados: {
+        cliente_id,
+        estado,
+        prioridad,
+        responsable_id,
+        fecha_inicio_desde,
+        fecha_inicio_hasta,
+        fecha_fin_desde,
+        fecha_fin_hasta
+      },
+      resumen: {
+        total_proyectos: proyectos.length,
+        total_presupuesto: totalPresupuesto,
+        total_costo_real: totalCostoReal,
+        avance_promedio: parseFloat(avancePromedio.toFixed(2)),
+        margen_promedio: parseFloat(margenPromedio.toFixed(2))
+      },
+      distribucion: {
+        por_estado: proyectosPorEstado,
+        por_prioridad: proyectosPorPrioridad,
+        por_cliente: proyectosPorCliente
+      },
+      proyectos: proyectos.map(p => ({
+        id: p.id,
+        nombre: p.nombre,
+        cliente: p.Cliente ? p.Cliente.razon_social : 'Sin cliente',
+        responsable: p.Responsable ? `${p.Responsable.nombre} ${p.Responsable.apellido}` : 'Sin responsable',
+        fecha_inicio: p.fecha_inicio,
+        fecha_fin: p.fecha_fin,
+        estado: p.estado,
+        prioridad: p.prioridad,
+        presupuesto_total: p.presupuesto_total,
+        costo_estimado: p.costo_real,
+        margen_estimado: p.margen_estimado,
+        porcentaje_avance: p.porcentaje_avance
+      }))
+    };
+    
+    res.status(200).json(reporte);
+  } catch (error) {
+    console.error('Error al generar reporte general de proyectos:', error);
+    res.status(500).json({ 
+      message: 'Error al generar reporte general de proyectos', 
+      error: error.message 
+    });
+  }
+};
+
+// Generar reporte de desempeño de proyectos
+exports.reporteDesempeno = async (req, res) => {
+  try {
+    const { periodo } = req.query; // 'mes', 'trimestre', 'semestre', 'anual'
+    const anio = parseInt(req.query.anio || new Date().getFullYear());
+    const mes = parseInt(req.query.mes || (new Date().getMonth() + 1));
+    
+    // Determinar fechas según periodo
+    let fechaInicio, fechaFin;
+    const hoy = new Date();
+    
+    switch (periodo) {
+      case 'mes':
+        fechaInicio = new Date(anio, mes - 1, 1);
+        fechaFin = new Date(anio, mes, 0); // Último día del mes
+        break;
+      case 'trimestre':
+        const trimestre = Math.ceil(mes / 3);
+        fechaInicio = new Date(anio, (trimestre - 1) * 3, 1);
+        fechaFin = new Date(anio, trimestre * 3, 0);
+        break;
+      case 'semestre':
+        const semestre = Math.ceil(mes / 6);
+        fechaInicio = new Date(anio, (semestre - 1) * 6, 1);
+        fechaFin = new Date(anio, semestre * 6, 0);
+        break;
+      case 'anual':
+        fechaInicio = new Date(anio, 0, 1);
+        fechaFin = new Date(anio, 11, 31);
+        break;
+      default:
+        // Por defecto, último mes
+        fechaInicio = new Date(hoy.getFullYear(), hoy.getMonth() - 1, 1);
+        fechaFin = new Date(hoy.getFullYear(), hoy.getMonth(), 0);
+    }
+    
+    // Encontrar proyectos activos en el periodo
+    const proyectos = await Proyecto.findAll({
+      where: {
+        [Op.or]: [
+          {
+            // Proyectos iniciados en el periodo
+            fecha_inicio: {
+              [Op.between]: [fechaInicio, fechaFin]
+            }
+          },
+          {
+            // Proyectos finalizados en el periodo
+            fecha_fin: {
+              [Op.between]: [fechaInicio, fechaFin]
+            }
+          },
+          {
+            // Proyectos activos durante el periodo
+            [Op.and]: [
+              { 
+                fecha_inicio: { 
+                  [Op.lte]: fechaFin 
+                } 
+              },
+              { 
+                [Op.or]: [
+                  { fecha_fin: { [Op.gte]: fechaInicio } },
+                  { fecha_fin: null }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social']
+        },
+        {
+          model: Usuario,
+          as: 'Responsable',
+          attributes: ['id', 'nombre', 'apellido']
+        },
+        {
+          model: AvanceProyecto,
+          as: 'Avances',
+          where: {
+            fecha: {
+              [Op.between]: [fechaInicio, fechaFin]
+            }
+          },
+          required: false
+        },
+        {
+          model: HitoProyecto,
+          as: 'Hitos',
+          where: {
+            [Op.or]: [
+              {
+                fecha_objetivo: {
+                  [Op.between]: [fechaInicio, fechaFin]
+                }
+              },
+              {
+                fecha_completado: {
+                  [Op.between]: [fechaInicio, fechaFin]
+                }
+              }
+            ]
+          },
+          required: false
+        }
+      ]
+    });
+    
+    // Analizar métricas de desempeño
+    const metricas = {
+      proyectos_iniciados: proyectos.filter(p => 
+        new Date(p.fecha_inicio) >= fechaInicio && 
+        new Date(p.fecha_inicio) <= fechaFin
+      ).length,
+      
+      proyectos_finalizados: proyectos.filter(p => 
+        p.fecha_fin && 
+        new Date(p.fecha_fin) >= fechaInicio && 
+        new Date(p.fecha_fin) <= fechaFin
+      ).length,
+      
+      total_hitos_planificados: proyectos.reduce((sum, p) => 
+        sum + p.Hitos.filter(h => 
+          new Date(h.fecha_objetivo) >= fechaInicio && 
+          new Date(h.fecha_objetivo) <= fechaFin
+        ).length, 0),
+      
+      total_hitos_completados: proyectos.reduce((sum, p) => 
+        sum + p.Hitos.filter(h => 
+          h.completado && 
+          h.fecha_completado && 
+          new Date(h.fecha_completado) >= fechaInicio && 
+          new Date(h.fecha_completado) <= fechaFin
+        ).length, 0),
+      
+      actualizaciones_avance: proyectos.reduce((sum, p) => 
+        sum + p.Avances.length, 0)
+    };
+    
+    // Análisis de cumplimiento de plazos
+    const proyectosFinalizados = proyectos.filter(p => 
+      p.fecha_fin && 
+      new Date(p.fecha_fin) >= fechaInicio && 
+      new Date(p.fecha_fin) <= fechaFin
+    );
+    
+    let proyectosEnPlazo = 0;
+    let proyectosConRetraso = 0;
+    let diasRetrasoPromedio = 0;
+    
+    proyectosFinalizados.forEach(p => {
+      if (p.fecha_fin_original) {
+        const fechaFinOriginal = new Date(p.fecha_fin_original);
+        const fechaFinReal = new Date(p.fecha_fin);
+        const diferenciaDias = Math.ceil((fechaFinReal - fechaFinOriginal) / (1000 * 60 * 60 * 24));
+        
+        if (diferenciaDias <= 0) {
+          proyectosEnPlazo++;
+        } else {
+          proyectosConRetraso++;
+          diasRetrasoPromedio += diferenciaDias;
+        }
+      }
+    });
+    
+    if (proyectosConRetraso > 0) {
+      diasRetrasoPromedio = diasRetrasoPromedio / proyectosConRetraso;
+    }
+    
+    // Construir reporte
+    const reporte = {
+      periodo: {
+        tipo: periodo,
+        anio,
+        mes,
+        fecha_inicio: fechaInicio,
+        fecha_fin: fechaFin
+      },
+      metricas_generales: {
+        proyectos_activos: proyectos.length,
+        proyectos_iniciados: metricas.proyectos_iniciados,
+        proyectos_finalizados: metricas.proyectos_finalizados,
+        hitos_planificados: metricas.total_hitos_planificados,
+        hitos_completados: metricas.total_hitos_completados,
+        tasa_cumplimiento_hitos: metricas.total_hitos_planificados > 0 
+          ? (metricas.total_hitos_completados / metricas.total_hitos_planificados * 100).toFixed(2) 
+          : 0,
+        actualizaciones_avance: metricas.actualizaciones_avance
+      },
+      analisis_plazos: {
+        proyectos_finalizados: proyectosFinalizados.length,
+        proyectos_en_plazo: proyectosEnPlazo,
+        proyectos_con_retraso: proyectosConRetraso,
+        porcentaje_cumplimiento: proyectosFinalizados.length > 0 
+          ? (proyectosEnPlazo / proyectosFinalizados.length * 100).toFixed(2) 
+          : 0,
+        dias_retraso_promedio: parseFloat(diasRetrasoPromedio.toFixed(2))
+      },
+      proyectos_destacados: {
+        mayor_avance: proyectos.length > 0 
+          ? proyectos.reduce((prev, current) => 
+              (prev.porcentaje_avance > current.porcentaje_avance) ? prev : current
+            )
+          : null,
+        mayor_rentabilidad: proyectos.length > 0 
+          ? proyectos.reduce((prev, current) => 
+              (prev.margen_estimado > current.margen_estimado) ? prev : current
+            )
+          : null
+      },
+      detalle_proyectos: proyectos.map(p => ({
+        id: p.id,
+        nombre: p.nombre,
+        cliente: p.Cliente ? p.Cliente.razon_social : 'Sin cliente',
+        responsable: p.Responsable ? `${p.Responsable.nombre} ${p.Responsable.apellido}` : 'Sin responsable',
+        fecha_inicio: p.fecha_inicio,
+        fecha_fin: p.fecha_fin,
+        estado: p.estado,
+        porcentaje_avance: p.porcentaje_avance,
+        hitos_completados: p.Hitos.filter(h => h.completado).length,
+        hitos_pendientes: p.Hitos.filter(h => !h.completado).length,
+        actualizaciones_periodo: p.Avances.length
+      }))
+    };
+    
+    res.status(200).json(reporte);
+  } catch (error) {
+    console.error('Error al generar reporte de desempeño:', error);
+    res.status(500).json({ 
+      message: 'Error al generar reporte de desempeño', 
+      error: error.message 
+    });
+  }
+};
+
+// Generar reporte de rentabilidad por cliente
+exports.reporteRentabilidadClientes = async (req, res) => {
+  try {
+    const { anio = new Date().getFullYear() } = req.query;
+    
+    // Obtener todos los clientes con proyectos
+    const clientes = await Cliente.findAll({
+      attributes: ['id', 'razon_social', 'rut'],
+      include: [
+        {
+          model: Proyecto,
+          as: 'Proyectos',
+          attributes: ['id', 'nombre', 'presupuesto_total', 'costo_estimado', 'margen_estimado', 'fecha_inicio', 'fecha_fin', 'estado'],
+          where: sequelize.literal(`EXTRACT(YEAR FROM fecha_inicio) = ${anio}`),
+          required: true
+        }
+      ]
+    });
+    
+    // Calcular métricas por cliente
+    const resumenClientes = clientes.map(cliente => {
+      const proyectos = cliente.Proyectos;
+      
+      const presupuestoTotal = proyectos.reduce((sum, p) => sum + parseFloat(p.presupuesto_total || 0), 0);
+      const costoTotal = proyectos.reduce((sum, p) => sum + parseFloat(p.costo_estimado || 0), 0);
+      const margenTotal = presupuestoTotal - costoTotal;
+      const margenPorcentaje = presupuestoTotal > 0 ? (margenTotal / presupuestoTotal * 100) : 0;
+      
+      const proyectosRentables = proyectos.filter(p => p.margen_estimado > 0).length;
+      const proyectosDeficitarios = proyectos.filter(p => p.margen_estimado < 0).length;
+      
+      return {
+        cliente: {
+          id: cliente.id,
+          razon_social: cliente.razon_social,
+          rut: cliente.rut
+        },
+        metricas: {
+          total_proyectos: proyectos.length,
+          proyectos_rentables: proyectosRentables,
+          proyectos_deficitarios: proyectosDeficitarios,
+          presupuesto_total: presupuestoTotal,
+          costo_total: costoTotal,
+          margen_total: margenTotal,
+          margen_porcentaje: parseFloat(margenPorcentaje.toFixed(2)),
+          proyecto_mas_rentable: proyectos.length > 0 
+            ? proyectos.reduce((prev, current) => 
+                (prev.margen_estimado > current.margen_estimado) ? prev : current
+              )
+            : null,
+          proyecto_menos_rentable: proyectos.length > 0 
+            ? proyectos.reduce((prev, current) => 
+                (prev.margen_estimado < current.margen_estimado) ? prev : current
+              )
+            : null
+        },
+        proyectos: proyectos.map(p => ({
+          id: p.id,
+          nombre: p.nombre,
+          presupuesto_total: p.presupuesto_total,
+          costo_estimado: p.costo_estimado,
+          margen_estimado: p.margen_estimado,
+          margen_porcentaje: p.margen_estimado ? 
+            parseFloat(((p.margen_estimado / p.presupuesto_total) * 100).toFixed(2)) : 0,
+          estado: p.estado,
+          fecha_inicio: p.fecha_inicio,
+          fecha_fin: p.fecha_fin
+        }))
+      };
+    });
+    
+    // Ordernar clientes por margen total
+    resumenClientes.sort((a, b) => b.metricas.margen_total - a.metricas.margen_total);
+    
+    // Calcular totales generales
+    const totalPresupuesto = resumenClientes.reduce((sum, c) => sum + c.metricas.presupuesto_total, 0);
+    const totalCosto = resumenClientes.reduce((sum, c) => sum + c.metricas.costo_total, 0);
+    const totalMargen = totalPresupuesto - totalCosto;
+    const totalMargenPorcentaje = totalPresupuesto > 0 ? (totalMargen / totalPresupuesto * 100) : 0;
+    
+    const reporte = {
+      anio,
+      fecha_generacion: new Date(),
+      resumen_general: {
+        total_clientes: clientes.length,
+        total_proyectos: clientes.reduce((sum, c) => sum + c.Proyectos.length, 0),
+        presupuesto_total: totalPresupuesto,
+        costo_total: totalCosto,
+        margen_total: totalMargen,
+        margen_porcentaje: parseFloat(totalMargenPorcentaje.toFixed(2))
+      },
+      clientes: resumenClientes
+    };
+    
+    res.status(200).json(reporte);
+  } catch (error) {
+    console.error('Error al generar reporte de rentabilidad por clientes:', error);
+    res.status(500).json({ 
+      message: 'Error al generar reporte de rentabilidad por clientes', 
+      error: error.message 
+    });
+  }
+};
+
+// Generar reporte detallado de un proyecto específico
+exports.reporteDetalladoProyecto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const proyecto = await Proyecto.findByPk(id, {
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social', 'rut']
+        },
+        {
+          model: Usuario,
+          as: 'Responsable',
+          attributes: ['id', 'nombre', 'apellido']
+        },
+        {
+          model: CostoProyecto,
+          as: 'CostoProyectos',
+          attributes: ['id', 'proyecto_id', 'concepto', 'tipo_costo', 'monto', 'fecha', 'estado', 'proveedor', 'aprobado', 'aprobado_por']
+        },
+        {
+          model: HitoProyecto,
+          as: 'Hitos',
+          include: [
+            {
+              model: Usuario,
+              as: 'Usuario',
+              attributes: ['id', 'nombre', 'apellido']
+            }
+          ]
+        },
+        {
+          model: AvanceProyecto,
+          as: 'Avances',
+          limit: 10,
+          order: [['created_at', 'DESC']],
+          include: [
+            {
+              model: Usuario,
+              as: 'Usuario',
+              attributes: ['id', 'nombre', 'apellido']
+            }
+          ]
+        }
+      ]
+    });
+    
+    if (!proyecto) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Calcular métricas financieras
+    const costosTotales = proyecto.CostoProyectos.reduce((sum, costo) => sum + parseFloat(costo.monto || 0), 0);
+    const presupuesto = parseFloat(proyecto.presupuesto || 0);
+    const margen = presupuesto - costosTotales;
+    const margenPorcentaje = presupuesto > 0 ? (margen / presupuesto * 100) : 0;
+    
+    // Agrupar costos por categoría
+    const costosPorCategoria = {};
+    proyecto.CostoProyectos.forEach(costo => {
+      if (!costosPorCategoria[costo.tipo_costo]) {
+        costosPorCategoria[costo.tipo_costo] = 0;
+      }
+      costosPorCategoria[costo.tipo_costo] += parseFloat(costo.monto || 0);
+    });
+    
+    // Construir respuesta
+    const reporte = {
+      fecha_generacion: new Date(),
+      proyecto: {
+        id: proyecto.id,
+        nombre: proyecto.nombre,
+        descripcion: proyecto.descripcion,
+        cliente: proyecto.Cliente ? proyecto.Cliente.razon_social : 'Sin cliente',
+        responsable: proyecto.Responsable 
+          ? `${proyecto.Responsable.nombre} ${proyecto.Responsable.apellido}`
+          : 'Sin asignar',
+        estado: proyecto.estado,
+        prioridad: proyecto.prioridad,
+        porcentaje_avance: proyecto.porcentaje_avance,
+        fecha_inicio: proyecto.fecha_inicio,
+        fecha_fin: proyecto.fecha_fin,
+        observaciones: proyecto.observaciones
+      },
+      finanzas: {
+        presupuesto: proyecto.presupuesto,
+        costo_actual: costosTotales,
+        margen_actual: margen,
+        margen_porcentaje: parseFloat(margenPorcentaje.toFixed(2)),
+        costos_por_categoria: costosPorCategoria
+      },
+      hitos: {
+        total: proyecto.Hitos.length,
+        completados: proyecto.Hitos.filter(h => h.completado).length,
+        pendientes: proyecto.Hitos.filter(h => !h.completado).length
+      },
+      avance: {
+        porcentaje_actual: proyecto.porcentaje_avance,
+        porcentaje_esperado: proyecto.porcentaje_esperado,
+        desviacion_avance: proyecto.desviacion_avance,
+        estado_avance: proyecto.estado_avance,
+        dias_transcurridos: proyecto.dias_transcurridos,
+        dias_restantes: proyecto.dias_restantes
+      },
+      historial_reciente: proyecto.Avances.map(a => ({
+        fecha: a.fecha,
+        porcentaje_anterior: a.porcentaje_anterior,
+        porcentaje_nuevo: a.porcentaje_nuevo,
+        incremento: a.porcentaje_nuevo - a.porcentaje_anterior,
+        nota: a.nota,
+        usuario: a.Usuario ? `${a.Usuario.nombre} ${a.Usuario.apellido}` : 'Sistema'
+      }))
+    };
+    
+    res.status(200).json(reporte);
+  } catch (error) {
+    console.error('Error al generar reporte detallado del proyecto:', error);
+    res.status(500).json({ 
+      message: 'Error al generar reporte detallado del proyecto', 
+      error: error.message 
+    });
+  }
+};
+
+// Convertir proyecto a venta
+exports.convertirAVenta = async (req, res) => {
+  const t = await sequelize.transaction();
+  
+  try {
+    const { id } = req.params;
+    
+    // Buscar el proyecto
+    const proyecto = await Proyecto.findByPk(id, {
+      include: [
+        {
+          model: Cliente,
+          as: 'Cliente',
+          attributes: ['id', 'razon_social']
+        }
+      ]
+    });
+    
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Verificar que el proyecto no esté ya en estado "en_curso"
+    if (proyecto.estado === 'en_curso') {
+      await t.rollback();
+      return res.status(400).json({ message: 'El proyecto ya está en curso' });
+    }
+    
+    // Actualizar estado del proyecto a "en_curso"
+    await proyecto.update({
+      estado: 'en_curso',
+      usuario_modificacion_id: req.usuario.id
+    }, { transaction: t });
+    
+    // Crear registro de venta
+    const Venta = sequelize.models.Venta;
+    
+    if (!Venta) {
+      await t.rollback();
+      return res.status(500).json({ message: 'Error en el modelo de Venta' });
+    }
+    
+    // Definir solo los campos que existen en la tabla real
+    const ventaData = {
+      cliente_id: proyecto.cliente_id,
+      proyecto_id: proyecto.id,
+      titulo: `Venta de proyecto: ${proyecto.nombre}`,
+      descripcion: proyecto.descripcion,
+      fecha_venta: new Date(),
+      monto_neto: proyecto.presupuesto,
+      iva: proyecto.presupuesto * 0.19, // IVA 19%
+      monto_total: proyecto.presupuesto * 1.19,
+      estado: 'en_proceso',
+      usuario_id: req.usuario.id
+    };
+    
+    // Especificar exactamente los campos existentes en la tabla
+    const venta = await Venta.create(ventaData, { 
+      transaction: t,
+      fields: [
+        'cliente_id',
+        'proyecto_id',
+        'titulo',
+        'descripcion',
+        'fecha_venta',
+        'monto_neto',
+        'iva',
+        'monto_total',
+        'estado',
+        'usuario_id'
+      ]
+    });
+    
+    await t.commit();
+    
+    res.status(200).json({
+      message: 'Proyecto convertido a venta exitosamente',
+      proyecto: {
+        id: proyecto.id,
+        nombre: proyecto.nombre,
+        estado: proyecto.estado
+      },
+      venta: {
+        id: venta.id,
+        monto_total: venta.monto_total
+      }
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al convertir proyecto a venta:', error);
+    res.status(500).json({ 
+      message: 'Error al convertir proyecto a venta', 
+      error: error.message 
+    });
+  }
+};
+
+// Añadir un costo a un proyecto
+exports.addCosto = async (req, res) => {
+  const t = await sequelize.transaction();
+  
+  try {
+    const { id } = req.params;
+    
+    // Verificar que el proyecto existe
+    const proyecto = await Proyecto.findByPk(id);
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    console.log('Estado inicial del proyecto:', {
+      id: proyecto.id,
+      presupuesto: proyecto.presupuesto,
+      costo_real: proyecto.costo_real
+    });
+    
+    // Preparar los datos del costo
+    let { // <-- Cambiar const a let para poder modificar aplica_iva
+      concepto, 
+      tipo_costo, 
+      monto, 
+      fecha, 
+      proveedor,
+      aprobado,
+      aprobado_por,
+      tipo_documento,
+      fecha_documento,
+      observaciones,
+      incluido_rentabilidad = true,
+      aplica_iva = true,
+      aplica_honorarios = false 
+    } = req.body;
+    
+    // ... (validaciones)
+
+    // Forzar regla de negocio: si aplica_honorarios es true, aplica_iva debe ser false
+    if (aplica_honorarios === true) {
+        aplica_iva = false;
+    }
+    
+    // Definir solo los campos que existen en la tabla
+    const dataCosto = {
+      proyecto_id: id,
+      concepto: concepto, 
+      tipo_costo,
+      monto,
+      fecha,
+      proveedor,
+      estado: 'ejecutado', 
+      usuario_id: req.usuario?.id || 1, 
+      aplica_iva: aplica_iva, // <-- Se usa el valor ya forzado
+      aplica_honorarios: aplica_honorarios,
+      // --- INICIO: Añadir campos de aprobación --- 
+      aprobado: aprobado || false, 
+      aprobado_por: aprobado ? (aprobado_por || null) : null // Guardar null si no está aprobado o no se especifica quién aprobó
+      // --- FIN: Añadir campos de aprobación ---
+    };
+    
+    // Añadir campos opcionales adicionales si están presentes
+    if (tipo_documento) dataCosto.tipo_documento = tipo_documento;
+    if (fecha_documento) dataCosto.fecha_documento = fecha_documento;
+    if (observaciones) dataCosto.observaciones = observaciones;
+    if (incluido_rentabilidad !== undefined) dataCosto.incluido_rentabilidad = incluido_rentabilidad;
+    // --- FIN: Añadir campos opcionales ---
+    
+    // Crear el registro de costo
+    const costoProyecto = await CostoProyecto.create(dataCosto, { transaction: t });
+    
+    // Obtener el proyecto actualizado para verificar el costo_real
+    const proyectoActualizado = await Proyecto.findByPk(id, { transaction: t });
+    
+    console.log('Estado final del proyecto después de añadir el costo:', {
+      id: proyectoActualizado.id,
+      presupuesto: proyectoActualizado.presupuesto,
+      costo_real: proyectoActualizado.costo_real
+    });
+    
+    await t.commit();
+    
+    res.status(201).json({
+      message: 'Costo añadido exitosamente',
+      costo: costoProyecto,
+      proyecto: {
+        id: proyectoActualizado.id,
+        presupuesto: proyectoActualizado.presupuesto,
+        costo_real: proyectoActualizado.costo_real
+      }
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al añadir costo:', error);
+    res.status(500).json({ message: 'Error al añadir costo', error: error.message });
+  }
+};
+
+// Actualizar un costo de un proyecto
+exports.updateCosto = async (req, res) => {
+  const t = await sequelize.transaction();
+  
+  try {
+    const { id, costoId } = req.params;
+    
+    // Verificar que el proyecto existe
+    const proyecto = await Proyecto.findByPk(id);
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Verificar que el costo existe y pertenece al proyecto
+    const costoExistente = await CostoProyecto.findOne({
+      where: { id: costoId, proyecto_id: id }
+    });
+    
+    if (!costoExistente) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Costo no encontrado para este proyecto' });
+    }
+    
+    // Preparar los datos actualizados del costo
+    let {
+      concepto, 
+      tipo_costo, 
+      monto, 
+      fecha, 
+      proveedor,
+      aprobado,
+      aprobado_por,
+      tipo_documento,
+      fecha_documento,
+      observaciones,
+      incluido_rentabilidad = true,
+      aplica_iva = true,
+      aplica_honorarios = false 
+    } = req.body;
+    
+    // Forzar regla de negocio: si aplica_honorarios es true, aplica_iva debe ser false
+    if (aplica_honorarios === true) {
+        aplica_iva = false;
+    }
+    
+    // Definir solo los campos que se van a actualizar
+    const dataCosto = {
+      concepto: concepto, 
+      tipo_costo,
+      monto,
+      fecha,
+      proveedor,
+      usuario_id: req.usuario?.id || costoExistente.usuario_id, 
+      aplica_iva: aplica_iva,
+      aplica_honorarios: aplica_honorarios
+    };
+    
+    // Añadir campos opcionales si están presentes
+    if (aprobado !== undefined) dataCosto.aprobado = aprobado;
+    if (aprobado_por !== undefined) dataCosto.aprobado_por = aprobado_por;
+    if (tipo_documento) dataCosto.tipo_documento = tipo_documento;
+    if (fecha_documento) dataCosto.fecha_documento = fecha_documento;
+    if (observaciones) dataCosto.observaciones = observaciones;
+    if (incluido_rentabilidad !== undefined) dataCosto.incluido_rentabilidad = incluido_rentabilidad;
+    
+    // Actualizar el registro de costo
+    await CostoProyecto.update(dataCosto, { 
+      where: { id: costoId, proyecto_id: id },
+      transaction: t 
+    });
+    
+    // Obtener el costo actualizado
+    const costoActualizado = await CostoProyecto.findByPk(costoId, { transaction: t });
+    
+    await t.commit();
+    
+    res.status(200).json({
+      message: 'Costo actualizado exitosamente',
+      costo: costoActualizado
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al actualizar costo:', error);
+    res.status(500).json({ message: 'Error al actualizar costo', error: error.message });
+  }
+};
+
+// Eliminar un costo de un proyecto
+exports.deleteCosto = async (req, res) => {
+  const { id, costoId } = req.params;
+  const t = await sequelize.transaction();
+  
+  try {
+    // Verificar si el proyecto existe
+    const proyecto = await Proyecto.findByPk(id);
+    if (!proyecto) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Buscar el costo para obtener su monto antes de eliminarlo
+    const costo = await CostoProyecto.findOne({
+      where: { id: costoId, proyecto_id: id }
+    });
+    
+    if (!costo) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Costo no encontrado para este proyecto' });
+    }
+    
+    // Eliminar el costo
+    await CostoProyecto.destroy({
+      where: { id: costoId, proyecto_id: id },
+      transaction: t
+    });
+    
+    await t.commit();
+    return res.status(200).json({ 
+      message: 'Costo eliminado correctamente',
+      costoId
+    });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al eliminar costo del proyecto:', error);
+    return res.status(500).json({ 
+      message: 'Error al eliminar costo del proyecto',
+      error: error.message 
+    });
+  }
+}; 
+
+// Obtener cursos asociados a un proyecto
+exports.getCursos = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Verificar que el proyecto existe
+    const proyecto = await Proyecto.findByPk(id);
+    if (!proyecto) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
+    
+    // Buscar los cursos relacionados con este proyecto
+    const cursos = await Curso.findAll({
+      where: { proyecto_id: id },
+      attributes: [
+        'id', 'nombre', 'codigo_sence', 'id_sence', 'duracion_horas', 'valor_total', 'valor_participante',
+        'nro_participantes', 'modalidad', 'estado_sence', 'fecha_inicio', 'fecha_fin',
+        'tipo_de_contrato', 'estado_pre_contrato', 'fecha_creacion', 'fecha_actualizacion'
+      ]
+    });
+    
+    res.status(200).json({
+      proyecto_id: id,
+      cursos
+    });
+  } catch (error) {
+    console.error('Error al obtener cursos del proyecto:', error);
+    res.status(500).json({ message: 'Error al obtener cursos del proyecto', error: error.message });
+  }
+};
+
+/**
+ * Obtiene los detalles completos de un proyecto incluyendo cliente y responsable
+ */
+exports.getDetallesCompletos = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const proyecto = await Proyecto.findByPk(id, {
+      include: [
+        {
+          model: Cliente,
+          attributes: ['id', 'razon_social', 'rut', 'contacto_email', 'contacto_nombre', 'contacto_telefono']
+        },
+        {
+          model: Usuario,
+          as: 'Responsable',
+          attributes: ['id', 'nombre', 'apellido', 'email']
+        },
+        {
+          model: Curso,
+          as: 'Cursos',
+          attributes: [
+            'id', 'nombre', 'codigo_sence', 'duracion_horas', 'valor_total', 
+            'nro_participantes', 'modalidad', 'estado_sence', 
+            'tipo_de_contrato', 'estado_pre_contrato'
+          ]
+        }
+      ]
+    });
+    
+    if (!proyecto) {
+      return res.status(404).json({
+        success: false,
+        message: 'Proyecto no encontrado'
+      });
+    }
+    
+    return res.status(200).json({
+      success: true,
+      data: proyecto
+    });
+  } catch (error) {
+    console.error('Error al obtener detalles completos del proyecto:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener detalles completos del proyecto',
+      error: error.message
+    });
+  }
+};

@@ -1,0 +1,4 @@
+curso_id,rut,nombre,apellido,email,telefono,empresa,cargo,estado,fecha_inscripcion,created_at,updated_at
+33,12345678-9,Juan,Pérez,juan.perez@email.com,+56912345678,Empresa1,Operario,inscrito,2024-05-18,2024-05-18,2024-05-18
+33,98765432-1,Ana,Gómez,ana.gomez@email.com,+56987654321,Empresa2,Administrativa,inscrito,2024-05-18,2024-05-18,2024-05-18
+33,11222333-4,Carlos,Ruiz,carlos.ruiz@email.com,+56911223344,Empresa3,Supervisor,inscrito,2024-05-18,2024-05-18,2024-05-18 

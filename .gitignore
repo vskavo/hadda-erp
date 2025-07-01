@@ -1,0 +1,47 @@
+# Logs
+logs/
+*.log
+db_error.log
+error.log
+
+# Node.js
+# Ignorar node_modules en la raíz y en subdirectorios
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de bloqueo de paquetes
+# Es recomendable versionar uno de estos (package-lock.json o yarn.lock)
+# Si usas npm y quieres versionar package-lock.json, puedes comentar la siguiente línea o eliminarla.
+# Si no estás seguro, es bueno versionarlo para asegurar builds consistentes.
+# package-lock.json
+# yarn.lock
+
+# Frontend (Create React App)
+frontend/build/
+# frontend/.DS_Store # Descomentar si usuarios de macOS trabajan en el proyecto
+
+# Variables de entorno
+.env
+.env.*
+!/.env.example # A menudo se versiona un .env.example para mostrar las variables necesarias
+
+# Archivos de IDE y sistema operativo
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+Thumbs.db
+.DS_Store # Para macOS, en la raíz del proyecto
+
+# Backups (basado en tu estructura de carpetas)
+backups/
+
+# Archivos específicos de test de Jest
+/coverage # Carpeta de reportes de cobertura de Jest
+
+# Archivos de dependencias de desarrollo (si se generan)
+# Por ejemplo, si alguna herramienta genera archivos temporales en la raíz 
