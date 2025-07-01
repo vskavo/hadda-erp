@@ -21,7 +21,7 @@ exports.esAdministrador = async (req, res, next) => {
     }
 
     // Verificar si el rol es administrador por su nombre
-    if (usuario.Rol.nombre === 'administrador') {
+    if (usuario.Rol.nombre.toLowerCase() === 'administrador') {
       return next();
     }
 
@@ -72,7 +72,7 @@ exports.esFinanciero = async (req, res, next) => {
     }
 
     // Verificar si el rol es administrador o financiero por su nombre
-    if (usuario.Rol.nombre === 'administrador' || usuario.Rol.nombre === 'financiero') {
+    if (usuario.Rol.nombre.toLowerCase() === 'administrador' || usuario.Rol.nombre.toLowerCase() === 'financiero') {
       return next();
     }
 
@@ -123,7 +123,7 @@ exports.esSupervisor = async (req, res, next) => {
     }
 
     // Verificar si el rol es administrador o supervisor por su nombre
-    if (usuario.Rol.nombre === 'administrador' || usuario.Rol.nombre === 'supervisor') {
+    if (usuario.Rol.nombre.toLowerCase() === 'administrador' || usuario.Rol.nombre.toLowerCase() === 'supervisor') {
       return next();
     }
 
@@ -182,7 +182,7 @@ exports.tienePermiso = (codigoPermiso) => {
       console.log(`[DEBUG][tienePermiso] Rol del usuario: "${nombreRolUsuario}" (ID: ${idRolUsuario})`);
 
       // Si es administrador, permitimos acceso a todo
-      if (nombreRolUsuario === 'administrador') {
+      if (nombreRolUsuario.toLowerCase() === 'administrador') {
         console.log(`[DEBUG][tienePermiso] Usuario es administrador. Permitiendo acceso.`);
         return next();
       }

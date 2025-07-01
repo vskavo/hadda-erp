@@ -67,7 +67,7 @@ const menuItems = [
 const adminMenuItems = [
   { name: 'Usuarios', icon: <ManageAccountsIcon />, path: '/admin/users', permission: 'admin:users:manage' },
   { name: 'Gestión de Roles', icon: <LockPersonIcon />, path: '/admin/roles', permission: 'admin:roles:manage' },
-  { name: 'Configuraciones ERP', icon: <SettingsIcon />, path: '/admin/configuraciones-erp', permission: null },
+  { name: 'Configuraciones ERP', icon: <SettingsIcon />, path: '/admin/configuraciones-erp', permission: 'admin:settings:manage' },
 ];
 
 const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
@@ -104,7 +104,7 @@ const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {
   }
 
   // El rol de admin se maneja dentro de hasPermission ahora
-  const isAdmin = user?.rol === 'administrador'; 
+  const isAdmin = user?.rol && user.rol.toLowerCase() === 'administrador'; 
 
   // Filtrar menú principal basado en permisos
   const filteredMenuItems = menuItems.filter((item) => 

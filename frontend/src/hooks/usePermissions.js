@@ -55,7 +55,8 @@ export const usePermissions = () => {
     if (error) return false; 
     
     // El administrador siempre tiene todos los permisos (ajustar nombre si es necesario)
-    if (user?.rol === 'administrador') return true; 
+    // Hacemos la comparación insensible a mayúsculas/minúsculas
+    if (user?.rol && (user.rol.toLowerCase() === 'administrador')) return true; 
     
     // Verificar si el permiso está en la lista del usuario
     return permissions.includes(requiredPermission);
