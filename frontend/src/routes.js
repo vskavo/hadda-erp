@@ -9,7 +9,7 @@ import { PrivateRoute } from './components/auth';
 
 // Importaciones de módulos
 import { ClientesList, ClienteDetail } from './pages/clientes';
-import { ProyectosList, ProyectoRentabilidad, ProyectoSeguimiento } from './pages/proyectos';
+import { ProyectosList, ProyectoRentabilidad, ProyectoSeguimiento, ProyectoForm } from './pages/proyectos';
 import { CursosList } from './pages/cursos';
 import { UsersList, UserDetail } from './pages/users';
 import { FacturasList, FacturaDetail } from './pages/finanzas';
@@ -20,6 +20,8 @@ import { ReportesList, ReporteDetail, GeneradorReportes } from './pages/reportes
 
 // Importar los nuevos componentes de gestión de roles
 import { RolesList, RolForm } from './pages/administracion/roles'; // Asegúrate que la ruta de importación sea correcta
+// Importar el componente de configuraciones
+import ConfiguracionesERP from './pages/administracion/configuraciones/ConfiguracionesERP';
 
 const AppRoutes = () => {
   return (
@@ -65,9 +67,14 @@ const AppRoutes = () => {
         path="/administracion/roles/nuevo" 
         element={<PrivateRoute><RolForm /></PrivateRoute>} 
       />
-       <Route 
+      <Route 
         path="/administracion/roles/editar/:id" 
         element={<PrivateRoute><RolForm /></PrivateRoute>} 
+      />
+      {/* Administración - Configuraciones */}
+      <Route 
+        path="/admin/configuraciones-erp" 
+        element={<PrivateRoute><ConfiguracionesERP /></PrivateRoute>} 
       />
       
       {/* Finanzas */}
