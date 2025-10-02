@@ -22,35 +22,26 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
-          cache: 'npm'
 
-      - name: Create deployment package (exclude node_modules)
+      - name: Remove all node_modules before upload
         run: |
-          zip -r node-app.zip . \
-            -x "node_modules/*" \
-            -x "backend/node_modules/*" \
-            -x "frontend/node_modules/*" \
-            -x "**/node_modules/*" \
-            -x ".git/*" \
-            -x ".github/*" \
-            -x "*.log" \
-            -x "logs/*" \
-            -x "backups/*" \
-            -x "backend/backups/*" \
-            -x "coverage/*" \
-            -x "test_*.js" \
-            -x "test-*.js" \
-            -x "*.xml" \
-            -x "*.csv" \
-            -x "docs/*" \
-            -x ".vscode/*" \
-            -x ".idea/*"
+          rm -rf node_modules || true
+          rm -rf backend/node_modules || true
+          rm -rf frontend/node_modules || true
+          find . -type d -name "node_modules" -prune -exec rm -rf {} + || true
+          rm -rf logs || true
+          rm -rf backups || true
+          rm -rf backend/backups || true
+          rm -f *.log || true
+          echo "Remaining files:"
+          find . -type f | wc -l
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: node-app.zip
+          path: .
+          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,9 +55,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-      
-      - name: Unzip artifact for deployment
-        run: unzip node-app.zip
       
       - name: Login to Azure
         uses: azure/login@v2
