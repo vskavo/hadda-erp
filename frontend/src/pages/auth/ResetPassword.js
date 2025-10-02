@@ -21,8 +21,7 @@ const ResetPassword = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [validatingToken, setValidatingToken] = useState(true);
-  const [tokenValid, setTokenValid] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+    const [tokenValid, setTokenValid] = useState(false);
   const { token } = useParams();
   const navigate = useNavigate();
 

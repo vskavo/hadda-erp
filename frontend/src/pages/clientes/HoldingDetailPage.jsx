@@ -22,8 +22,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Slider,
-  TextField
+  Slider
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -65,10 +64,10 @@ const HoldingDetailPage = () => {
   // Calcular valores únicos para los selects y el rango de montos
   useEffect(() => {
     if (!detalle) return;
-    // RUTs únicos
-    const ruts = detalle.empresas.map(e => e.rut).filter(Boolean);
-    // Nombres únicos
-    const nombres = detalle.empresas.map(e => e.razonSocial).filter(Boolean);
+    // RUTs únicos (disponibles en el detalle)
+    // const ruts = detalle.empresas.map(e => e.rut).filter(Boolean);
+    // Nombres únicos (disponibles en el detalle)
+    // const nombres = detalle.empresas.map(e => e.razonSocial).filter(Boolean);
     // Proyectos únicos
     const proyectos = [];
     detalle.empresas.forEach(e => {

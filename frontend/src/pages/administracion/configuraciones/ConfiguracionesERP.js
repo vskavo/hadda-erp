@@ -9,7 +9,6 @@ import {
     CircularProgress, 
     Alert,
     FormControl, // Para agrupar label y input si es necesario
-    FormHelperText, // Para descripción
     InputAdornment, // Para unidades como %
     Table,
     TableBody,
@@ -18,7 +17,6 @@ import {
     TableHead,
     TableRow,
     IconButton,
-    Divider, // Para separar secciones
     Tooltip,
     Skeleton,
     Autocomplete,
@@ -38,6 +36,7 @@ import comisionService from '../../../services/comisionService'; // Importar nue
 import rolesService from '../../../services/rolesService'; // Importar servicio de roles
 import otecDataService from '../../../services/otecDataService';
 import usuariosSenceService from '../../../services/usuariosSenceService';
+import usuarioSiiService from '../../../services/usuarioSiiService';
 
 // Claves de las configuraciones que queremos manejar
 const CONFIG_KEYS = [
@@ -91,11 +90,22 @@ const ConfiguracionesERP = () => {
     const [isAddingUsuarioSence, setIsAddingUsuarioSence] = useState(false);
     const [isDeletingUsuarioSence, setIsDeletingUsuarioSence] = useState(null);
 
+    // Estado para Usuarios Servicio de Impuestos Internos
+    const [usuariosSiiList, setUsuariosSiiList] = useState([]);
+    const [loadingUsuariosSii, setLoadingUsuariosSii] = useState(true);
+    const [errorUsuariosSii, setErrorUsuariosSii] = useState(null);
+    const [newUsuarioSii, setNewUsuarioSii] = useState({ rut: '', nombre: '', clave_unica: '' });
+    const [isAddingUsuarioSii, setIsAddingUsuarioSii] = useState(false);
+    const [isDeletingUsuarioSii, setIsDeletingUsuarioSii] = useState(null);
+
     const [tabIndex, setTabIndex] = useState(0);
     const handleTabChange = (event, newValue) => setTabIndex(newValue);
 
     const [editUsuarioSence, setEditUsuarioSence] = useState({ rut: null, nombre: '', clave_unica: '' });
     const [isSavingUsuarioSence, setIsSavingUsuarioSence] = useState(null);
+
+    const [editUsuarioSii, setEditUsuarioSii] = useState({ rut: null, nombre: '', clave_unica: '' });
+    const [isSavingUsuarioSii, setIsSavingUsuarioSii] = useState(null);
 
     useEffect(() => {
         const fetchSettings = async () => {
@@ -208,6 +218,23 @@ const ConfiguracionesERP = () => {
             }
         };
         fetchUsuariosSence();
+    }, []);
+
+    // Cargar usuarios Servicio de Impuestos Internos
+    useEffect(() => {
+        const fetchUsuariosSii = async () => {
+            setLoadingUsuariosSii(true);
+            setErrorUsuariosSii(null);
+            try {
+                const data = await usuarioSiiService.getUsuariosSii();
+                setUsuariosSiiList(data);
+            } catch (err) {
+                setErrorUsuariosSii('Error al cargar los usuarios Servicio de Impuestos Internos.');
+            } finally {
+                setLoadingUsuariosSii(false);
+            }
+        };
+        fetchUsuariosSii();
     }, []);
 
     const handleChange = (key, value) => {
@@ -431,6 +458,11 @@ const ConfiguracionesERP = () => {
         setErrorUsuariosSence(null);
     };
 
+    const handleChangeUsuarioSii = (e) => {
+        setNewUsuarioSii({ ...newUsuarioSii, [e.target.name]: e.target.value });
+        setErrorUsuariosSii(null);
+    };
+
     const handleAddUsuarioSence = async () => {
         if (!newUsuarioSence.rut || !newUsuarioSence.nombre || !newUsuarioSence.clave_unica) {
             setErrorUsuariosSence('Todos los campos son obligatorios.');
@@ -499,7 +531,75 @@ const ConfiguracionesERP = () => {
         }
     };
 
-    if (loading || loadingRoles || loadingComisiones || loadingOtec || loadingUsuariosSence) { 
+    const handleAddUsuarioSii = async () => {
+        if (!newUsuarioSii.rut || !newUsuarioSii.nombre || !newUsuarioSii.clave_unica) {
+            setErrorUsuariosSii('Todos los campos son obligatorios.');
+            return;
+        }
+        setIsAddingUsuarioSii(true);
+        setErrorUsuariosSii(null);
+        try {
+            await usuarioSiiService.createUsuarioSii(newUsuarioSii);
+            setNewUsuarioSii({ rut: '', nombre: '', clave_unica: '' });
+            const data = await usuarioSiiService.getUsuariosSii();
+            setUsuariosSiiList(data);
+        } catch (err) {
+            setErrorUsuariosSii(err.message || 'Error al agregar el usuario Servicio de Impuestos Internos.');
+        } finally {
+            setIsAddingUsuarioSii(false);
+        }
+    };
+
+    const handleDeleteUsuarioSii = async (rut) => {
+        setIsDeletingUsuarioSii(rut);
+        setErrorUsuariosSii(null);
+        try {
+            await usuarioSiiService.deleteUsuarioSii(rut);
+            setUsuariosSiiList(usuariosSiiList.filter(item => item.rut !== rut));
+        } catch (err) {
+            setErrorUsuariosSii(err.message || 'Error al eliminar el usuario Servicio de Impuestos Internos.');
+        } finally {
+            setIsDeletingUsuarioSii(null);
+        }
+    };
+
+    const handleEditUsuarioSiiClick = (usuario) => {
+        setEditUsuarioSii({ rut: usuario.rut, nombre: usuario.nombre, clave_unica: usuario.clave_unica });
+        setErrorUsuariosSii(null);
+    };
+
+    const handleCancelEditUsuarioSii = () => {
+        setEditUsuarioSii({ rut: null, nombre: '', clave_unica: '' });
+        setErrorUsuariosSii(null);
+    };
+
+    const handleEditUsuarioSiiChange = (e) => {
+        setEditUsuarioSii({ ...editUsuarioSii, [e.target.name]: e.target.value });
+    };
+
+    const handleSaveEditUsuarioSii = async () => {
+        if (!editUsuarioSii.nombre || !editUsuarioSii.clave_unica) {
+            setErrorUsuariosSii('Todos los campos son obligatorios.');
+            return;
+        }
+        setIsSavingUsuarioSii(editUsuarioSii.rut);
+        setErrorUsuariosSii(null);
+        try {
+            await usuarioSiiService.updateUsuarioSii(editUsuarioSii.rut, {
+                nombre: editUsuarioSii.nombre,
+                clave_unica: editUsuarioSii.clave_unica
+            });
+            setEditUsuarioSii({ rut: null, nombre: '', clave_unica: '' });
+            const data = await usuarioSiiService.getUsuariosSii();
+            setUsuariosSiiList(data);
+        } catch (err) {
+            setErrorUsuariosSii(err.message || 'Error al actualizar el usuario Servicio de Impuestos Internos.');
+        } finally {
+            setIsSavingUsuarioSii(null);
+        }
+    };
+
+    if (loading || loadingRoles || loadingComisiones || loadingOtec || loadingUsuariosSence || loadingUsuariosSii) { 
         return <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}><CircularProgress /></Box>;
     }
 
@@ -513,6 +613,7 @@ const ConfiguracionesERP = () => {
                 <Tab label="Información OTEC" />
                 <Tab label="Rangos de Comisión" />
                 <Tab label="Usuarios Sence" />
+                <Tab label="Usuarios Servicio de Impuestos Internos" />
             </Tabs>
             {tabIndex === 0 && (
                 <Box>
@@ -1019,6 +1120,162 @@ const ConfiguracionesERP = () => {
                                                                     disabled={isDeletingUsuarioSence === item.rut || !!editUsuarioSence.rut}
                                                                 >
                                                                     {isDeletingUsuarioSence === item.rut ? <CircularProgress size={20} /> : <DeleteIcon />}
+                                                                </IconButton>
+                                                            </span>
+                                                        </Tooltip>
+                                                    </TableCell>
+                                                </>
+                                            )}
+                                        </TableRow>
+                                    ))
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            )}
+            {tabIndex === 4 && (
+                <Box>
+                    <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                        Usuarios Servicio de Impuestos Internos
+                    </Typography>
+                    {errorUsuariosSii && <Alert severity="error" sx={{ mb: 2 }}>{errorUsuariosSii}</Alert>}
+                    <Box sx={{ mb: 2 }}>
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={12} sm={3}>
+                                <TextField
+                                    label="RUT Usuario SII"
+                                    name="rut"
+                                    value={newUsuarioSii.rut}
+                                    onChange={handleChangeUsuarioSii}
+                                    fullWidth
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4}>
+                                <TextField
+                                    label="Nombre Usuario SII"
+                                    name="nombre"
+                                    value={newUsuarioSii.nombre}
+                                    onChange={handleChangeUsuarioSii}
+                                    fullWidth
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+                                <TextField
+                                    label="Clave Única Usuario SII"
+                                    name="clave_unica"
+                                    value={newUsuarioSii.clave_unica}
+                                    onChange={handleChangeUsuarioSii}
+                                    fullWidth
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={2}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleAddUsuarioSii}
+                                    disabled={isAddingUsuarioSii}
+                                    startIcon={<AddIcon />}
+                                    fullWidth
+                                >
+                                    {isAddingUsuarioSii ? <CircularProgress size={20} /> : 'Agregar'}
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                    <TableContainer component={Paper} sx={{ mb: 4 }}>
+                        <Table size="small">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>RUT Usuario SII</TableCell>
+                                    <TableCell>Nombre</TableCell>
+                                    <TableCell>Clave Única</TableCell>
+                                    <TableCell align="right">Acciones</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {loadingUsuariosSii ? (
+                                    <TableRow>
+                                        <TableCell colSpan={4} align="center">
+                                            <CircularProgress size={24} />
+                                        </TableCell>
+                                    </TableRow>
+                                ) : usuariosSiiList.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={4} align="center">
+                                            No hay datos registrados.
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    usuariosSiiList.map((item) => (
+                                        <TableRow key={item.rut}>
+                                            {editUsuarioSii.rut === item.rut ? (
+                                                <>
+                                                    <TableCell>{item.rut}</TableCell>
+                                                    <TableCell>
+                                                        <TextField
+                                                            name="nombre"
+                                                            value={editUsuarioSii.nombre}
+                                                            onChange={handleEditUsuarioSiiChange}
+                                                            size="small"
+                                                            fullWidth
+                                                        />
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <TextField
+                                                            name="clave_unica"
+                                                            value={editUsuarioSii.clave_unica}
+                                                            onChange={handleEditUsuarioSiiChange}
+                                                            size="small"
+                                                            fullWidth
+                                                            type="password"
+                                                        />
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <Tooltip title="Guardar Cambios">
+                                                            <IconButton size="small" onClick={handleSaveEditUsuarioSii} disabled={isSavingUsuarioSii === item.rut}>
+                                                                {isSavingUsuarioSii === item.rut ? <CircularProgress size={20} /> : <SaveIcon fontSize="small" color="primary" />}
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                        <Tooltip title="Cancelar Edición">
+                                                            <IconButton size="small" onClick={handleCancelEditUsuarioSii} disabled={isSavingUsuarioSii === item.rut}>
+                                                                <CancelIcon fontSize="small" color="action" />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </TableCell>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <TableCell>{item.rut}</TableCell>
+                                                    <TableCell>{item.nombre}</TableCell>
+                                                    <TableCell>
+                                                        <TextField
+                                                            value={item.clave_unica}
+                                                            type="password"
+                                                            size="small"
+                                                            fullWidth
+                                                            disabled
+                                                        />
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <Tooltip title="Editar">
+                                                            <span>
+                                                                <IconButton color="primary" onClick={() => handleEditUsuarioSiiClick(item)} disabled={!!editUsuarioSii.rut}>
+                                                                    <EditIcon />
+                                                                </IconButton>
+                                                            </span>
+                                                        </Tooltip>
+                                                        <Tooltip title="Eliminar">
+                                                            <span>
+                                                                <IconButton
+                                                                    color="error"
+                                                                    onClick={() => handleDeleteUsuarioSii(item.rut)}
+                                                                    disabled={isDeletingUsuarioSii === item.rut || !!editUsuarioSii.rut}
+                                                                >
+                                                                    {isDeletingUsuarioSii === item.rut ? <CircularProgress size={20} /> : <DeleteIcon />}
                                                                 </IconButton>
                                                             </span>
                                                         </Tooltip>

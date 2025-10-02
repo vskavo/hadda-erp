@@ -94,7 +94,7 @@ const includeFacturaGeneral = {
 const includeCuentaBancariaFindAll = {
   model: CuentaBancaria,
   as: 'CuentaBancaria',
-  attributes: ['id', 'nombre_banco', 'tipo_cuenta', 'numero_cuenta'],
+  attributes: ['id', 'banco', 'tipo_cuenta', 'numero_cuenta'],
   required: false
 };
 const includeUsuarioFindAll = {

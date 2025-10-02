@@ -219,6 +219,22 @@ try {
   } catch (error) {
     console.error('❌ Error al cargar rutas de egresos:', error);
   }
+
+  try {
+    const siiIngresoRoutes = require('./sii_ingreso.routes');
+    router.use('/sii/ingresos', siiIngresoRoutes);
+    console.log('✅ Rutas de ingresos SII cargadas correctamente');
+  } catch (error) {
+    console.error('❌ Error al cargar rutas de ingresos SII:', error);
+  }
+
+  try {
+    const siiEgresoRoutes = require('./sii_egreso.routes');
+    router.use('/sii/egresos', siiEgresoRoutes);
+    console.log('✅ Rutas de egresos SII cargadas correctamente');
+  } catch (error) {
+    console.error('❌ Error al cargar rutas de egresos SII:', error);
+  }
   
   try {
     const conciliacionBancariaRoutes = require('./conciliacion-bancaria.routes');
@@ -294,6 +310,14 @@ try {
     console.log('✅ Rutas de Usuarios Sence cargadas correctamente');
   } catch (error) {
     console.error('❌ Error al cargar rutas de Usuarios Sence:', error);
+  }
+
+  try {
+    const usuarioSiiRoutes = require('./usuario-sii.routes');
+    router.use('/usuario-sii', usuarioSiiRoutes);
+    console.log('✅ Rutas de Usuarios Servicio de Impuestos Internos cargadas correctamente');
+  } catch (error) {
+    console.error('❌ Error al cargar rutas de Usuarios Servicio de Impuestos Internos:', error);
   }
   
   console.log('Todas las rutas configuradas correctamente.');

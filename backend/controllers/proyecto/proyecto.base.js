@@ -158,6 +158,11 @@ exports.create = async (req, res) => {
       comision_manual = null
     } = req.body;
     
+    // Validaciones
+    if (!fecha_fin) {
+      return res.status(400).json({ message: 'La fecha de fin es obligatoria.' });
+    }
+    
     // Validar cliente_id
     const cliente = await Cliente.findByPk(cliente_id);
     if (!cliente) {
@@ -392,6 +397,11 @@ exports.update = async (req, res) => {
       comision_manual = null
     } = req.body;
     
+    // Validaciones
+    if (fecha_fin !== undefined && !fecha_fin) {
+      return res.status(400).json({ message: 'La fecha de fin no puede ser nula.' });
+    }
+
     const usuario_modificacion_id = req.usuario.id;
 
     // Validar que el proyecto existe

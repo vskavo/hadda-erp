@@ -15,8 +15,6 @@ import {
   Avatar,
   Tab,
   Tabs,
-  IconButton,
-  Tooltip,
   Select,
   MenuItem,
   FormControl,
@@ -96,6 +94,7 @@ const ClienteDetail = () => {
   // Cargar datos del cliente
   useEffect(() => {
     fetchCliente();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // Función para cargar datos del cliente

@@ -83,6 +83,20 @@ const ExpandableRow = ({ proyecto, onEdit, onDelete, onRentabilidad, onSeguimien
     );
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Sin definir';
+    try {
+      // Corregido: new Date() puede parsear el formato ISO 8601 directamente.
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return 'Fecha inválida';
+      }
+      return format(date, 'dd/MM/yyyy', { locale: es });
+    } catch (error) {
+      return 'Fecha inválida';
+    }
+  };
+
   // Formato de estado
   const formatEstado = (estado) => {
     let color = 'default';
@@ -235,10 +249,10 @@ const ExpandableRow = ({ proyecto, onEdit, onDelete, onRentabilidad, onSeguimien
                   </Typography>
                   <Box>
                     <Typography variant="body2" color="text.secondary">
-                      Inicio: {proyecto.fecha_inicio ? format(new Date(proyecto.fecha_inicio + 'T00:00:00'), 'dd/MM/yyyy', { locale: es }) : 'Sin definir'}
+                      Inicio: {formatDate(proyecto.fecha_inicio)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Fin: {proyecto.fecha_fin ? format(new Date(proyecto.fecha_fin + 'T00:00:00'), 'dd/MM/yyyy', { locale: es }) : 'Sin definir'}
+                      Fin: {formatDate(proyecto.fecha_fin)}
                     </Typography>
                   </Box>
                 </Grid>

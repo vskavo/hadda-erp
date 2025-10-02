@@ -12,6 +12,7 @@ import settingService from './settingService';
 import cursoSenceService from './cursoSenceService';
 import cursoService from './cursoService';
 import comisionService from './comisionService';
+import { siiIngresosService, siiEgresosService, siiService } from './siiService';
 
 // Exportar los servicios
 export {
@@ -29,5 +30,8 @@ export {
   settingService,
   cursoSenceService,
   cursoService,
-  comisionService
+  comisionService,
+  siiIngresosService,
+  siiEgresosService,
+  siiService
 }; 

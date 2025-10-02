@@ -1,0 +1,2600 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SetDTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 138 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-5941">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>26</Folio>
+                    <FchEmis>2025-07-18</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76777175-4</RUTRecep>
+                    <RznSocRecep>SERVICIOS DE CAPACITACI�N Y FORMACI�N A PERSONAS BELCAP SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE CONSULTORIA DE GESTION</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151  OF1 P2</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>500000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>95000</IVA>
+                    <MntTotal>595000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>levantamiento informacion</NmbItem>
+                <DscItem>de curso Concientizaci�n de la
+seguridad aeroportuaria categor�a 1 inicial, 16 horas
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>500000.00</PrcItem>
+                <MontoItem>500000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>26</F>
+                    <FE>2025-07-18</FE>
+                    <RR>76777175-4</RR>
+                    <RSR>SERVICIOS DE CAPACITACI�N Y FORMACI�N A </RSR>
+                    <MNT>595000</MNT>
+                    <IT1>levantamiento informacion</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>26</D>
+                                <H>26</H>
+                            </RNG>
+                            <FA>2025-07-18</FA>
+                            <RSAPK>
+                                <M>uT8jfEq2EwmbRt/MCwIu6tOLV+pSrbKT4fPQl9lJu49kqs5hYnSv6CJYyZ4MuGkAvroTk0SAFz3O9pyJt3XA7w==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">fdFtDe1Lg8oIFLTaEN5BXGByPqTXS9XJ6q9+tQmYMI7ipZ4X1G5+HLM64AeUcyd3Ta1lf4wWDIg9uPOg9WDEkQ==</FRMA>
+                    </CAF>
+                    <TSTED>2025-07-18T09:59:18</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">CICuKXjKjdcTyiDhCWqqOAbCHYDomBKTi0qvLlKbxYVeoaQRqGCEwySTytNCWDE2ci9GGP388DW4iRMnkTgpxQ==</FRMT>
+            </TED>
+            <TmstFirma>2025-07-18T09:59:18</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-5941">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>nx4kdi+n8Pfkv7oqiSx7aJSmDdQ=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+qc4A4PCA9VNp31ms6KhfXQP/npGMqFoCPABX7gNm+DrBtpFrT+nqEv/JNtxFNvPMdXikbXKDOAP+
+IbRXTIT1G+9VXEl3iaxr/00UBEQcSaEbI0SmxLNNrG9iJtr3F4bopCsJJxyAuxOJQ09nDkMw2fek
+f//1Sp2erFtzKztmWBvmEsIQr26MBt+4GZUFH1L+5WKtg0yEUj48Ze4Y736Dp0XgGDUcyppbGsRA
+HMYhwpNEyNYlM+8WYLTfBjxt6m+Cc8IDc33ZU73Bh2Jz260X0ImDgqSdH/16AK0o2cUX4otc4O3E
+B7GuSzb3cZr+4+DJSD//lwJBQOS55iOQmWcNDg==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 138 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-26236">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>61</TipoDTE>
+                    <Folio>4</Folio>
+                    <FchEmis>2025-07-18</FchEmis>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntNeto>500000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>95000</IVA>
+                    <MntTotal>595000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>levantamiento informacion</NmbItem>
+                <DscItem>de curso Concientizaci�n de la
+seguridad aeroportuaria categor�a 1 inicial, 16 horas
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>500000.00</PrcItem>
+                <MontoItem>500000</MontoItem>
+            </Detalle>
+            <Referencia>
+                <NroLinRef>1</NroLinRef>
+                <TpoDocRef>33</TpoDocRef>
+                <FolioRef>25</FolioRef>
+                <FchRef>2025-07-10</FchRef>
+                <CodRef>1</CodRef>
+                <RazonRef>ANULA DOCUMENTO DE LA REFERENCIA</RazonRef>
+            </Referencia>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>61</TD>
+                    <F>4</F>
+                    <FE>2025-07-18</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>595000</MNT>
+                    <IT1>levantamiento informacion</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>61</TD>
+                            <RNG>
+                                <D>4</D>
+                                <H>4</H>
+                            </RNG>
+                            <FA>2025-07-18</FA>
+                            <RSAPK>
+                                <M>wHtSYZXcTQlKRNuPgRxKA4LXF8jcr6yUI1NrFkW6RCRBB0YKTv0QqdQ1JhRrmamp5C13it5SxS02Mzp7O7K63Q==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">PTL/DNAnhuYVxm06J2C7WPXf7bp44CWcoiSPjLnIm6OM8SDp1lt03L/i010rcqinaOPOv+iBY8shI09vOm3WWQ==</FRMA>
+                    </CAF>
+                    <TSTED>2025-07-18T09:57:15</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">GkWYkz/JmPJStQy/arLmqcFNc5V4nOdINKJWU/En8TfklhbW6saez+OCEJChIjJxR44PSdeDhFXvJ3Mo5RK1aA==</FRMT>
+            </TED>
+            <TmstFirma>2025-07-18T09:57:15</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-26236">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>QzCRXFr2F5alm929QPnKHHC6icc=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+Kd8CDXN+cPd6YY1RAun34jrbqgPMCgjxZek0nu6I6nPXI3Gbn7ZCCD4+4mwcOKladfSYcW0XtGrH
+qeXb4JKlyMbUIKvQ+NI4iW5OV+Bql9GP7FeZwT9xOpVNcH52A/WuYArxts5fwyEvqguGV7Z59u87
+OjLpCOqsYnxYZle4rBl8LHx0wpmN1LE60HnbJMG9/+cBqxkKfLMc8K0xHDwXQD+9fTfWyCZGc66/
+FDzCj20IHDEj+lb+wblg8PNhcYkGqnqyArNPYKHNKVczulWi7yGjuqvpzTtz3Onpsb7ThkpCWfRg
+oLXcT/3uXiU3S+I+QazurXjhFA5RTWXnCw/6mA==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 138 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-27644">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>25</Folio>
+                    <FchEmis>2025-07-10</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>500000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>95000</IVA>
+                    <MntTotal>595000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>levantamiento informacion</NmbItem>
+                <DscItem>de curso Concientizaci�n de la
+seguridad aeroportuaria categor�a 1 inicial, 16 horas
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>500000.00</PrcItem>
+                <MontoItem>500000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>25</F>
+                    <FE>2025-07-10</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>595000</MNT>
+                    <IT1>levantamiento informacion</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>25</D>
+                                <H>25</H>
+                            </RNG>
+                            <FA>2025-07-10</FA>
+                            <RSAPK>
+                                <M>qHycAf+raxtNuAd+T7x8GiMkqnB4f+ECdWvRf37dT9Luu5r3orEI/uBEi68WUItTs9uZY+ODP9ZvvUEstZ+jiw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">G5QPGuVguOcE8bSn9TyN64Z6Xdh5y0udD5ZVL5raa4+4/qOZmy58Zo0lKM5lrMlz+YvDyKairXYO+eXSn1LVUw==</FRMA>
+                    </CAF>
+                    <TSTED>2025-07-10T18:42:48</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">E7182ldoNb2yj0MzDorag9n5Lem4w5LZEcqwouQNg2pmq49b3ddIVxa++W0+KDRDmaM3mFA1TksH/3meN/QMZQ==</FRMT>
+            </TED>
+            <TmstFirma>2025-07-10T18:42:48</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-27644">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>iXmJh52pm/qQiq7B7jX5aVBZurs=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+fv1OsLsr6CMjtvZhy/uPHB419mltRWMSugMbxoSinR/xmZShNkmxjdtDRmNRcuuLbL/4uOPFWr1i
+IjUWAxsnCMLtbZovZ/H7qom6tXSY+ryPyFH/Azy7eJPsTTbVB11Dnp002QNylrcuCAwGYl8Jvbxk
+oDCvq6SVyYcHjVqOjRy+iJrqMW45xQ6V9cGay7zh6Rj2lyebn5CyqMeUmDsaj9G4T9W0JqIrwlGS
+4oXcpLEfx7ngvmmaCpZ27Zog5R1QWF/lORp+4axuc2BYYDETTxhNWKy0/I7yuvwkO/SWtk63AaQF
+n9Whp4midfawJawL9NWrZjUoNIxLGOgC8D/kzQ==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 137 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-25472">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>24</Folio>
+                    <FchEmis>2025-06-06</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>3375000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>641250</IVA>
+                    <MntTotal>4016250</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>LEVANTAMIENTO  CONFECCION</NmbItem>
+                <DscItem>DE DESCRIPTORES DE CARGOS
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>3375000.00</PrcItem>
+                <MontoItem>3375000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>24</F>
+                    <FE>2025-06-06</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>4016250</MNT>
+                    <IT1>LEVANTAMIENTO  CONFECCION</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>24</D>
+                                <H>24</H>
+                            </RNG>
+                            <FA>2025-06-10</FA>
+                            <RSAPK>
+                                <M>sHlDytw1pYVQpjNPJohY+ocq6zz4CTZ31xCkniqqtS6mHO6wp20MnXc+IokL6kK1dCT/CfkzbmvepWp6B1NGow==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">eLvL7qsu89NHvew195yKSF+gQvEfFbNpzOfrEqwRgUBLOAVlN9pswf6Y+QRt/0GTTseAjIqfvwekxIr7SIIaAg==</FRMA>
+                    </CAF>
+                    <TSTED>2025-06-10T10:14:54</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">qrlmOmG+79Y7A7eDlGeQVZ7n8ZaJ5oFqXpb240QEmolkAtU/NzvyD+uiHdoQE2d336QmzU3Qqb4Xj6RME5YwKQ==</FRMT>
+            </TED>
+            <TmstFirma>2025-06-10T10:14:54</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-25472">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>NewlGyBldom3rPFSB7U1XrQNDdE=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+vFp3IvxBrBUSNdtnEg5b1EXmb1Q5bSbAwxfmNvrRHL1FxHgQjWFXEOxbt+PHZndyPOxVOL3xiXu1
+CKaR6BWc3hKgTgE8qS3bcuevxAhXnvJqJOy3KAyVaipT+9WURTnn+jWGHaE3NVvSLlJM2MDI4k29
+3t4QR8hR8Kpa69ykZ7DAXaG2CdZCZf5C7wrvJljXNEWgbGht4aIoJmSIhd0eCCHGojLzmZoAVwNo
+nj+zFcyqJfvaSvglYbKdW5CIyHqNcJQCHcppglppOTOhciEE2OTXVxW6MGbX90sZ5d5QLtyxX0++
+ak90tLY2aMPqmK7mm9ogRteQGRFER9hCiUe+8Q==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 136 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-30029">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>23</Folio>
+                    <FchEmis>2025-05-29</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>3375000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>641250</IVA>
+                    <MntTotal>4016250</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>LEVANTAMIENTO  CONFECCION</NmbItem>
+                <DscItem>DE DESCRIPTORES DE CARGOS
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>3375000.00</PrcItem>
+                <MontoItem>3375000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>23</F>
+                    <FE>2025-05-29</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>4016250</MNT>
+                    <IT1>LEVANTAMIENTO  CONFECCION</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>23</D>
+                                <H>23</H>
+                            </RNG>
+                            <FA>2025-05-29</FA>
+                            <RSAPK>
+                                <M>q+jLoy6ZwFnaocILTRvXdNgtyhs5uhBAVQRvtG0GIos+mFMhFoTwKOsjuK7NV8e9isxmQPhUGY4u/3PgZ1RyQQ==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">eRrnxhnYLd7XxTZNfodH1D5z+s6k4H5gZDfcDwYM1raTyZYEjqz+wg9iCtdjTT4FwdjwFd6rpZanGyFpWGy4sA==</FRMA>
+                    </CAF>
+                    <TSTED>2025-05-29T16:37:51</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">MIfz3Afh8L6b9M1FRG0V1O0/cVkU1OyKVMabUvgmD1RKW9oflKOX5TqrcFcnyTD8KqEi53UW7JIScFomAeqQ3A==</FRMT>
+            </TED>
+            <TmstFirma>2025-05-29T16:37:51</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-30029">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>5/jH0Zf8lf5Pk4KnvHMuaeT68AE=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+Oh5ts98u+aYTqCmw4nnMMqk7vaoDwJ6PMS6uEhGc5x/1ROfMLR2UjsJ5rjScZpN6xI4jzJZ/7Hop
+JZICZWkXnd1wn2o9tWNdXZsF6W25PzOt/qjV3w1plC9dX0VwaSS6LgnVHpxZ/ZugvlFP3HM4V3Mj
+1WY61aopdWKiDCBPcyt1a3nsqjl4hxv/WXBKuCSWPcm3zzPF/OGIzy2TEtPXjmvlO897D5IIiWb4
+LQcS6R38eI6lFP8AVnD1ZlWuQ2bN+smX+beKfMkavCP5fLAS+Cb3QMfaQZ13EWjxmzHLwT6Z2q8k
+q4NFHvft3p4QUDV4x1oHQl8okRwaT0/L9zvy5A==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 135 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-26668">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>21</Folio>
+                    <FchEmis>2025-04-24</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76760090-9</RUTRecep>
+                    <RznSocRecep>EMPRESA DE SERVICIOS TRANSITORIOS EST SERVICE LIMITADA</RznSocRecep>
+                    <GiroRecep>OTRAS ACTIVIDADES DE SERVICIOS DE APOYO</GiroRecep>
+                    <DirRecep>LA CONCEPCION 141  1101</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>700000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>133000</IVA>
+                    <MntTotal>833000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>DESARROLLO DE AGENTE</NmbItem>
+                <DscItem>IA PARA EXPOMIN 
+DESARROLLO DE AGENTE Y PANEL DE DATOS DE ESTADISTICAS Y COSTOS DE MENSAJES</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>700000.00</PrcItem>
+                <MontoItem>700000</MontoItem>
+            </Detalle>
+            <Referencia>
+                <NroLinRef>1</NroLinRef>
+                <TpoDocRef>801</TpoDocRef>
+                <FolioRef>28</FolioRef>
+                <FchRef>2025-04-24</FchRef>
+            </Referencia>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>21</F>
+                    <FE>2025-04-24</FE>
+                    <RR>76760090-9</RR>
+                    <RSR>EMPRESA DE SERVICIOS TRANSITORIOS EST SE</RSR>
+                    <MNT>833000</MNT>
+                    <IT1>DESARROLLO DE AGENTE</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>21</D>
+                                <H>21</H>
+                            </RNG>
+                            <FA>2025-04-24</FA>
+                            <RSAPK>
+                                <M>wFY2QGY/oWeQKD+uIZzvHltFjnX6C6Im3IBZz+pHz3uJVEp9IefbrT80i7lvJfti77DCqN52D4R6NOLPo+d/TQ==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">MrGCGeI+chqS5gv3i4uVYxpJlD83rd+rocJ5T8sslfCLEhS0EllwPw/NeAdtRJwUUfWrfVmalhdEHtfjqfUvRw==</FRMA>
+                    </CAF>
+                    <TSTED>2025-04-24T15:19:50</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">fkb94mvi2bcAm3CoNjYo2h+xrAY1IV5fj5OwlOpEK9nw83z6b/NLWmBaugw0PpvbUyguADRC4m99VR++soxKKA==</FRMT>
+            </TED>
+            <TmstFirma>2025-04-24T15:19:50</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-26668">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>UVXLEq5NjMt7RpnD5WnIVIez32U=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+MTwfQ93k4tWFLyDuA6QIqyzeiXkY6deYJN5BjD+69pc/uh7s5ZwP9em2NQKQ1VLPAK9yP8+bbgKm
+vmKPLE5btxvtEHE2qicDHKdjThU4ebTu6qFOju91kVujRJIERm7wFIcnmTofGAxFBNLXDHSOsUuS
+3pmhS/q9TQBNJOLWJ5y37lM4rXM/20u8O5xkUA6/1M1AGsXmy55PNJ2W+KpqF7M1x5h8+QEX+Xia
+ejesFVpKfpjtLvb8dQuXq9Uq7gz+AuaCQvqe32rKJEw7R54eC41n5J2MPCtVVxvhcOdXIhwXeRuX
+IKz9JM9S/B3UttFqvrd3o4kZdWKbiGNHCiiByw==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 135 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-27412">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>20</Folio>
+                    <FchEmis>2025-04-21</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77498534-4</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE EMPRESA DE SERVICIOS TRANSITORIOS SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE AGENCIAS DE EMPLEO TEMPOR</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>1500000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>285000</IVA>
+                    <MntTotal>1785000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>campa�a reclutamiento</NmbItem>
+                <DscItem>geolocalizada por redes sociales 24/7
+Flujo automatizado de la misma, con repositorio de almacenamiento de requisitos por
+cada reclutado (Rut, curriculum, antecedentes, etc)
+Dashboard de visualizaci�n y descarga de archivos adjuntos en el repositorio
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>1500000.00</PrcItem>
+                <MontoItem>1500000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>20</F>
+                    <FE>2025-04-21</FE>
+                    <RR>77498534-4</RR>
+                    <RSR>VALTEC CHILE EMPRESA DE SERVICIOS TRANSI</RSR>
+                    <MNT>1785000</MNT>
+                    <IT1>campa�a reclutamiento</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>20</D>
+                                <H>20</H>
+                            </RNG>
+                            <FA>2025-04-21</FA>
+                            <RSAPK>
+                                <M>wpi0RzI9FDHORim0HppHwgr//yIBb1vU8ZsywN1+TLaiYcc9d+kDEwFwHvVAC9g9ePsSbAyYmJCiZIy0ESJV8w==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">HVgT0q6bu6aI+qA1GH7TTLdfh92gaJo+ptEXKKSgHbeuHYSIGSX56jKxFLz5PUSp5ah6HoiSyq4Evt6/uePGVQ==</FRMA>
+                    </CAF>
+                    <TSTED>2025-04-21T10:45:45</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">YnxPsOHUZoO/sPLoDd3eglvs1192wsthDgRQgsXaGvDUjMnLHyYq1TpSI8uB+58ym6cwjHXwt8PZIWRQ8qK+gQ==</FRMT>
+            </TED>
+            <TmstFirma>2025-04-21T10:45:45</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-27412">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>YtnaHXvlFMzumN5//UAM6ieFmOk=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+fdkCQzfOVtX9o54l5h82lMdGuGMIvBtJPUYkUOZM0xCSQjZujy/rIMnjCImOg3vW8uWFqrFeIMWL
+ATVXow2DF3E/tmaRLpuH9Gj7a231BvaDSbo7YD0HNs9KQlSprSIFSUCK9aKnFQyLJqA2t4e+yjeQ
+wy4wqy5xVnx9ZDhFUORA8ahYCWv9JvISmm6DnvtJrRx1Guz3kPYIxe4PJfBYNdeHA5CXcBK1n+w1
+drcm+utUsRSfoVfXbNtjU9ceAd4ma8G7qvqSOfRyb53FyLX1a4OMZWVOSHcq8DxsM+TdEjirLwGW
+b6tRb/hS+fI3WlhlQMzZSheJ7YJLHcnYyuY6Pw==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 135 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-27547">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>61</TipoDTE>
+                    <Folio>3</Folio>
+                    <FchEmis>2025-04-21</FchEmis>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77498534-4</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE EMPRESA DE SERVICIOS TRANSITORIOS SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE AGENCIAS DE EMPLEO TEMPOR</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntNeto>3000000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>570000</IVA>
+                    <MntTotal>3570000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>campa�a reclutamiento</NmbItem>
+                <DscItem>geolocalizada por redes sociales 24/7
+Flujo automatizado de la misma, con repositorio de almacenamiento de requisitos por
+cada reclutado (Rut, curriculum, antecedentes, etc)
+Dashboard de visualizaci�n y descarga de archivos adjuntos en el repositorio
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>3000000.00</PrcItem>
+                <MontoItem>3000000</MontoItem>
+            </Detalle>
+            <Referencia>
+                <NroLinRef>1</NroLinRef>
+                <TpoDocRef>33</TpoDocRef>
+                <FolioRef>19</FolioRef>
+                <FchRef>2025-04-10</FchRef>
+                <CodRef>1</CodRef>
+                <RazonRef>ANULA DOCUMENTO DE LA REFERENCIA</RazonRef>
+            </Referencia>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>61</TD>
+                    <F>3</F>
+                    <FE>2025-04-21</FE>
+                    <RR>77498534-4</RR>
+                    <RSR>VALTEC CHILE EMPRESA DE SERVICIOS TRANSI</RSR>
+                    <MNT>3570000</MNT>
+                    <IT1>campa�a reclutamiento</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>61</TD>
+                            <RNG>
+                                <D>3</D>
+                                <H>3</H>
+                            </RNG>
+                            <FA>2025-04-21</FA>
+                            <RSAPK>
+                                <M>+yC8Hf6T+oN6Wpu80WBvj/6fVWzEXupMbH5UIEL7OYGeyUAPiFg5pamfl6N/skVpLYnVkGH/VUk6W11uc4aiFQ==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">ImvHXM4VvkC1QUXe8+T/TokkWjiHMthVwhvxtKB2TNVvux+ngdY4BEasUvFahJ1NmuJlokJlmBPUTowCq2+xRQ==</FRMA>
+                    </CAF>
+                    <TSTED>2025-04-21T10:44:11</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">ie84o/PG4uDveO9PTuGole9xtNqWUS6guqyRqIC6bvUcykA2oLYyUsqJdbopz4gCJNpsvRvh3bfisVtR0CUOLA==</FRMT>
+            </TED>
+            <TmstFirma>2025-04-21T10:44:11</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-27547">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>NkxG5BwL/3iKzCFKLFLcEpKX2nE=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+W98IYD/xQzsm6co7YNItVpjFTNQdXMvP2rlLQbkffADIwRy9FtPEnd8ltOuWQDJ8UvlzQfijhwHO
+OxVNwAxCM/gETLjHAzAMyETshH4UEQlcRlC07VPQ/UK185xxJ+aQiMWLYNUziR5HfIfqCCH0ov3R
+SmVcrGVoSCJ3LMBNcHJiYAPTAdGCoXOtPEHUdT0wd2KiHuKbtOE+ytgWkM/Ut3DzPAeyFkWpay7r
+5aAr64gABOgPoAjO2qcpH1vi9RUMqGDbTng4S21r4JVuE3rZ9aiZYIeaCC/Z4WRAOfslCFGxXsF4
+fYEPPP4MZjAGPTESrS40/kuKFhyLqbwcUzLgAw==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 135 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-14677">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>19</Folio>
+                    <FchEmis>2025-04-10</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77498534-4</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE EMPRESA DE SERVICIOS TRANSITORIOS SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE AGENCIAS DE EMPLEO TEMPOR</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>3000000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>570000</IVA>
+                    <MntTotal>3570000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>campa�a reclutamiento</NmbItem>
+                <DscItem>geolocalizada por redes sociales 24/7
+Flujo automatizado de la misma, con repositorio de almacenamiento de requisitos por
+cada reclutado (Rut, curriculum, antecedentes, etc)
+Dashboard de visualizaci�n y descarga de archivos adjuntos en el repositorio
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>3000000.00</PrcItem>
+                <MontoItem>3000000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>19</F>
+                    <FE>2025-04-10</FE>
+                    <RR>77498534-4</RR>
+                    <RSR>VALTEC CHILE EMPRESA DE SERVICIOS TRANSI</RSR>
+                    <MNT>3570000</MNT>
+                    <IT1>campa�a reclutamiento</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>19</D>
+                                <H>19</H>
+                            </RNG>
+                            <FA>2025-04-10</FA>
+                            <RSAPK>
+                                <M>sW5AMgEwPFDLE754cpO0x8bmnoKiI4ywso1UYq1C2KSZd+NAqmQrbUGBG5Iui612vNeRNK4lCQ3b8WzEMAfL3w==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">lzTBiChxia69CusXuIMRQq3AvyfkN7xkqOkwF0LnmG0GuVLP2DKDNgnT1CGdNhQCWRMSC7kyEafJ4c8kVK65wQ==</FRMA>
+                    </CAF>
+                    <TSTED>2025-04-10T14:51:34</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">QB7UhdyNr4wLBkD8SAVStG6oDBIiJbuJ6YdJ3KOR50gLstPDjmKYcV+jovjGoLmdMB1C+aGkTQmJ9zy2Ps4CXQ==</FRMT>
+            </TED>
+            <TmstFirma>2025-04-10T14:51:34</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-14677">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>Jz8nGCt11Ew/DWwyl+L1qUQ1DoY=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+RsnpQU297kOvwI/PbVx8j59io0LBBHCR9Uku2gXMSxNy/4IWBWTwJswYYMMHXRm5Evw0Nca6jhez
+ZB8g37JtfIVIpjBt4XGa/C+CGukyPGQz6uyHptryi8Mk5Pp29/xeckkm8chSQapm72q934s4tDJ/
+aWuhcB5MW7fGCwLjVMtNcYfMmN/3xjLSYdOqLd1lGkPj+3XDxAT6xfWzMUGYUOcwaS/T1Qo2+qUI
+O5y5ueY+MwKQH4KDis7UWlbU+33kwD7Se3D05309dWecZYjj1ZS7Q37m6bDKLwKlGR7UARCvIEVw
+K/7fyMe86dfEtYOc4ownmbvnUyXUjgjTwliaAw==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 134 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-20844">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>18</Folio>
+                    <FchEmis>2025-03-24</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76760090-9</RUTRecep>
+                    <RznSocRecep>EMPRESA DE SERVICIOS TRANSITORIOS EST SERVICE LIMITADA</RznSocRecep>
+                    <GiroRecep>OTRAS ACTIVIDADES DE SERVICIOS DE APOYO</GiroRecep>
+                    <DirRecep>LA CONCEPCION 141  1101</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>5400000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>1026000</IVA>
+                    <MntTotal>6426000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>CURSOS</NmbItem>
+                <DscItem>TECNICAS DE NEGOCIACION Y RESOLUCION DE CONTROVERSIA
+PRINCIPIOS DE APLICACION DE LEY KARIN 
+GOOGLE WORKSPACE GMAIL
+GOOGLE WORKSPACE DRIVE</DscItem>
+                <QtyItem>4.00</QtyItem>
+                <PrcItem>1350000.00</PrcItem>
+                <MontoItem>5400000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>18</F>
+                    <FE>2025-03-24</FE>
+                    <RR>76760090-9</RR>
+                    <RSR>EMPRESA DE SERVICIOS TRANSITORIOS EST SE</RSR>
+                    <MNT>6426000</MNT>
+                    <IT1>CURSOS</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>18</D>
+                                <H>18</H>
+                            </RNG>
+                            <FA>2025-03-24</FA>
+                            <RSAPK>
+                                <M>x3HxX4SNX4q/LVBMNjcBzN2RexfnQHU9U6F83k9eJeOxuziJagBg3x5yZbUeVg7wn4dqlik6rw5wYNJkRFGA1w==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">bdvMu/SwdVJpb3Jd0MEB6DlHMbGj1UKhulW3l8GsULBn6Ebmk+YxanFhJwOJl28J/u5luySooQ0mF0RYGwNQNw==</FRMA>
+                    </CAF>
+                    <TSTED>2025-03-24T17:02:57</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">TgQQDKAYkJj534dqIHQ5mzDR8qK1Ix8W1ZT4dTG0Cannrk9Ix0D+EsRV1Kfsqfb7qAsJ9e2CrlvbhZRU9tbDqg==</FRMT>
+            </TED>
+            <TmstFirma>2025-03-24T17:02:57</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-20844">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>LjZUVZNfV6Pb5t74yUfH1zW0Jlc=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+EKe9xiLfQYTWSCLOYPXW9fK0igzYH2VZuuuZN/6LiFaGCgd9V1EqGb+CEkmKUgMniD1ymKkMxu9V
+Y7ZoSR9+eVN0uKrnUdQ8dAZDiPL7uTbbprPOFPPF9DNjNtQibilJ+yKsNXC5DmTpbXTAZimnRwdd
+VjV9PBQn+QgVZVI4oSo3l94YUBTdhl/YWiWLVuf/RDCAVQcXGzxuDJMmcxewu4Gmkq7yHDZvy2G5
+UAxGvRR4ElB3kQedkHQGOlNk+YzCfomvXTdyWEL/S76fQ3191P0pQPAOzf609dj8HgJI8EY4eIC1
+277hr46Mkm5nTZVqqfQB4a3uCjOZ9v5+jDAgSg==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 133 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-5226">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>17</Folio>
+                    <FchEmis>2025-02-26</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76760090-9</RUTRecep>
+                    <RznSocRecep>EMPRESA DE SERVICIOS TRANSITORIOS EST SERVICE LIMITADA</RznSocRecep>
+                    <GiroRecep>OTRAS ACTIVIDADES DE SERVICIOS DE APOYO</GiroRecep>
+                    <DirRecep>LA CONCEPCION 141  1101</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>700000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>133000</IVA>
+                    <MntTotal>833000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>VENTA DE PANEL</NmbItem>
+                <DscItem>NEGOCIOS SENCE ANUAL</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>700000.00</PrcItem>
+                <MontoItem>700000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>17</F>
+                    <FE>2025-02-26</FE>
+                    <RR>76760090-9</RR>
+                    <RSR>EMPRESA DE SERVICIOS TRANSITORIOS EST SE</RSR>
+                    <MNT>833000</MNT>
+                    <IT1>VENTA DE PANEL</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>17</D>
+                                <H>17</H>
+                            </RNG>
+                            <FA>2025-02-26</FA>
+                            <RSAPK>
+                                <M>5UqD1XmLp0zTx9z+YjNa7CjbTTDhkSxQih6hnKktm+bIFIS2tJ4PKSoV6ocAeiMeHivTTzFmraENQyjiS7QpNQ==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">RsVLieR6CVhkCsXCp/rKZQ1jaQioOhYW/RDHQkG7tg+gvyrXEe5acjzHnPdBKi6QOe91kkxFj+CN3q0gOG+guA==</FRMA>
+                    </CAF>
+                    <TSTED>2025-02-26T11:03:44</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">3c8POoxOByYOqWHvmjn6h6ebw0Duc7R/IOfJcVbjfyY2DFE1pbruLCg5RkKr0L7OBEcDlRNqbjaHOBgdF7PgLg==</FRMT>
+            </TED>
+            <TmstFirma>2025-02-26T11:03:44</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-5226">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>kC+kF0uc00AYADYpSoK4NuFb1Yo=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+NBkggUXR91fXA8V1itAy/Zsnwzb1RT3nf5ibpYNeU2S2Hos7aw4WCsBizogeqZCRNEfmdmPy9M4i
+YGvkqHoYlUpS6SQKJMntXfJQkJVhbOw9D+RfV0EPczvpcTiWn8DbTHNOPqcfRM/aqbuxwCG+bGXU
+077zVDZwvL5hqUsCqKanEbnsYfKL+KULEqBi0hnjLNQbsMn/MnrG0/NcC/hjSUsHj0DiUePEuf8c
+NYAC2iXVZ9fWMjjCZY50OKAFkLaCetPwrUkG5mbR2aGaaTofo97Yyn4ZL7vBFB20gejzimM38piX
+EDBUwx9OZHxuAC91V+qyv1VlbYIj5JqGDdYfOg==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 133 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-18176">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>15</Folio>
+                    <FchEmis>2025-02-25</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>2050000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>389500</IVA>
+                    <MntTotal>2439500</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>LEVANTAMIENTO  CONFECCION</NmbItem>
+                <DscItem>DE DESCRIPTORES DE CARGOS
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>2050000.00</PrcItem>
+                <MontoItem>2050000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>15</F>
+                    <FE>2025-02-25</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>2439500</MNT>
+                    <IT1>LEVANTAMIENTO  CONFECCION</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>15</D>
+                                <H>15</H>
+                            </RNG>
+                            <FA>2025-02-25</FA>
+                            <RSAPK>
+                                <M>ntclZFhz5bv/859KiPIDmJHOynOcGBchTW6s/FL5zs/jTnf8Q4G0Z6EJ7x/AgVkqRxNER3LUuzeIq2TPu2KeHw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">ivQ/CtZ8VvUPuw3DXmyk0fUpCmvS8QrHaWQjUQ3iuSlCCC04Ge9TMsoJ4+rUL/73wa1Q5uthZVdnG1X+pgryew==</FRMA>
+                    </CAF>
+                    <TSTED>2025-02-25T11:05:28</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">TySg8c2fQlFu+m7NKU/CKNbw0zeHFPsMXMa/u/rx87xJqbFbuVo++EhPFG9FA7Tx+P0rpjLJaZ8G1PtV9IZJIg==</FRMT>
+            </TED>
+            <TmstFirma>2025-02-25T11:05:28</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-18176">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>ETcXhd3ZaeM5yKNb+ns5r+GoYAg=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+G7xurXWA5yCLKgrwrFu1JxaHGYFCZjC4VpbYnGkDzw7X4O9SITM8Zv2Uq6e7o8+lox6dqBKSG28p
+rHh23YDxlO5g9CGh3cYMI8qCN8Jn8MJ4OIafLkhUEtJ06V9Etoadh16AviFOcGc76lHdhMcCslN9
+0qtpnGQcD9Sz7CP2e0ORshNt6oA6y+/TgSib0Gg0TX+jpDuKIy/hptV3EWveW6v3Eb7CPK4Hlzm3
+WAI2XPeWomyzz5jRxaXcxcI18ebbFgNBReOcnW5L7IAuCZiONe4+UbYT8AWofNSR9vCDnJZMg1vh
+ELipEh2aKBHoKo9p/ccxOasQ20bQ/AmqN4hAng==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 133 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-7623">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>14</Folio>
+                    <FchEmis>2025-02-20</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76760090-9</RUTRecep>
+                    <RznSocRecep>EMPRESA DE SERVICIOS TRANSITORIOS EST SERVICE LIMITADA</RznSocRecep>
+                    <GiroRecep>OTRAS ACTIVIDADES DE SERVICIOS DE APOYO</GiroRecep>
+                    <DirRecep>LA CONCEPCION 141  1101</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>8100000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>1539000</IVA>
+                    <MntTotal>9639000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>VENTA DE CURSOS</NmbItem>
+                <DscItem>EXCEL BASICO-INTERMEDIO-AVANZADO
+TRABAJO EN EQUIPO
+LIDERAZGO
+POWER BI 
+CURSOS EN FORMATO SCORM</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>8100000.00</PrcItem>
+                <MontoItem>8100000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>14</F>
+                    <FE>2025-02-20</FE>
+                    <RR>76760090-9</RR>
+                    <RSR>EMPRESA DE SERVICIOS TRANSITORIOS EST SE</RSR>
+                    <MNT>9639000</MNT>
+                    <IT1>VENTA DE CURSOS</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>14</D>
+                                <H>14</H>
+                            </RNG>
+                            <FA>2025-02-20</FA>
+                            <RSAPK>
+                                <M>4FrCk5QLh7GFGppi26oa47TYfBwUiMUHuVRrKsLe6anK9XzVNuNydNoXpl23MSwO07Yd2mp1xnRasCtlcCrP8w==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">ZeRR7ovRTQ9QT5Nl3G5i7/cJFh0dTr/XxG3BlR02+LVq+qGcQ+zxMbycE5/S8ChZG5ExUd8wOcFY9vWt9toTDA==</FRMA>
+                    </CAF>
+                    <TSTED>2025-02-20T17:49:19</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">DwZXSiUaKIin2HFAcnDsHu0idcCC9aiZr0RXC7f/A3BJtMNUcQQNwGG9BfJ78saikQ4JzKCwTZZdxVaQPfZIBw==</FRMT>
+            </TED>
+            <TmstFirma>2025-02-20T17:49:19</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-7623">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>VC5VoF2leRXpAQRsim30ldTOnFk=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+gSo7f3s75mjUNfdqd9y8wBgVr2gehhg6qJITPTu0nOpSRyB+qR5IoZCuOo0YTTAp4ZjcCTWHXJsI
+/pE8o2CsCJ/h4EQN/AwsewN+duRT2I9HzxS14cPq2SPx4o7lnrcmss+LpHGUICZkekCmYVdVV0Jr
+bupLUtgVLSSSM167gM3y3QQ9dRVCLjl5qedUXaPhywioSXaZNWz72hLbPs8wPgbsvpzMGt7f/ozv
+sEoot9nvhmA9WOYpFbLglPD8J3Q1cueT6OtMLWQk0unUU4Vk0Zy3FzAOW1c/74CMfIgBV5ZU7W4i
+2vadv13OadvtK4/Qa7GVQ0P/i6OuFktvuei8lA==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 132 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-1168">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>13</Folio>
+                    <FchEmis>2025-02-18</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>2050000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>389500</IVA>
+                    <MntTotal>2439500</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>LEVANTAMIENTO  CONFECCION</NmbItem>
+                <DscItem>DE DESCRIPTORES DE CARGOS
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>2050000.00</PrcItem>
+                <MontoItem>2050000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>13</F>
+                    <FE>2025-02-18</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>2439500</MNT>
+                    <IT1>LEVANTAMIENTO  CONFECCION</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>13</D>
+                                <H>13</H>
+                            </RNG>
+                            <FA>2025-02-18</FA>
+                            <RSAPK>
+                                <M>wiq+U+MwkwMrDzAm2N97ijxOwH+rYPz27OTg+rmlLqRCLN2ZRi28IV30RafkQ8cyHUqZUQ7wkCacdH9z8EZHKw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">bwnnyBdXoJbQQE0vBOSFLQHXVZY87gNTf1wFJPxWFjCroGmyAO/tkr5pCGtJ7x1xezB2HdeondGZj+D/uyWo9A==</FRMA>
+                    </CAF>
+                    <TSTED>2025-02-18T11:23:47</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">OBXjz76Zwa6faY3G63JBjIqYMl6MPGYh572ST/04bCut+5dxxO5wBx8pg/HUyvWOleDWgbf/zKVxLK+n1zdjUg==</FRMT>
+            </TED>
+            <TmstFirma>2025-02-18T11:23:47</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-1168">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>c2EGTJVxhcfAglN67/3kqo7X1EE=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+Z3mADnfD2icbTUo2NRf9M1kZeeg8z7tVRU150fL2SI9U0r/5AOMWO25VqusKomIBbntl5SN+bNIi
+EB27WCU/XXRURTst4O99pCDwnJhSpgIPVu9ozH3hzmZx9LLuISxchAUIm7JMIM/A+9e4fnEhJgOA
+DAVX5BKdnA5OjnDjkv96DZZ+6vgR9xNNqjkPp10jY75eL4ASRLHQdB8zsJfVWdGALIB4+MjAzonv
+8bFt8W4yxTKYvOr1gQsOBxS2TJBKqY1LkehZTz7G7gezvTuUu6L1KUntL3Fuq/l/m3EZwC7Dj+LU
+PMoGSNO7WgWCurDCyP84Sw8qovc9gE0smMDAaA==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 132 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-18521">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>12</Folio>
+                    <FchEmis>2025-02-13</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>2050000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>389500</IVA>
+                    <MntTotal>2439500</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>LEVANTAMIENTO  CONFECCION</NmbItem>
+                <DscItem>DE DESCRIPTORES DE CARGOS
+</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>2050000.00</PrcItem>
+                <MontoItem>2050000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>12</F>
+                    <FE>2025-02-13</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>2439500</MNT>
+                    <IT1>LEVANTAMIENTO  CONFECCION</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>12</D>
+                                <H>12</H>
+                            </RNG>
+                            <FA>2025-02-13</FA>
+                            <RSAPK>
+                                <M>5e3d6KhttScz55jo2uH9XaaR39aXHoO625ekLYan64uViPlt2wUDV6QFE+igcoL0ypKgL//bp2nsVK1NvCeoOw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">cBkf0PWJ51G8XIj08WL98XLvCVQIQ7SdIy5jkXwK3wbQ8RPsC6sHZ30DFEtUjD5RS2gK+rK/Xn5KpbzTLtQ0nw==</FRMA>
+                    </CAF>
+                    <TSTED>2025-02-13T12:25:21</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">yXjxLRp2ahdpbOsECGzodj+N945lrG1lIbF7T3h3hMf60zsgEevs3/p9jKbyVRtaVsTJ/lq1cW+J8HzPVNRKug==</FRMT>
+            </TED>
+            <TmstFirma>2025-02-13T12:25:21</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-18521">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>T7MBB12gQxY8ACUPpKN809jXvxY=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+a9uaVO6Xtmuik8ZhUq2fDC4jUrUuntQrAK3uY7V6kSY0eVZ9TkvWPDkWedcDexLea3LJg5WjUtVx
+FwFJOoMolDfiDy5cB9edh84LDkeiRUmHPDN8S+XJ1eOUp/LY4hmGg3Txhxth+bh1lbu4GWOKdapI
+ePYlDampN+vXYJGP1AKH+W8AGtvzSj6qmXnuIUQmjyn7uQ4nV3LTDafDI+E9yWzVB8qC0HhtAA/5
+N5BkFxiwNmqP9mr4j4zWoVkuQhy6rsfRMSVMt3uzi2ZQI09btmMQv0s1l9yvm1MCvk47vIs7zxlt
+UtUd1ZN9YUGSCaj3bMhLcSoNnNsiXRXD4zq9IQ==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 132 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-13738">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>34</TipoDTE>
+                    <Folio>4</Folio>
+                    <FchEmis>2025-02-10</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76407746-6</RUTRecep>
+                    <RznSocRecep>ROCKET AD SPA</RznSocRecep>
+                    <GiroRecep>SERVICIOS DE PUBLICIDAD PRESTADOS POR EM</GiroRecep>
+                    <DirRecep>PROVIDENCIA 1650  1008</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntExe>200000</MntExe>
+                    <MntTotal>200000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>ASESORIA Y CONTROL DE AWS</NmbItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>200000.00</PrcItem>
+                <MontoItem>200000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>34</TD>
+                    <F>4</F>
+                    <FE>2025-02-10</FE>
+                    <RR>76407746-6</RR>
+                    <RSR>ROCKET AD SPA</RSR>
+                    <MNT>200000</MNT>
+                    <IT1>ASESORIA Y CONTROL DE AWS</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>34</TD>
+                            <RNG>
+                                <D>4</D>
+                                <H>4</H>
+                            </RNG>
+                            <FA>2025-02-10</FA>
+                            <RSAPK>
+                                <M>3AaqxjENlv694vTydNZ+lppfdVbq+a+6fYdhwebWQBwVNmEHkiLAlIVYtnZQV5li52l7KIYWvJZQMt/OHxvaHw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">V/wKzCCbiTEpV7QRMDs61KFLeN9LG4cE4Y5RkcRog3Lkg2ZqRABsIW3mP/0ttTFyymNW0bQKE0oElt06qaVyYQ==</FRMA>
+                    </CAF>
+                    <TSTED>2025-02-10T12:40:30</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">oiVn/iYAaWyqXd9PBIuePVemKT/Dj7SVWGqoSH2Jqm1y16ZrLG6u1XjgTEVBAOzq706Vx5aAPNTtOE9JV8Kmww==</FRMT>
+            </TED>
+            <TmstFirma>2025-02-10T12:40:30</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-13738">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>EHd4BzfLtVg4yB3sf5YbJN5kdOQ=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+SFNInAxGM/vKKkjxpjdes2OwFWI1rgKH2XnILvirI3y9pe850SAZSpQn3URIUwdYag5Xu9i6iRMA
+CUHlkLW9Q0ONtKqn4ydqCBWUfiriGhZ8D4s8q4aikLyv+QMKuPjGKW/uRuBsq8l3nYHgxP3cdsJh
+iuzRhha0i8chDoVhEUl6Wn2jLWVBN68NUBzcyORgKvv9ZDy915TL4OazIlhZk97tAqFzejLc2z1e
+kiawdwqJUFhLzsQkYWXnPZUUhaA6cS2IdTA6Y4z88RfbWeWHYzQB8N8ALKrBTPoj6vFR2ZcR2944
+zyxaRYlZoY1JFcfluhJ49Si2fAXQwvZuJsgNWQ==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 131 central VERSION: v20190409 -->
+        <Documento ID="MiPE77845621-13013">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>11</Folio>
+                    <FchEmis>2024-12-23</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77845621-4</RUTEmisor>
+                    <RznSoc>DATAOTEC SPA</RznSoc>
+                    <GiroEmis>ASESORIAS CAPACITACIONES Y CONSULTORIAS DE GESTION INFORMATICA</GiroEmis>
+                    <CorreoEmisor>atalia.duyvestein@gmail.com</CorreoEmisor>
+                    <Acteco>620200</Acteco>
+                    <CdgSIISucur>89442818</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET 193 OF 1210 12P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>76825224-6</RUTRecep>
+                    <RznSocRecep>VALTEC CHILE SPA</RznSocRecep>
+                    <GiroRecep>MANIPULACION DE LA CARGA</GiroRecep>
+                    <DirRecep>ROBERTO DEL RIO 1151</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Transporte>
+  </Transporte>
+                <Totales>
+                    <MntNeto>2500000</MntNeto>
+                    <TasaIVA>19.00</TasaIVA>
+                    <IVA>475000</IVA>
+                    <MntTotal>2975000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>DESARROLLO Y CONFECCION</NmbItem>
+                <DscItem>Integraci�n y confecci�n de 2 empresas (Belcap y Servicios transitorios) a la
+estructura del dashboard de control y gesti�n del Grupo Valtec Chile
+Confecci�n dashboard de control de asistencia, pautas, turnos extras y
+dotaci�n, con la integraci�n de 3 endpoint y una Api</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>2500000.00</PrcItem>
+                <MontoItem>2500000</MontoItem>
+            </Detalle>
+            <Referencia>
+                <NroLinRef>1</NroLinRef>
+                <TpoDocRef>801</TpoDocRef>
+                <FolioRef>1260</FolioRef>
+                <FchRef>2024-12-23</FchRef>
+            </Referencia>
+            <TED version="1.0">
+                <DD>
+                    <RE>77845621-4</RE>
+                    <TD>33</TD>
+                    <F>11</F>
+                    <FE>2024-12-23</FE>
+                    <RR>76825224-6</RR>
+                    <RSR>VALTEC CHILE SPA</RSR>
+                    <MNT>2975000</MNT>
+                    <IT1>DESARROLLO Y CONFECCION</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77845621-4</RE>
+                            <RS>DATAOTEC SPA</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>11</D>
+                                <H>11</H>
+                            </RNG>
+                            <FA>2024-12-23</FA>
+                            <RSAPK>
+                                <M>rFYH4/krxRRwUSp0IZIg7DKX5viqpsVnxYuPnSgthexVq7Av7xISvveR5Fmw4+Ml8lDWCA6KfgSVvQUsDM3FVQ==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">YcgZE1IJW/4fgQik7Y2Ws7+bCsGsIj5U85DHqyEvmyVGk+4SR78bjyhlGqktBvv6yVZMs+crYO9YRSnfIQaBfw==</FRMA>
+                    </CAF>
+                    <TSTED>2024-12-23T14:28:31</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">WZNnnWGtK3aV2LnOJm2tEO4QWwlaHvDk08hnGZ2Hs+2KH/WslZAom+BCXQXzTdNzvYtMtmqCZGXBTZeYOZNOTg==</FRMT>
+            </TED>
+            <TmstFirma>2024-12-23T14:28:31</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77845621-13013">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>3q6y1YFGYa04KSioYiYmI0Y53ts=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+wwZqZT1YQeysrZEOzW+i9gzW2xUjxhxRfclz5lDz6YKAG9zCd55/jtL7miR8Y40ml8zcF4yLRYO8
+D6Pv5gH5Fta5N+vp04Y6AOTGAY/sHOMQVkNmseXgvlfob7Ev4xpxZ3jVZLAtxTS6zeapBI3s1Dv/
+ImLRQflw7amle9UR/RP4D0K3IDlj+UtuEkzujA370ReNzOs1RiFRuznq9eXLGtOsgsgWSXircuRt
+7rarx8SsbGDIU6UPQ2OaqGNgIwPAbO7tsqntkzb+cg/Yn8UKRn7XgEqYyDTXFQZAIpNmOeuG8f/o
+7u5ugCxgM0FWj8lxKzvLbgqtcykAPmX4QoBYaQ==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+w996R2FcSGbJPt20lSG1NZgTUiThxYKEE6Qzlmp/3WGFkeC9QpB17Ihqfpnb8uZgjN+RkNApuG+e
+9ajQWYUxR1sLVQatt4RukdQicwaBBhZPdxC1lsF5VkhQZXkyPVe679mij0GgGnmignLO7Y9gaUWZ
+A0kfvRWCIJuFXMc3en7VaxhiSthU33CW7hB85MQRxvyDKp+bUor84IiaJRipIoWWf5R7x9fwaeBE
+6EdxhvSYguS439vzEIaJny8g4IPa9dS6db5FYIgMUepHryyvaJu8eXQz71P/yzHrSf9MDq8dD53B
+yqQ9NsL+OGvWPP+0duG8tzayzwiT9hF6Tjf5AQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIGUzCCBTugAwIBAgIIWg2FikHOYhIwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNVBAYTAkNMMRQw
+EgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1s
+YS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQDDCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmli
+dXRhcmlhIENBMSIwIAYJKoZIhvcNAQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMTAyNTEz
+MzIwMFoXDTI2MTAyNDEzMzIwMFowgbMxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5B
+LjE5MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNl
+cm9zMScwJQYDVQQDDB5LYXJlbiBWZXLDs25pY2EgR2VlbGwgTGV0ZWxpZXIxKjAoBgkqhkiG9w0B
+CQEWG2F0YWxpYS5kdXl2ZXN0ZWluQGdtYWlsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMPfekdhXEhmyT7dtJUhtTWYE1Ik4cWChBOkM5Zqf91hhZHgvUKQdeyIan6Z2/LmYIzf
+kZDQKbhvnvWo0FmFMUdbC1UGrbeEbpHUInMGgQYWT3cQtZbBeVZIUGV5Mj1Xuu/Zoo9BoBp5ooJy
+zu2PYGlFmQNJH70VgiCbhVzHN3p+1WsYYkrYVN9wlu4QfOTEEcb8gyqfm1KK/OCImiUYqSKFln+U
+e8fX8GngROhHcYb0mILkuN/b8xCGiZ8vIOCD2vXUunW+RWCIDFHqR68sr2ibvHl0M+9T/8sx60n/
+TA6vHQ+dwcqkPTbC/jhr1jz/tHbhvLc2ss8Ik/YRek43+QECAwEAAaOCAmswggJnMIGABggrBgEF
+BQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNpZ24tbGEuY29tL2NhY2VydHMvcGtp
+Q2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2ln
+bi1sYS5jb20wHQYDVR0OBBYEFDoN1yipckwRVymp1x9ewtV1fTDuMAwGA1UdEwEB/wQCMAAwHwYD
+VR0jBBgwFoAU+Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABwAGEAcgBhACAA
+dQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBlAHIAYwBpAG8ALAAgAFAAYQBn
+AG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29t
+L2NwczBRBgNVHR8ESjBIMEagRKBChkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xh
+c3MyRmlybWFUcmlidXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAU
+BggrBgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk5NDc5NDI1LTAw
+IwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqGSIb3DQEBCwUAA4IBAQB7
+VrlCqICzoQo92SCh6UdCGbBY0sVj6PUsHbVcU8ACN9m1tySRnA/SbrM3ncbHHrFC+iYLf1FgeMMV
+2vwx4izGkPZ0cdxsneSesydb5oW1CvK4mRTm59XLyTeTGo9ZqzVdncHn1vInjgNBSPyk5dd4jGOl
+wb0uYkzmMV7JPLYAvUsJNkh1SDxVy3oZRUY1ifTNCwejJmuQTYPmqq+zZp9mNkf/0dtqHJ8yDx+A
+SIME42XAsHjpeD+4kEPMQVbs9s+2adIfiFe7DrWbTFjW4TJA0UO7bWseFDjdPUNnRIaIs2awBhC9
+MjinC5B0nY+2T0iT4M5gJRCXlWAzcA6vucWd
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+</SetDTE>

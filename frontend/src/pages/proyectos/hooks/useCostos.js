@@ -245,17 +245,13 @@ export const useCostos = (proyectoId, setError, ivaValue, retencionHonorariosVal
   
   const handleEliminarCosto = async (costoId) => {
     try {
-      // Encontrar el costo que se va a eliminar
-      const costo = costos.find(c => c.id === costoId);
-      
-      // Si el costo existe en la base de datos (tiene proyecto_id), eliminarlo mediante la API
-      if (costo && costo.proyecto_id && proyectoId) {
+      // Si el proyecto ya existe, intentar eliminar el costo de la BBDD
+      if (proyectoId) {
         await proyectoService.deleteCostoProyecto(proyectoId, costoId);
       }
       
-      // Filtrar el costo de la lista local
-      const costosFiltrados = costos.filter(c => c.id !== costoId);
-      setCostos(costosFiltrados);
+      // Si la llamada a la API fue exitosa (o si el proyecto es nuevo), actualizar estado local
+      setCostos(prevCostos => prevCostos.filter(c => c.id !== costoId));
       
     } catch (error) {
       console.error('Error al eliminar costo:', error);

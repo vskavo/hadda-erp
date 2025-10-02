@@ -24,7 +24,7 @@ export const useProyectoForm = () => {
     descripcion: '',
     cliente_id: '',
     fecha_inicio: new Date(),
-    fecha_fin: null,
+    fecha_fin: new Date(),
     presupuesto: '',
     costo_real: '0',
     estado: 'No iniciado',

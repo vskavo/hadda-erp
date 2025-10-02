@@ -37,6 +37,8 @@ import FacturaForm from './pages/finanzas/FacturaForm';
 import MovimientosList from './pages/finanzas/MovimientosList';
 import FinancierosDashboard from './pages/finanzas/FinancierosDashboard';
 import ConciliacionBancaria from './pages/finanzas/ConciliacionBancaria';
+import IngresoForm from './pages/finanzas/IngresoForm';
+import EgresoForm from './pages/finanzas/EgresoForm';
 
 // Pages - Ventas
 import { VentasList, VentaForm, VentaDetail } from './pages/ventas';
@@ -140,6 +142,12 @@ const AppRoutes = () => {
           <Route path="facturas/:id" element={isFinanciero ? <FacturaForm /> : <Navigate to="/dashboard" />} />
           <Route path="facturas/editar/:id" element={isFinanciero ? <FacturaForm /> : <Navigate to="/dashboard" />} />
           <Route path="movimientos" element={isFinanciero ? <MovimientosList /> : <Navigate to="/dashboard" />} />
+          <Route path="ingresos/nuevo" element={isFinanciero ? <IngresoForm /> : <Navigate to="/dashboard" />} />
+          <Route path="ingresos/:id" element={isFinanciero ? <IngresoForm /> : <Navigate to="/dashboard" />} />
+          <Route path="ingresos/editar/:id" element={isFinanciero ? <IngresoForm /> : <Navigate to="/dashboard" />} />
+          <Route path="egresos/nuevo" element={isFinanciero ? <EgresoForm /> : <Navigate to="/dashboard" />} />
+          <Route path="egresos/:id" element={isFinanciero ? <EgresoForm /> : <Navigate to="/dashboard" />} />
+          <Route path="egresos/editar/:id" element={isFinanciero ? <EgresoForm /> : <Navigate to="/dashboard" />} />
           <Route path="conciliacion" element={isFinanciero ? <ConciliacionBancaria /> : <Navigate to="/dashboard" />} />
         </Route>
         

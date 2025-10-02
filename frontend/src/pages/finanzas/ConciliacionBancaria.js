@@ -7,7 +7,6 @@ import {
   TextField, 
   Button, 
   MenuItem, 
-  Divider,
   Switch,
   FormControlLabel,
   Table,
@@ -25,7 +24,6 @@ import {
 import { DatePicker } from '@mui/x-date-pickers';
 import { AddCircleOutline as AddCircleOutlineIcon } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import DownloadIcon from '@mui/icons-material/Download';
 import SaveIcon from '@mui/icons-material/Save';
 import { format } from 'date-fns';
@@ -78,6 +76,7 @@ const ConciliacionBancaria = () => {
     if (cuentaSeleccionada) {
       cargarMovimientos();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cuentaSeleccionada, fechaConciliacion]);
 
   // Función para cargar movimientos

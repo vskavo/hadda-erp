@@ -50,7 +50,7 @@ const includeFacturaGeneral = { // Usado en findAll, create (completo), update (
 const includeCuentaBancariaFindAll = {
   model: CuentaBancaria,
   as: 'CuentaBancaria',
-  attributes: ['id', 'nombre_banco', 'tipo_cuenta', 'numero_cuenta'], // Nota: 'nombre_banco'
+  attributes: ['id', 'banco', 'tipo_cuenta', 'numero_cuenta'], // Nota: 'banco'
   required: false
 };
 const includeUsuarioFindAll = {

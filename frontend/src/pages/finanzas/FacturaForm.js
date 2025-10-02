@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Paper, 
-  Grid, 
-  TextField, 
-  Button, 
-  MenuItem, 
+import {
+  Box,
+  Typography,
+  Paper,
+  Grid,
+  TextField,
+  Button,
+  MenuItem,
   Divider,
   IconButton,
   Table,
@@ -14,7 +14,21 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Alert,
+  Autocomplete,
+  FormControlLabel,
+  Checkbox,
+  Modal,
+  CircularProgress,
+  Fade,
+  Backdrop,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Chip,
+  Link
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -24,137 +38,53 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 import { DatePicker } from '@mui/x-date-pickers';
+import clienteService from '../../services/clienteService';
+import facturaService from '../../services/facturaService';
+import proyectoService from '../../services/proyectoService';
 
 const FacturaForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [clientes, setClientes] = useState([]);
+  const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
   const [proyectos, setProyectos] = useState([]);
+  const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
   const [items, setItems] = useState([{ descripcion: '', cantidad: 1, precio_unitario: 0, descuento: 0, total: 0 }]);
+  const [error, setError] = useState('');
+  const [loadingClientes, setLoadingClientes] = useState(true);
+  const [loadingProyectos, setLoadingProyectos] = useState(true);
+
+  // Estados para el modal de progreso del SII
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalState, setModalState] = useState('loading'); // 'loading', 'success', 'error'
+  const [modalMessage, setModalMessage] = useState('');
+  const [siiResponse, setSiiResponse] = useState(null);
   const isEditing = Boolean(id);
   
-  // Valores iniciales del formulario
-  const initialValues = {
-    numero_factura: '',
-    fecha_emision: new Date(),
-    fecha_vencimiento: new Date(new Date().setDate(new Date().getDate() + 30)), // 30 días de plazo por defecto
-    cliente_id: '',
-    proyecto_id: '',
-    condiciones_pago: 'CONTADO',
-    observaciones: '',
-    estado: 'PENDIENTE',
-    iva: 19, // Porcentaje de IVA por defecto
-    monto_neto: 0,
-    monto_iva: 0,
-    monto_total: 0
+  // Función para manejar cambio del checkbox de IVA
+  const handleIvaChange = (event) => {
+    const incluirIva = event.target.checked;
+    const nuevoIva = incluirIva ? 19 : 0;
+
+    formik.setFieldValue('incluir_iva', incluirIva);
+    formik.setFieldValue('iva', nuevoIva);
+
+    // Recalcular totales con el nuevo IVA
+    recalcularTotales(items, nuevoIva);
   };
 
-  // Esquema de validación con Yup
-  const validationSchema = Yup.object({
-    numero_factura: Yup.string().required('El número de factura es requerido'),
-    fecha_emision: Yup.date().required('La fecha de emisión es requerida'),
-    fecha_vencimiento: Yup.date().required('La fecha de vencimiento es requerida'),
-    cliente_id: Yup.string().required('El cliente es requerido'),
-    condiciones_pago: Yup.string().required('Las condiciones de pago son requeridas')
-  });
+  // Recalcular totales de la factura
+  const recalcularTotales = (itemsList, ivaPorcentaje = null) => {
+    const ivaActual = ivaPorcentaje !== null ? ivaPorcentaje : formik.values.iva;
+    const montoNeto = itemsList.reduce((sum, item) => sum + Number(item.total), 0);
+    const montoIva = montoNeto * (ivaActual / 100);
+    const montoTotal = montoNeto + montoIva;
 
-  // Cargar datos iniciales
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        // Aquí cargaríamos los clientes y proyectos desde la API
-        // Por ahora usamos datos ficticios
-        setClientes([
-          { id: 1, razon_social: 'Cliente Empresa A', rut: '76.123.456-7' },
-          { id: 2, razon_social: 'Cliente Empresa B', rut: '76.234.567-8' },
-          { id: 3, razon_social: 'Cliente Empresa C', rut: '76.345.678-9' },
-          { id: 4, razon_social: 'Cliente Empresa D', rut: '76.456.789-0' },
-          { id: 5, razon_social: 'Cliente Empresa E', rut: '76.567.890-1' }
-        ]);
-        
-        setProyectos([
-          { id: 1, nombre: 'Proyecto 1', codigo: 'P001' },
-          { id: 2, nombre: 'Proyecto 2', codigo: 'P002' },
-          { id: 3, nombre: 'Proyecto 3', codigo: 'P003' },
-          { id: 4, nombre: 'Proyecto 4', codigo: 'P004' },
-          { id: 5, nombre: 'Proyecto 5', codigo: 'P005' }
-        ]);
-        
-        // Si estamos editando, cargar la factura existente
-        if (isEditing) {
-          // Aquí cargaríamos los datos de la factura desde la API
-          // Por ahora usamos datos ficticios
-          const facturaData = {
-            id: parseInt(id),
-            numero_factura: `F-${2023000 + parseInt(id)}`,
-            fecha_emision: new Date(2023, 0, parseInt(id)),
-            fecha_vencimiento: new Date(2023, 1, parseInt(id)),
-            cliente_id: (parseInt(id) % 5) + 1,
-            proyecto_id: parseInt(id) % 3 === 0 ? Math.floor(parseInt(id) / 3) + 1 : '',
-            condiciones_pago: 'CREDITO',
-            observaciones: 'Observaciones de ejemplo para la factura',
-            estado: 'PENDIENTE',
-            iva: 19,
-            monto_neto: 100000 * parseInt(id),
-            monto_iva: 19000 * parseInt(id),
-            monto_total: 119000 * parseInt(id)
-          };
-          
-          const facturaItems = [
-            { 
-              id: 1, 
-              descripcion: 'Servicio de capacitación', 
-              cantidad: 1, 
-              precio_unitario: 100000 * parseInt(id), 
-              descuento: 0, 
-              total: 100000 * parseInt(id) 
-            }
-          ];
-          
-          formik.setValues({
-            ...facturaData
-          });
-          
-          setItems(facturaItems);
-        }
-      } catch (error) {
-        console.error('Error al cargar datos:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchData();
-  }, [id]);
-
-  // Configuración de Formik
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: async (values) => {
-      setLoading(true);
-      try {
-        // Aquí enviaríamos los datos a la API
-        // Por ahora solo mostramos los datos en consola
-        const facturaData = {
-          ...values,
-          items
-        };
-        console.log('Datos de la factura a guardar:', facturaData);
-        
-        // Simular guardado exitoso
-        setTimeout(() => {
-          setLoading(false);
-          navigate('/finanzas/facturas');
-        }, 1000);
-      } catch (error) {
-        console.error('Error al guardar la factura:', error);
-        setLoading(false);
-      }
-    }
-  });
+    formik.setFieldValue('monto_neto', montoNeto);
+    formik.setFieldValue('monto_iva', montoIva);
+    formik.setFieldValue('monto_total', montoTotal);
+  };
 
   // Manejar cambios en los items de la factura
   const handleItemChange = (index, field, value) => {
@@ -188,16 +118,287 @@ const FacturaForm = () => {
     recalcularTotales(newItems);
   };
 
-  // Recalcular totales de la factura
-  const recalcularTotales = (itemsList) => {
-    const montoNeto = itemsList.reduce((sum, item) => sum + Number(item.total), 0);
-    const montoIva = montoNeto * (formik.values.iva / 100);
-    const montoTotal = montoNeto + montoIva;
-    
-    formik.setFieldValue('monto_neto', montoNeto);
-    formik.setFieldValue('monto_iva', montoIva);
-    formik.setFieldValue('monto_total', montoTotal);
+  // Valores iniciales del formulario
+  const initialValues = {
+    fecha_emision: new Date(),
+    fecha_vencimiento: new Date(new Date().setDate(new Date().getDate() + 30)), // 30 días de plazo por defecto
+    cliente_id: '',
+    proyecto_id: '',
+    condiciones_pago: 'CREDITO',
+    observaciones: '',
+    estado: 'borrador',
+    ciudad_emision: '',
+    ciudad_receptor: '',
+    incluir_iva: false, // Checkbox para incluir IVA
+    iva: 0, // Porcentaje de IVA (0 o 19)
+    monto_neto: 0,
+    monto_iva: 0,
+    monto_total: 0
   };
+
+  // Esquema de validación con Yup
+  const validationSchema = Yup.object({
+    fecha_emision: Yup.date().required('La fecha de emisión es requerida'),
+    fecha_vencimiento: Yup.date().required('La fecha de vencimiento es requerida'),
+    cliente_id: Yup.string().required('El cliente es requerido'),
+    ciudad_emision: Yup.string().required('La ciudad de emisión es requerida'),
+    ciudad_receptor: Yup.string().required('La ciudad del receptor es requerida')
+  });
+
+  // Cargar datos iniciales
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setLoadingClientes(true);
+      setError('');
+
+      try {
+        // Cargar clientes desde la API
+        const clientesResponse = await clienteService.getClientes();
+        if (clientesResponse && clientesResponse.clientes) {
+          setClientes(clientesResponse.clientes);
+        }
+
+        // Cargar proyectos desde la API
+        const proyectosResponse = await proyectoService.getProyectos();
+        if (proyectosResponse && proyectosResponse.proyectos) {
+          setProyectos(proyectosResponse.proyectos);
+        }
+
+        // Si estamos editando, cargar la factura existente
+        if (isEditing) {
+          try {
+            const facturaData = await facturaService.getFacturaById(id);
+            if (facturaData) {
+              // Si la factura tiene un cliente asociado, cargarlo
+              if (facturaData.cliente_id) {
+                const cliente = clientesResponse.clientes.find(c => c.id === facturaData.cliente_id);
+                if (cliente) {
+                  setClienteSeleccionado(cliente);
+                }
+              }
+
+              // Si la factura tiene un proyecto asociado, cargarlo
+              if (facturaData.proyecto_id) {
+                const proyecto = proyectosResponse.proyectos.find(p => p.id === facturaData.proyecto_id);
+                if (proyecto) {
+                  setProyectoSeleccionado(proyecto);
+                }
+              }
+
+              formik.setValues({
+                fecha_emision: facturaData.fecha_emision ? new Date(facturaData.fecha_emision) : new Date(),
+                fecha_vencimiento: facturaData.fecha_vencimiento ? new Date(facturaData.fecha_vencimiento) : new Date(new Date().setDate(new Date().getDate() + 30)),
+                cliente_id: facturaData.cliente_id || '',
+                proyecto_id: facturaData.proyecto_id || '',
+                condiciones_pago: 'CREDITO',
+                observaciones: facturaData.observaciones || '',
+                estado: facturaData.estado || 'borrador',
+                ciudad_emision: facturaData.ciudad_emision || '',
+                ciudad_receptor: facturaData.ciudad_receptor || '',
+                incluir_iva: (facturaData.iva || 0) > 0, // Checkbox activado si hay IVA
+                iva: facturaData.iva || 0,
+                monto_neto: facturaData.monto_neto || 0,
+                monto_iva: facturaData.monto_iva || 0,
+                monto_total: facturaData.monto_total || 0
+              });
+
+              // Aquí podríamos cargar los items de la factura si existen en el backend
+              // Por ahora mantenemos los items por defecto
+            }
+          } catch (facturaError) {
+            console.error('Error al cargar factura:', facturaError);
+            setError('Error al cargar los datos de la factura');
+          }
+        }
+      } catch (error) {
+        console.error('Error al cargar datos iniciales:', error);
+        setError('Error al cargar los datos iniciales. Verifique su conexión a internet.');
+      } finally {
+        setLoading(false);
+        setLoadingClientes(false);
+        setLoadingProyectos(false);
+      }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  // Configuración de Formik
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values) => {
+      // Solo mostrar modal si no es edición (solo para creación)
+      if (!isEditing) {
+        setModalOpen(true);
+        setModalState('loading');
+        setModalMessage('Emitiendo boleta en el Servicio de Impuestos Internos...');
+        setSiiResponse(null);
+      }
+
+      setLoading(true);
+      setError('');
+
+      try {
+        // Convertir items del formulario al formato que espera el SII
+        const productos = items.map(item => ({
+          descripcion: item.descripcion,
+          cantidad: parseFloat(item.cantidad),
+          precio_unitario: parseFloat(item.precio_unitario),
+          monto: parseFloat(item.total)
+        }));
+
+        const facturaData = {
+          cliente_id: values.cliente_id,
+          fecha_emision: values.fecha_emision,
+          fecha_vencimiento: values.fecha_vencimiento,
+          monto_neto: values.monto_neto,
+          iva: values.iva,
+          monto_total: values.monto_total,
+          estado: values.estado,
+          metodo_pago: values.condiciones_pago,
+          observaciones: values.observaciones,
+          proyecto_id: values.proyecto_id || null,
+          ciudad_emision: values.ciudad_emision,
+          ciudad_receptor: values.ciudad_receptor,
+          productos: productos
+        };
+
+        if (isEditing) {
+          await facturaService.updateFactura(id, facturaData);
+          navigate('/finanzas/facturas');
+        } else {
+          const response = await facturaService.createFactura(facturaData);
+
+          // Actualizar modal con respuesta exitosa
+          setModalState('success');
+          setModalMessage(response.message);
+          setSiiResponse(response.sii_response);
+        }
+      } catch (error) {
+        console.error('Error al guardar la factura:', error);
+
+        if (!isEditing) {
+          // Mostrar error en el modal
+          setModalState('error');
+          setModalMessage(error.response?.data?.message || 'Error al emitir la boleta en el SII');
+          setSiiResponse(null);
+        } else {
+          setError(error.response?.data?.message || 'Error al guardar la factura. Intente nuevamente.');
+        }
+
+        setLoading(false);
+      }
+    }
+  });
+
+  // Función para cerrar el modal manualmente
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    if (modalState === 'success') {
+      navigate('/finanzas/facturas');
+    }
+  };
+
+  // Componente del Modal de progreso del SII
+  const SiiProgressModal = () => (
+    <Dialog
+      open={modalOpen}
+      onClose={handleCloseModal}
+      maxWidth="sm"
+      fullWidth
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <DialogTitle sx={{
+        textAlign: 'center',
+        bgcolor: modalState === 'success' ? 'success.main' :
+                 modalState === 'error' ? 'error.main' : 'primary.main',
+        color: 'white'
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+          {modalState === 'loading' && <CircularProgress size={24} sx={{ color: 'white' }} />}
+          {modalState === 'success' && '✅'}
+          {modalState === 'error' && '❌'}
+          <Typography variant="h6">
+            {modalState === 'loading' && 'Procesando...'}
+            {modalState === 'success' && '¡Éxito!'}
+            {modalState === 'error' && 'Error'}
+          </Typography>
+        </Box>
+      </DialogTitle>
+
+      <DialogContent sx={{ mt: 2, textAlign: 'center' }}>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          {modalMessage}
+        </Typography>
+
+        {modalState === 'loading' && (
+          <Box sx={{ my: 3 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Esto puede tomar hasta 60 segundos...
+            </Typography>
+            <CircularProgress size={40} />
+          </Box>
+        )}
+
+        {modalState === 'success' && siiResponse && (
+          <Box sx={{ textAlign: 'left', mt: 2 }}>
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              <strong>Estado:</strong> {siiResponse.message}
+            </Typography>
+            {siiResponse.detalles && (
+              <Typography variant="body2" sx={{ mb: 2 }}>
+                <strong>Detalles:</strong> {siiResponse.detalles.mensaje_confirmacion}
+              </Typography>
+            )}
+            <Box sx={{ mt: 2, p: 2, bgcolor: 'success.light', borderRadius: 1 }}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                📋 <strong>Puede revisar su borrador en:</strong>
+              </Typography>
+              <Link
+                href={siiResponse.url_borradores}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ wordBreak: 'break-all' }}
+              >
+                {siiResponse.url_borradores}
+              </Link>
+            </Box>
+          </Box>
+        )}
+
+        {modalState === 'error' && (
+          <Box sx={{ mt: 2 }}>
+            <Typography variant="body2" color="error" sx={{ mb: 2 }}>
+              La factura no fue guardada. Por favor, verifica tu conexión y vuelve a intentar.
+            </Typography>
+            <Chip
+              label="Intentar nuevamente"
+              onClick={() => setModalOpen(false)}
+              sx={{ cursor: 'pointer' }}
+            />
+          </Box>
+        )}
+      </DialogContent>
+
+      <DialogActions sx={{ justifyContent: 'center', pb: 3 }}>
+        {modalState !== 'loading' && (
+          <Button
+            onClick={handleCloseModal}
+            variant="contained"
+            color={modalState === 'success' ? 'success' : 'primary'}
+          >
+            {modalState === 'success' ? 'Ir a Facturas' : 'Cerrar'}
+          </Button>
+        )}
+      </DialogActions>
+    </Dialog>
+  );
 
   return (
     <Box sx={{ pb: 3 }}>
@@ -210,26 +411,18 @@ const FacturaForm = () => {
         </Typography>
       </Box>
 
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
+
       <form onSubmit={formik.handleSubmit}>
         <Paper sx={{ p: 3, mb: 3 }}>
           <Typography variant="h6" gutterBottom>
             Información General
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                id="numero_factura"
-                name="numero_factura"
-                label="Número de Factura"
-                value={formik.values.numero_factura}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.numero_factura && Boolean(formik.errors.numero_factura)}
-                helperText={formik.touched.numero_factura && formik.errors.numero_factura}
-                disabled={isEditing}
-              />
-            </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <DatePicker
                 label="Fecha de Emisión"
@@ -269,85 +462,162 @@ const FacturaForm = () => {
                 onChange={formik.handleChange}
                 disabled={!isEditing}
               >
-                <MenuItem value="PENDIENTE">Pendiente</MenuItem>
-                <MenuItem value="PAGADA">Pagada</MenuItem>
-                <MenuItem value="VENCIDA">Vencida</MenuItem>
-                <MenuItem value="ANULADA">Anulada</MenuItem>
+                <MenuItem value="borrador">Borrador</MenuItem>
+                <MenuItem value="emitida">Emitida</MenuItem>
+                <MenuItem value="pagada">Pagada</MenuItem>
+                <MenuItem value="vencida">Vencida</MenuItem>
+                <MenuItem value="anulada">Anulada</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                select
-                fullWidth
+              <Autocomplete
                 id="cliente_id"
-                name="cliente_id"
-                label="Cliente"
-                value={formik.values.cliente_id}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                options={clientes}
+                loading={loadingClientes}
+                getOptionLabel={(option) =>
+                  option.rut ? `${option.rut} - ${option.razon_social}` : ''
+                }
+                value={clienteSeleccionado}
+                onChange={(event, newValue) => {
+                  setClienteSeleccionado(newValue);
+                  formik.setFieldValue('cliente_id', newValue ? newValue.id : '');
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Buscar cliente por RUT"
+                    placeholder="Ingrese RUT del cliente"
                 error={formik.touched.cliente_id && Boolean(formik.errors.cliente_id)}
                 helperText={formik.touched.cliente_id && formik.errors.cliente_id}
-              >
-                <MenuItem value="">Seleccione un cliente</MenuItem>
-                {clientes.map((cliente) => (
-                  <MenuItem key={cliente.id} value={cliente.id}>
-                    {cliente.razon_social} ({cliente.rut})
-                  </MenuItem>
-                ))}
-              </TextField>
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <>
+                          {loadingClientes ? <div>...</div> : null}
+                          {params.InputProps.endAdornment}
+                        </>
+                      ),
+                    }}
+                  />
+                )}
+                renderOption={(props, option) => (
+                  <li {...props}>
+                    <Box>
+                      <Typography variant="body2" fontWeight="bold">
+                        {option.rut} - {option.razon_social}
+                      </Typography>
+                      {option.giro && (
+                        <Typography variant="caption" color="text.secondary">
+                          Giro: {option.giro}
+                        </Typography>
+                      )}
+                    </Box>
+                  </li>
+                )}
+                noOptionsText="No se encontraron clientes"
+                clearText="Limpiar"
+                closeText="Cerrar"
+                openText="Abrir"
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                select
-                fullWidth
+              <Autocomplete
                 id="proyecto_id"
-                name="proyecto_id"
-                label="Proyecto (Opcional)"
-                value={formik.values.proyecto_id}
-                onChange={formik.handleChange}
-              >
-                <MenuItem value="">Sin proyecto asociado</MenuItem>
-                {proyectos.map((proyecto) => (
-                  <MenuItem key={proyecto.id} value={proyecto.id}>
-                    {proyecto.nombre} ({proyecto.codigo})
-                  </MenuItem>
-                ))}
-              </TextField>
+                options={proyectos}
+                loading={loadingProyectos}
+                getOptionLabel={(option) =>
+                  option.nombre ? `${option.nombre} (${option.proyect_id})` : ''
+                }
+                value={proyectoSeleccionado}
+                onChange={(event, newValue) => {
+                  setProyectoSeleccionado(newValue);
+                  formik.setFieldValue('proyecto_id', newValue ? newValue.id : '');
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Buscar proyecto (Opcional)"
+                    placeholder="Seleccione un proyecto"
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <>
+                          {loadingProyectos ? <div>...</div> : null}
+                          {params.InputProps.endAdornment}
+                        </>
+                      ),
+                    }}
+                  />
+                )}
+                renderOption={(props, option) => (
+                  <li {...props}>
+                    <Typography variant="body2">
+                      {option.nombre} ({option.proyect_id})
+                    </Typography>
+                  </li>
+                )}
+                noOptionsText="No se encontraron proyectos"
+                clearText="Limpiar"
+                closeText="Cerrar"
+                openText="Abrir"
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                select
                 fullWidth
                 id="condiciones_pago"
                 name="condiciones_pago"
                 label="Condiciones de Pago"
-                value={formik.values.condiciones_pago}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.condiciones_pago && Boolean(formik.errors.condiciones_pago)}
-                helperText={formik.touched.condiciones_pago && formik.errors.condiciones_pago}
-              >
-                <MenuItem value="CONTADO">Contado</MenuItem>
-                <MenuItem value="CREDITO">Crédito</MenuItem>
-                <MenuItem value="30_DIAS">30 Días</MenuItem>
-                <MenuItem value="60_DIAS">60 Días</MenuItem>
-                <MenuItem value="90_DIAS">90 Días</MenuItem>
-              </TextField>
+                value="Crédito"
+                InputProps={{
+                  readOnly: true,
+                }}
+                helperText="Todas las facturas se emiten a crédito"
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                id="iva"
-                name="iva"
-                label="IVA (%)"
-                type="number"
-                value={formik.values.iva}
-                onChange={(e) => {
-                  formik.handleChange(e);
-                  recalcularTotales(items);
-                }}
-                InputProps={{ inputProps: { min: 0, max: 100 } }}
+                id="ciudad_emision"
+                name="ciudad_emision"
+                label="Ciudad de Emisión"
+                value={formik.values.ciudad_emision}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.ciudad_emision && Boolean(formik.errors.ciudad_emision)}
+                helperText={formik.touched.ciudad_emision && formik.errors.ciudad_emision}
+                required
               />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                id="ciudad_receptor"
+                name="ciudad_receptor"
+                label="Ciudad del Receptor"
+                value={formik.values.ciudad_receptor}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.ciudad_receptor && Boolean(formik.errors.ciudad_receptor)}
+                helperText={formik.touched.ciudad_receptor && formik.errors.ciudad_receptor}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formik.values.incluir_iva}
+                    onChange={handleIvaChange}
+                    name="incluir_iva"
+                    color="primary"
+                  />
+                }
+                label="¿Incluir IVA? (19%)"
+              />
+              <Typography variant="caption" color="text.secondary" sx={{ ml: 4 }}>
+                Si está marcado, se aplicará IVA del 19%. Si no, la factura será exenta.
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -363,6 +633,91 @@ const FacturaForm = () => {
             </Grid>
           </Grid>
         </Paper>
+
+        {clienteSeleccionado && (
+          <Paper sx={{ p: 3, mb: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              Información del Cliente
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} md={3}>
+                <Typography variant="body2" color="text.secondary">
+                  RUT
+                </Typography>
+                <Typography variant="body1">
+                  {clienteSeleccionado.rut}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Typography variant="body2" color="text.secondary">
+                  Razón Social
+                </Typography>
+                <Typography variant="body1">
+                  {clienteSeleccionado.razon_social}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Typography variant="body2" color="text.secondary">
+                  Giro
+                </Typography>
+                <Typography variant="body1">
+                  {clienteSeleccionado.giro || 'No especificado'}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Typography variant="body2" color="text.secondary">
+                  Estado
+                </Typography>
+                <Typography variant="body1">
+                  {clienteSeleccionado.estado === 'activo' ? 'Activo' : 'Inactivo'}
+                </Typography>
+              </Grid>
+              {clienteSeleccionado.direccion && (
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="body2" color="text.secondary">
+                    Dirección
+                  </Typography>
+                  <Typography variant="body1">
+                    {clienteSeleccionado.direccion}
+                    {clienteSeleccionado.comuna && `, ${clienteSeleccionado.comuna}`}
+                    {clienteSeleccionado.ciudad && `, ${clienteSeleccionado.ciudad}`}
+                  </Typography>
+                </Grid>
+              )}
+              {clienteSeleccionado.telefono && (
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="body2" color="text.secondary">
+                    Teléfono
+                  </Typography>
+                  <Typography variant="body1">
+                    {clienteSeleccionado.telefono}
+                  </Typography>
+                </Grid>
+              )}
+              {clienteSeleccionado.email && (
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="body2" color="text.secondary">
+                    Email
+                  </Typography>
+                  <Typography variant="body1">
+                    {clienteSeleccionado.email}
+                  </Typography>
+                </Grid>
+              )}
+              {clienteSeleccionado.contacto_nombre && (
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="body2" color="text.secondary">
+                    Contacto
+                  </Typography>
+                  <Typography variant="body1">
+                    {clienteSeleccionado.contacto_nombre}
+                    {clienteSeleccionado.contacto_cargo && ` - ${clienteSeleccionado.contacto_cargo}`}
+                  </Typography>
+                </Grid>
+              )}
+            </Grid>
+          </Paper>
+        )}
 
         <Paper sx={{ p: 3, mb: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -459,7 +814,9 @@ const FacturaForm = () => {
                 <Typography variant="body1">${formik.values.monto_neto.toLocaleString('es-CL')}</Typography>
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body1">IVA ({formik.values.iva}%):</Typography>
+                <Typography variant="body1">
+                  {formik.values.iva > 0 ? `IVA (${formik.values.iva}%):` : 'Exento de IVA:'}
+                </Typography>
                 <Typography variant="body1">${formik.values.monto_iva.toLocaleString('es-CL')}</Typography>
               </Box>
               <Divider sx={{ my: 1 }} />
@@ -485,12 +842,15 @@ const FacturaForm = () => {
             type="submit"
             variant="contained"
             startIcon={<SaveIcon />}
-            disabled={loading}
+            disabled={loading || modalOpen}
           >
-            {isEditing ? 'Actualizar' : 'Crear'} Factura
+            {isEditing ? 'Actualizar' : (modalOpen ? 'Procesando...' : 'Crear Factura')}
           </Button>
         </Box>
       </form>
+
+      {/* Modal de progreso del SII */}
+      <SiiProgressModal />
     </Box>
   );
 };

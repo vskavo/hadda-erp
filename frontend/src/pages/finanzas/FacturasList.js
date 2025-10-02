@@ -6,7 +6,6 @@ import {
   Grid, 
   TextField, 
   MenuItem, 
-  IconButton,
   Chip,
   Paper,
   InputAdornment
@@ -29,7 +28,7 @@ const FacturasList = () => {
   const [loading, setLoading] = useState(true);
   const [filtros, setFiltros] = useState({
     search: '',
-    estado: '',
+    estado: 'borrador', // Por defecto mostrar solo facturas en borrador
     cliente: '',
     proyecto: ''
   });
@@ -136,7 +135,7 @@ const FacturasList = () => {
   const resetFiltros = () => {
     setFiltros({
       search: '',
-      estado: '',
+      estado: 'borrador', // Por defecto mostrar solo facturas en borrador
       cliente: '',
       proyecto: ''
     });
@@ -159,7 +158,8 @@ const FacturasList = () => {
     {
       id: 'numero_factura',
       label: 'N° Factura',
-      sortable: true
+      sortable: true,
+      format: (value) => value || 'Pendiente'
     },
     {
       id: 'fecha_emision',
@@ -168,13 +168,13 @@ const FacturasList = () => {
       format: (value) => format(new Date(value), 'dd/MM/yyyy', { locale: es })
     },
     {
-      id: 'cliente',
+      id: 'Cliente',
       label: 'Cliente',
       sortable: false,
       format: (value) => value.razon_social
     },
     {
-      id: 'proyecto',
+      id: 'Proyecto',
       label: 'Proyecto',
       sortable: false,
       format: (value) => value ? value.nombre : '-'
@@ -189,18 +189,23 @@ const FacturasList = () => {
       id: 'estado',
       label: 'Estado',
       sortable: true,
-      format: (value) => (
-        <Chip 
-          label={value} 
-          color={
-            value === 'PAGADA' ? 'success' : 
-            value === 'PENDIENTE' ? 'warning' : 
-            value === 'VENCIDA' ? 'error' : 
-            'default'
-          } 
-          size="small" 
-        />
-      )
+      format: (value) => {
+        const estadoCapitalized = value.charAt(0).toUpperCase() + value.slice(1);
+        return (
+          <Chip 
+            label={estadoCapitalized} 
+            color={
+              value === 'pagada' ? 'success' :
+              value === 'emitida' ? 'warning' :
+              value === 'borrador' ? 'info' :
+              value === 'vencida' ? 'error' :
+              value === 'anulada' ? 'default' :
+              'default'
+            }
+            size="small" 
+          />
+        )
+      }
     }
   ];
 
@@ -268,10 +273,11 @@ const FacturasList = () => {
                 size="small"
               >
                 <MenuItem value="">Todos</MenuItem>
-                <MenuItem value="PAGADA">Pagada</MenuItem>
-                <MenuItem value="PENDIENTE">Pendiente</MenuItem>
-                <MenuItem value="VENCIDA">Vencida</MenuItem>
-                <MenuItem value="ANULADA">Anulada</MenuItem>
+                <MenuItem value="borrador">Borrador</MenuItem>
+                <MenuItem value="emitida">Emitida</MenuItem>
+                <MenuItem value="pagada">Pagada</MenuItem>
+                <MenuItem value="vencida">Vencida</MenuItem>
+                <MenuItem value="anulada">Anulada</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={12} sm={4}>

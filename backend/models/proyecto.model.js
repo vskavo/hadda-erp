@@ -27,7 +27,8 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     fecha_fin: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false
     },
     presupuesto: {
       type: DataTypes.DECIMAL(10, 2),

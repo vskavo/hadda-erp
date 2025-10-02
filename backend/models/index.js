@@ -125,6 +125,8 @@ const Participante = require('./participante.model')(sequelize);
 const DeclaracionJurada = require('./declaracionJurada.model')(sequelize);
 const Ingreso = require('./ingreso.model')(sequelize);
 const Egreso = require('./egreso.model')(sequelize);
+const SiiIngreso = require('./sii_ingreso.model')(sequelize);
+const SiiEgreso = require('./sii_egreso.model')(sequelize);
 const CuentaBancaria = require('./cuentaBancaria.model')(sequelize);
 const Remuneracion = require('./remuneracion.model')(sequelize);
 const Cotizacion = require('./cotizacion.model')(sequelize);
@@ -144,6 +146,7 @@ const Setting = require('./setting.model')(sequelize);
 const Comision = require('./comision.model')(sequelize);
 const OtecData = require('./otec_data.model')(sequelize);
 const UsuarioSence = require('./usuarios_sence.model')(sequelize);
+const UsuarioSii = require('./usuario_sii.model')(sequelize);
 
 // Definir relaciones entre modelos
 Cliente.hasMany(Proyecto, { foreignKey: 'cliente_id' });
@@ -151,6 +154,9 @@ Proyecto.belongsTo(Cliente, { foreignKey: 'cliente_id' });
 
 Cliente.hasMany(Factura, { foreignKey: 'cliente_id' });
 Factura.belongsTo(Cliente, { foreignKey: 'cliente_id' });
+
+Proyecto.hasMany(Factura, { foreignKey: 'proyecto_id' });
+Factura.belongsTo(Proyecto, { foreignKey: 'proyecto_id' });
 
 Cliente.hasMany(Cotizacion, { foreignKey: 'cliente_id' });
 Cotizacion.belongsTo(Cliente, { foreignKey: 'cliente_id' });
@@ -305,6 +311,13 @@ Proyecto.hasMany(Venta, { foreignKey: 'proyecto_id' });
 Cliente.belongsTo(Usuario, { foreignKey: 'owner', as: 'Owner' });
 Usuario.hasMany(Cliente, { foreignKey: 'owner', as: 'ClientesPropios' });
 
+// Relaciones para SII Ingresos y Egresos
+Proyecto.hasMany(SiiIngreso, { foreignKey: 'proyecto_id' });
+SiiIngreso.belongsTo(Proyecto, { foreignKey: 'proyecto_id', as: 'Proyecto' });
+
+Proyecto.hasMany(SiiEgreso, { foreignKey: 'proyecto_id' });
+SiiEgreso.belongsTo(Proyecto, { foreignKey: 'proyecto_id', as: 'Proyecto' });
+
 // Exportar modelos, conexión y funciones
 module.exports = {
   sequelize,
@@ -322,6 +335,8 @@ module.exports = {
   DeclaracionJurada,
   Ingreso,
   Egreso,
+  SiiIngreso,
+  SiiEgreso,
   CuentaBancaria,
   Remuneracion,
   Cotizacion,
@@ -341,5 +356,6 @@ module.exports = {
   Setting,
   Comision,
   OtecData,
-  UsuarioSence
+  UsuarioSence,
+  UsuarioSii
 }; 

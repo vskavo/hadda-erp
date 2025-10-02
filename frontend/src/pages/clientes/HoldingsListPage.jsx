@@ -64,11 +64,11 @@ const HoldingsListPage = () => {
     navigate(`/clientes/holdings-summary/${encodeURIComponent(holdingName)}/detalles`);
   };
 
-  const handleEditHolding = (holdingName) => {
-    // TODO: Implementar edición del holding
-    console.log('Editar holding:', holdingName);
-    // navigate(`/clientes/holdings/editar/${holdingName}`); // Ejemplo de ruta futura
-  };
+  // const handleEditHolding = (holdingName) => {
+  //   // TODO: Implementar edición del holding
+  //   console.log('Editar holding:', holdingName);
+  //   // navigate(`/clientes/holdings/editar/${holdingName}`); // Ejemplo de ruta futura
+  // };
 
   const holdingsFiltrados = filtroHolding
     ? holdings.filter(h => h.nombreHolding === filtroHolding)

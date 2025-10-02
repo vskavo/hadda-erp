@@ -56,11 +56,22 @@ function stableSort(array, comparator) {
 
 const DataTable = ({
   columns,
-  data = [],
+  rows, // Cambiado de data a rows
   title,
   filters = [],
   onRowClick,
   actions = [],
+  // Props para paginación y ordenamiento del lado del servidor
+  page,
+  rowsPerPage,
+  totalItems,
+  onPageChange,
+  onRowsPerPageChange,
+  onRequestSort,
+  orderBy,
+  order,
+  loading,
+  // Props anteriores para paginación del lado del cliente (se mantienen por retrocompatibilidad)
   initialOrderBy = '',
   initialOrder = 'asc',
   rowsPerPageOptions = [5, 10, 25],
@@ -69,33 +80,56 @@ const DataTable = ({
   searchFields = [],
   hideSearch = false,
 }) => {
-  const [order, setOrder] = useState(initialOrder);
-  const [orderBy, setOrderBy] = useState(initialOrderBy);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage);
+  // Determinar si es paginación del lado del servidor
+  const isServerSide = page !== undefined && rowsPerPage !== undefined && totalItems !== undefined;
+
+  // Estado interno (solo para paginación del lado del cliente)
+  const [internalOrder, setInternalOrder] = useState(initialOrder);
+  const [internalOrderBy, setInternalOrderBy] = useState(initialOrderBy);
+  const [internalPage, setInternalPage] = useState(0);
+  const [internalRowsPerPage, setInternalRowsPerPage] = useState(defaultRowsPerPage);
   const [searchText, setSearchText] = useState('');
   const [activeFilters, setActiveFilters] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
 
+  const currentOrder = isServerSide ? order : internalOrder;
+  const currentOrderBy = isServerSide ? orderBy : internalOrderBy;
+  const currentPage = isServerSide ? page : internalPage;
+  const currentRowsPerPage = isServerSide ? rowsPerPage : internalRowsPerPage;
+
   const handleRequestSort = (property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
+    if (isServerSide) {
+      if (onRequestSort) onRequestSort(property);
+    } else {
+      const isAsc = internalOrderBy === property && internalOrder === 'asc';
+      setInternalOrder(isAsc ? 'desc' : 'asc');
+      setInternalOrderBy(property);
+    }
   };
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    if (isServerSide) {
+      if (onPageChange) onPageChange(event, newPage);
+    } else {
+      setInternalPage(newPage);
+    }
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    if (isServerSide) {
+      if (onRowsPerPageChange) onRowsPerPageChange(event);
+    } else {
+      setInternalRowsPerPage(parseInt(event.target.value, 10));
+      setInternalPage(0);
+    }
   };
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
-    setPage(0);
+    if (!isServerSide) {
+      setInternalPage(0);
+    }
   };
 
   const handleClearSearch = () => {
@@ -108,7 +142,9 @@ const DataTable = ({
     } else {
       setActiveFilters([...activeFilters, filter]);
     }
-    setPage(0);
+    if (!isServerSide) {
+      setInternalPage(0);
+    }
   };
 
   const handleActionsClick = (event, row) => {
@@ -128,47 +164,40 @@ const DataTable = ({
     handleActionClose();
   };
 
-  // Asegurarse de que data es un array antes de filtrar
-  const safeData = Array.isArray(data) ? data : [];
+  // Asegurarse de que rows es un array antes de filtrar
+  const safeData = Array.isArray(rows) ? rows : [];
   
-  // Filtrar datos basado en la búsqueda y filtros activos
-  const filteredData = safeData.filter(row => {
-    // Filtrar por texto de búsqueda
-    if (searchText) {
-      const searchLower = searchText.toLowerCase();
-      
-      // Si se proporcionan campos de búsqueda específicos, usar solo esos campos
-      if (searchFields && searchFields.length > 0) {
-        return searchFields.some(field => {
-          const value = row[field];
-          return value !== null && 
-                 value !== undefined && 
-                 value.toString().toLowerCase().includes(searchLower);
+  // Procesamiento de datos (solo para el lado del cliente)
+  const processedData = isServerSide 
+    ? safeData 
+    : (() => {
+        const filteredData = safeData.filter(row => {
+          if (searchText) {
+            const searchLower = searchText.toLowerCase();
+            if (searchFields && searchFields.length > 0) {
+              return searchFields.some(field => {
+                const value = row[field];
+                return value !== null && value !== undefined && value.toString().toLowerCase().includes(searchLower);
+              });
+            }
+            return Object.values(row).some(value => 
+              value !== null && value !== undefined && value.toString().toLowerCase().includes(searchLower)
+            );
+          }
+          return true;
+        }).filter(row => {
+          if (activeFilters.length === 0) return true;
+          return activeFilters.some(filter => {
+            if (filter.field && filter.value) {
+              return row[filter.field] === filter.value;
+            }
+            return true;
+          });
         });
-      }
-      
-      // Si no hay campos específicos, buscar en todos los campos
-      return Object.values(row).some(value => 
-        value !== null && 
-        value !== undefined && 
-        value.toString().toLowerCase().includes(searchLower)
-      );
-    }
-    return true;
-  }).filter(row => {
-    // Aplicar filtros activos
-    if (activeFilters.length === 0) return true;
-    return activeFilters.some(filter => {
-      if (filter.field && filter.value) {
-        return row[filter.field] === filter.value;
-      }
-      return true;
-    });
-  });
 
-  // Ordenar y paginar datos
-  const sortedData = stableSort(filteredData, getComparator(order, orderBy))
-    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+        return stableSort(filteredData, getComparator(currentOrder, currentOrderBy))
+          .slice(currentPage * currentRowsPerPage, currentPage * currentRowsPerPage + currentRowsPerPage);
+      })();
 
   return (
     <Paper sx={{ width: '100%', mb: 2 }}>
@@ -242,19 +271,19 @@ const DataTable = ({
                   key={column.id}
                   align={column.numeric ? 'right' : 'left'}
                   padding={column.disablePadding ? 'none' : 'normal'}
-                  sortDirection={orderBy === column.id ? order : false}
+                  sortDirection={currentOrderBy === column.id ? currentOrder : false}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.sortable !== false ? (
                     <TableSortLabel
-                      active={orderBy === column.id}
-                      direction={orderBy === column.id ? order : 'asc'}
+                      active={currentOrderBy === column.id}
+                      direction={currentOrderBy === column.id ? currentOrder : 'asc'}
                       onClick={() => handleRequestSort(column.id)}
                     >
                       {column.label}
-                      {orderBy === column.id ? (
+                      {currentOrderBy === column.id ? (
                         <Box component="span" sx={visuallyHidden}>
-                          {order === 'desc' ? 'ordenado descendente' : 'ordenado ascendente'}
+                          {currentOrder === 'desc' ? 'ordenado descendente' : 'ordenado ascendente'}
                         </Box>
                       ) : null}
                     </TableSortLabel>
@@ -269,8 +298,8 @@ const DataTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {sortedData.length > 0 ? (
-              sortedData.map((row, index) => {
+            {processedData.length > 0 ? (
+              processedData.map((row, index) => {
                 return (
                   <TableRow
                     hover
@@ -317,13 +346,16 @@ const DataTable = ({
       <TablePagination
         rowsPerPageOptions={rowsPerPageOptions}
         component="div"
-        count={filteredData.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
+        count={isServerSide ? totalItems : processedData.length}
+        rowsPerPage={currentRowsPerPage}
+        page={currentPage}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         labelRowsPerPage="Filas por página:"
-        labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
+        labelDisplayedRows={({ from, to, count }) => {
+          const total = isServerSide ? totalItems : count;
+          return `${from}-${to} de ${total}`;
+        }}
       />
 
       <Menu

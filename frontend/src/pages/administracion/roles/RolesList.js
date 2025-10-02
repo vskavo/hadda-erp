@@ -13,7 +13,6 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import LockOpenIcon from '@mui/icons-material/LockOpen'; // Icono para permisos
 import { getRoles, deleteRol } from '../../../services/rolesService'; 
 // Asumiendo que tienes un componente de confirmación

@@ -4,9 +4,6 @@ import {
   Paper, 
   Typography, 
   Box, 
-  Button, 
-  Grid,
-  Divider,
   FormControl,
   FormLabel,
   RadioGroup,
@@ -45,6 +42,7 @@ const ClienteForm = () => {
     if (isEditing) {
       fetchCliente();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // Cargar usuarios solo si es admin
@@ -90,7 +88,7 @@ const ClienteForm = () => {
   const handleSubmit = async (values) => {
     setSubmitting(true);
     setError('');
-    
+
     try {
       // Transformar camelCase a snake_case para el backend
       const clienteData = {
@@ -100,27 +98,27 @@ const ClienteForm = () => {
         giro: values.giro,
         holding: values.holding !== undefined ? values.holding : null,
         estado: values.estado,
-        
-        // Información de contacto
-        email: values.email,
-        telefono: values.telefono,
-        sitio_web: values.sitioWeb,
-        
+
+        // Información de contacto - solo enviar si no están vacíos
+        ...(values.email && values.email.trim() !== '' && { email: values.email }),
+        ...(values.telefono && values.telefono.trim() !== '' && { telefono: values.telefono }),
+        ...(values.sitioWeb && values.sitioWeb.trim() !== '' && { sitio_web: values.sitioWeb }),
+
         // Dirección
-        direccion: values.direccion,
-        comuna: values.comuna,
-        ciudad: values.ciudad,
-        
-        // Contacto principal
-        contacto_nombre: values.contactoNombre,
-        contacto_cargo: values.contactoCargo,
-        contacto_email: values.contactoEmail,
-        contacto_telefono: values.contactoTelefono,
-        
+        ...(values.direccion && values.direccion.trim() !== '' && { direccion: values.direccion }),
+        ...(values.comuna && values.comuna.trim() !== '' && { comuna: values.comuna }),
+        ...(values.ciudad && values.ciudad.trim() !== '' && { ciudad: values.ciudad }),
+
+        // Contacto principal - solo enviar si no están vacíos
+        ...(values.contactoNombre && values.contactoNombre.trim() !== '' && { contacto_nombre: values.contactoNombre }),
+        ...(values.contactoCargo && values.contactoCargo.trim() !== '' && { contacto_cargo: values.contactoCargo }),
+        ...(values.contactoEmail && values.contactoEmail.trim() !== '' && { contacto_email: values.contactoEmail }),
+        ...(values.contactoTelefono && values.contactoTelefono.trim() !== '' && { contacto_telefono: values.contactoTelefono }),
+
         // Información adicional
-        notas: values.notas,
-        fecha_ultimo_contacto: values.fechaUltimoContacto instanceof Date ? values.fechaUltimoContacto.toISOString() : null,
-        
+        ...(values.notas && values.notas.trim() !== '' && { notas: values.notas }),
+        ...(values.fechaUltimoContacto && { fecha_ultimo_contacto: values.fechaUltimoContacto.toISOString() }),
+
         // Para personas
         ...(tipoCliente === 'persona' && {
           nombre: values.nombre,
@@ -169,7 +167,7 @@ const ClienteForm = () => {
   const commonFields = [
     {
       name: 'rut',
-      label: 'RUT',
+      label: 'RUT *',
       type: 'text',
       required: true,
       validation: Yup.string()
@@ -181,7 +179,11 @@ const ClienteForm = () => {
       name: 'email',
       label: 'Email',
       type: 'email',
-      validation: Yup.string().email('Email inválido'),
+      validation: Yup.string().when([], {
+        is: (val) => val && val.trim() !== '',
+        then: (schema) => schema.email('Formato de email inválido'),
+        otherwise: (schema) => schema.optional()
+      }),
       gridProps: { xs: 12, sm: 6 }
     },
     {
@@ -195,7 +197,11 @@ const ClienteForm = () => {
       name: 'sitioWeb',
       label: 'Sitio Web',
       type: 'url',
-      validation: Yup.string().url('URL inválida'),
+      validation: Yup.string().when([], {
+        is: (val) => val && val.trim() !== '',
+        then: (schema) => schema.url('Formato de URL inválido'),
+        otherwise: (schema) => schema.optional()
+      }),
       gridProps: { xs: 12, sm: 6 }
     },
     {
@@ -207,7 +213,7 @@ const ClienteForm = () => {
         { value: 'inactivo', label: 'Inactivo' },
         { value: 'prospecto', label: 'Prospecto' }
       ],
-      validation: Yup.string(),
+      validation: Yup.string().required('El estado es requerido'),
       gridProps: { xs: 12, sm: 6 }
     }
   ];
@@ -273,7 +279,11 @@ const ClienteForm = () => {
       name: 'contactoEmail',
       label: 'Email del Contacto Principal',
       type: 'email',
-      validation: Yup.string().email('Email inválido'),
+      validation: Yup.string().when([], {
+        is: (val) => val && val.trim() !== '',
+        then: (schema) => schema.email('Formato de email inválido'),
+        otherwise: (schema) => schema.optional()
+      }),
       gridProps: { xs: 12, sm: 6 }
     },
     {
@@ -289,7 +299,7 @@ const ClienteForm = () => {
   const empresaFields = [
     {
       name: 'razonSocial',
-      label: 'Razón Social',
+      label: 'Razón Social *',
       type: 'text',
       required: true,
       validation: Yup.string().required('La razón social es requerida'),
@@ -315,7 +325,7 @@ const ClienteForm = () => {
   const personaFields = [
     {
       name: 'nombre',
-      label: 'Nombre',
+      label: 'Nombre *',
       type: 'text',
       required: true,
       validation: Yup.string().required('El nombre es requerido'),
@@ -323,7 +333,7 @@ const ClienteForm = () => {
     },
     {
       name: 'apellido',
-      label: 'Apellido',
+      label: 'Apellido *',
       type: 'text',
       required: true,
       validation: Yup.string().required('El apellido es requerido'),
@@ -358,7 +368,7 @@ const ClienteForm = () => {
     if (isAdmin) {
       fields.push({
         name: 'owner',
-        label: 'Propietario',
+        label: 'Propietario *',
         type: 'select',
         required: true,
         options: usuarios.map(u => ({ value: u.id, label: `${u.nombre} ${u.apellido} (${u.email})` })),
@@ -444,9 +454,12 @@ const ClienteForm = () => {
             {isEditing ? 'Editar Cliente' : 'Nuevo Cliente'}
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
-            {isEditing 
-              ? 'Actualiza los datos del cliente' 
+            {isEditing
+              ? 'Actualiza los datos del cliente'
               : 'Completa el formulario para registrar un nuevo cliente'}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontStyle: 'italic' }}>
+            Los campos marcados con (*) son obligatorios
           </Typography>
         </Box>
         

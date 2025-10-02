@@ -13,7 +13,7 @@ const includesForEgresosFindAll = [
   {
     model: CuentaBancaria,
     as: 'CuentaBancariaEgreso', // Alias específico para egresos
-    attributes: ['id', 'nombre_banco', 'tipo_cuenta', 'numero_cuenta'],
+    attributes: ['id', 'banco', 'tipo_cuenta', 'numero_cuenta'],
     required: false
   },
   {
@@ -82,7 +82,7 @@ const includesForEgresosFindOne = [
   {
     model: CuentaBancaria,
     as: 'CuentaBancariaEgreso',
-    attributes: ['id', 'nombre_banco', 'tipo_cuenta', 'numero_cuenta'], // Podría ser más detallado si es necesario
+    attributes: ['id', 'banco', 'tipo_cuenta', 'numero_cuenta'], // Podría ser más detallado si es necesario
     required: false
   },
   {
@@ -104,7 +104,7 @@ const includesForEgresoDetails = [
   {
     model: CuentaBancaria,
     as: 'CuentaBancariaEgreso',
-    attributes: ['id', 'nombre_banco', 'tipo_cuenta', 'numero_cuenta'],
+    attributes: ['id', 'banco', 'tipo_cuenta', 'numero_cuenta'],
     required: false
   }
   // Podríamos añadir Usuario aquí si quisiéramos devolverlo siempre

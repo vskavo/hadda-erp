@@ -1,5 +1,30 @@
-const { Factura, Cliente, Proyecto, sequelize } = require('../models');
+const { Factura, Cliente, Proyecto, UsuarioSii, OtecData, sequelize } = require('../models');
+const axios = require('axios');
 const { Op } = require('sequelize');
+
+// Función auxiliar para procesar RUT
+const procesarRut = (rut) => {
+  // Eliminar puntos y espacios
+  const rutLimpio = rut.replace(/\./g, '').replace(/\s/g, '');
+
+  // Separar dígito verificador
+  const partes = rutLimpio.split('-');
+  if (partes.length === 2) {
+    return {
+      rut: partes[0],
+      dv: partes[1]
+    };
+  }
+
+  // Si no tiene guión, asumir que el último carácter es el DV
+  const rutSinDV = rutLimpio.slice(0, -1);
+  const dv = rutLimpio.slice(-1);
+
+  return {
+    rut: rutSinDV,
+    dv: dv
+  };
+};
 
 // Obtener todas las facturas con paginación y filtros
 exports.findAll = async (req, res) => {
@@ -70,7 +95,7 @@ exports.findAll = async (req, res) => {
         {
           model: Proyecto,
           as: 'Proyecto',
-          attributes: ['id', 'nombre', 'codigo'],
+          attributes: ['id', 'nombre', 'proyect_id'],
           required: false
         }
       ]
@@ -101,7 +126,7 @@ exports.findOne = async (req, res) => {
         {
           model: Proyecto,
           as: 'Proyecto',
-          attributes: ['id', 'nombre', 'codigo', 'descripcion'],
+          attributes: ['id', 'nombre', 'proyect_id'],
           required: false
         }
       ]
@@ -123,18 +148,21 @@ exports.create = async (req, res) => {
   const t = await sequelize.transaction();
   
   try {
-    const { 
-      cliente_id, 
-      numero_factura, 
-      fecha_emision, 
-      fecha_vencimiento, 
-      monto_neto, 
-      iva, 
-      monto_total, 
-      estado, 
-      metodo_pago, 
+    const {
+      cliente_id,
+      numero_factura,
+      fecha_emision,
+      fecha_vencimiento,
+      monto_neto,
+      iva,
+      monto_total,
+      estado,
+      metodo_pago,
       observaciones,
-      proyecto_id
+      proyecto_id,
+      ciudad_emision,
+      ciudad_receptor,
+      productos
     } = req.body;
     
     // Validar que el cliente exista
@@ -153,37 +181,129 @@ exports.create = async (req, res) => {
       }
     }
     
-    // Validar que el número de factura no esté duplicado
-    const facturaExistente = await Factura.findOne({
-      where: { numero_factura }
-    });
-    
-    if (facturaExistente) {
+    // Obtener datos del SII para emitir la boleta
+    let usuarioSii, otecData;
+
+    try {
+      // Obtener credenciales del SII
+      usuarioSii = await UsuarioSii.findOne();
+      if (!usuarioSii) {
+        await t.rollback();
+        return res.status(400).json({
+          message: 'No se encontraron credenciales del SII configuradas'
+        });
+      }
+
+      // Obtener datos del emisor (OTEC)
+      otecData = await OtecData.findOne();
+      if (!otecData) {
+        await t.rollback();
+        return res.status(400).json({
+          message: 'No se encontraron datos de la OTEC configurados'
+        });
+      }
+    } catch (error) {
+      console.error('Error al obtener datos del SII:', error);
       await t.rollback();
-      return res.status(400).json({ message: 'Ya existe una factura con este número' });
+      return res.status(500).json({
+        message: 'Error al obtener datos del SII'
+      });
     }
-    
-    // Crear la factura
-    const factura = await Factura.create({
-      cliente_id,
-      numero_factura,
-      fecha_emision: fecha_emision || new Date(),
-      fecha_vencimiento,
-      monto_neto,
-      iva,
-      monto_total,
-      estado: estado || 'emitida',
-      metodo_pago,
-      observaciones,
-      proyecto_id
-    }, { transaction: t });
-    
-    await t.commit();
-    
-    res.status(201).json({
-      message: 'Factura creada exitosamente',
-      factura
-    });
+
+    // Procesar RUT del emisor (eliminar puntos y guión)
+    const rutEmisorLimpio = otecData.rut.replace(/\./g, '').replace(/-/g, '');
+
+    // Procesar RUT del receptor
+    const rutReceptorProcesado = procesarRut(cliente.rut);
+
+    // Preparar payload para el SII
+    const payloadSII = {
+      credenciales: {
+        rut_usuario: usuarioSii.rut,
+        clave: usuarioSii.clave_unica
+      },
+      emisor: {
+        rut: rutEmisorLimpio,
+        ciudad: ciudad_emision
+      },
+      receptor: {
+        rut: rutReceptorProcesado.rut,
+        dv: rutReceptorProcesado.dv,
+        ciudad: ciudad_receptor
+      },
+      productos: productos && productos.length > 0 ? productos.map(producto => ({
+        nombre_producto: producto.descripcion || producto.nombre_producto || 'Producto',
+        cantidad: parseFloat(producto.cantidad || 1),
+        precio_unitario: parseFloat(producto.precio_unitario || producto.monto || 0),
+        monto: parseFloat(producto.precio_unitario || producto.monto || 0)
+      })) : [{
+        nombre_producto: 'Servicio',
+        cantidad: 1,
+        precio_unitario: parseFloat(monto_total),
+        monto: parseFloat(monto_total)
+      }]
+    };
+
+    try {
+      // Emitir boleta en el SII
+      const response = await axios.post(
+        'https://emisor-facturas-sii-773544359782.southamerica-west1.run.app/emitir-boleta',
+        payloadSII,
+        {
+          timeout: 60000, // 60 segundos máximo
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.data && response.data.success) {
+        // Solo crear la factura si el SII respondió exitosamente
+        const factura = await Factura.create({
+          cliente_id,
+          numero_factura,
+          fecha_emision: fecha_emision || new Date(),
+          fecha_vencimiento,
+          monto_neto,
+          iva,
+          monto_total,
+          estado: estado || 'borrador',
+          metodo_pago,
+          observaciones,
+          proyecto_id,
+          ciudad_emision,
+          ciudad_receptor
+        }, { transaction: t });
+
+        await t.commit();
+
+        res.status(201).json({
+          message: 'Factura creada y emitida en el Servicio de Impuestos Internos correctamente como borrador',
+          success: true,
+          factura,
+          sii_response: {
+            message: response.data.message,
+            detalles: response.data.detalles,
+            url_borradores: 'https://www4.sii.cl/mipymeinternetui/#!/borradores'
+          }
+        });
+      } else {
+        await t.rollback();
+        return res.status(400).json({
+          message: 'La boleta no pudo ser emitida en el SII',
+          error: response.data
+        });
+      }
+    } catch (siiError) {
+      console.error('Error al emitir boleta en SII:', siiError);
+      await t.rollback();
+
+      return res.status(500).json({
+        message: 'Error al emitir la boleta en el Servicio de Impuestos Internos. La factura no fue guardada.',
+        error: siiError.response?.data || siiError.message,
+        details: 'Por favor, intenta nuevamente. Si el problema persiste, contacta al administrador.'
+      });
+    }
   } catch (error) {
     await t.rollback();
     console.error('Error al crear factura:', error);
@@ -287,7 +407,7 @@ exports.update = async (req, res) => {
         {
           model: Proyecto,
           as: 'Proyecto',
-          attributes: ['id', 'nombre', 'codigo'],
+          attributes: ['id', 'nombre', 'proyect_id'],
           required: false
         }
       ]

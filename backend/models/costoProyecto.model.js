@@ -114,62 +114,72 @@ module.exports = (sequelize) => {
     tableName: 'costos_proyecto',
     timestamps: true,
     hooks: {
-      afterCreate: async (costo, options) => {
-        if (costo.estado === 'ejecutado') {
-          try {
-            // Actualizar costo estimado del proyecto
-            const { Proyecto } = require('./');
-            const proyecto = await Proyecto.findByPk(costo.proyecto_id, { transaction: options.transaction });
-            
-            if (proyecto) {
-              // Obtener suma de todos los costos ejecutados
-              const totalCostos = await CostoProyecto.sum('monto', {
-                where: { 
-                  proyecto_id: costo.proyecto_id,
-                  estado: 'ejecutado',
-                  incluido_rentabilidad: true
-                },
+      afterSave: async (costo, options) => {
+        try {
+          console.log(`🔄 Hook afterSave ejecutándose para costo ID: ${costo.id}, proyecto: ${costo.proyecto_id}, estado: ${costo.estado}`);
+
+          const { Proyecto } = sequelize.models;
+
+          // Solo recalcular si el costo está ejecutado e incluido en rentabilidad
+          if (costo.estado === 'ejecutado' && costo.incluido_rentabilidad === true) {
+            const totalCostos = await CostoProyecto.sum('monto', {
+              where: {
+                proyecto_id: costo.proyecto_id,
+                estado: 'ejecutado',
+                incluido_rentabilidad: true
+              },
+              transaction: options.transaction
+            });
+
+            console.log(`📊 Recalculando costo_real para proyecto ${costo.proyecto_id}: ${totalCostos || 0}`);
+
+            await Proyecto.update(
+              { costo_real: totalCostos || 0 },
+              {
+                where: { id: costo.proyecto_id },
                 transaction: options.transaction
-              });
-              
-              // Actualizar costo total estimado del proyecto
-              await proyecto.update(
-                { costo_real: totalCostos },
-                { transaction: options.transaction }
-              );
-            }
-          } catch (error) {
-            console.error('Error al actualizar costo estimado del proyecto:', error);
+              }
+            );
+
+            console.log(`✅ costo_real actualizado correctamente para proyecto ${costo.proyecto_id}`);
+          } else {
+            console.log(`⏭️  Hook omitido: estado=${costo.estado}, incluido_rentabilidad=${costo.incluido_rentabilidad}`);
           }
+        } catch (error) {
+          console.error(`❌ Error en hook afterSave de CostoProyecto para proyecto ${costo.proyecto_id}:`, error);
+          console.error('Detalles del error:', error.message);
         }
       },
-      afterUpdate: async (costo, options) => {
-        if (costo.changed('estado') || costo.changed('monto') || costo.changed('incluido_rentabilidad')) {
-          try {
-            // Actualizar costo estimado del proyecto
-            const { Proyecto } = require('./');
-            const proyecto = await Proyecto.findByPk(costo.proyecto_id, { transaction: options.transaction });
-            
-            if (proyecto) {
-              // Obtener suma de todos los costos ejecutados
-              const totalCostos = await CostoProyecto.sum('monto', {
-                where: { 
-                  proyecto_id: costo.proyecto_id,
-                  estado: 'ejecutado',
-                  incluido_rentabilidad: true
-                },
-                transaction: options.transaction
-              });
-              
-              // Actualizar costo total estimado del proyecto
-              await proyecto.update(
-                { costo_real: totalCostos },
-                { transaction: options.transaction }
-              );
+      afterDestroy: async (costo, options) => {
+        try {
+          console.log(`🗑️  Hook afterDestroy ejecutándose para costo ID: ${costo.id}, proyecto: ${costo.proyecto_id}`);
+
+          const { Proyecto } = sequelize.models;
+
+          // Siempre recalcular al eliminar, ya que el costo eliminado podría haber afectado el total
+          const totalCostos = await CostoProyecto.sum('monto', {
+            where: {
+              proyecto_id: costo.proyecto_id,
+              estado: 'ejecutado',
+              incluido_rentabilidad: true
+            },
+            transaction: options.transaction
+          });
+
+          console.log(`📊 Recalculando costo_real después de eliminación para proyecto ${costo.proyecto_id}: ${totalCostos || 0}`);
+
+          await Proyecto.update(
+            { costo_real: totalCostos || 0 },
+            {
+              where: { id: costo.proyecto_id },
+              transaction: options.transaction
             }
-          } catch (error) {
-            console.error('Error al actualizar costo estimado del proyecto:', error);
-          }
+          );
+
+          console.log(`✅ costo_real actualizado después de eliminación para proyecto ${costo.proyecto_id}`);
+        } catch (error) {
+          console.error(`❌ Error en hook afterDestroy de CostoProyecto para proyecto ${costo.proyecto_id}:`, error);
+          console.error('Detalles del error:', error.message);
         }
       }
     }

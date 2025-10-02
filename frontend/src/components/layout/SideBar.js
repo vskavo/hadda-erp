@@ -27,7 +27,6 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
-import AssessmentIcon from '@mui/icons-material/Assessment';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
@@ -47,7 +46,7 @@ const menuItems = [
     submenu: [
       { name: 'Dashboard Financiero', icon: <SsidChartIcon />, path: '/finanzas/dashboard' },
       { name: 'Facturación', icon: <ReceiptIcon />, path: '/finanzas/facturas' },
-      { name: 'Ingresos y Egresos', icon: <PaymentsIcon />, path: '/finanzas/movimientos' },
+      { name: 'Movimientos Financieros', icon: <PaymentsIcon />, path: '/finanzas/movimientos' },
       { name: 'Conciliación Bancaria', icon: <CompareArrowsIcon />, path: '/finanzas/conciliacion' }
     ]
   },

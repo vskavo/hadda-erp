@@ -14,6 +14,10 @@ export const validateProyectoForm = (formData) => {
     errors.fecha_inicio = 'La fecha de inicio es obligatoria';
   }
 
+  if (!formData.fecha_fin) {
+    errors.fecha_fin = 'La fecha de fin es obligatoria';
+  }
+
   return {
     isValid: Object.keys(errors).length === 0,
     errors

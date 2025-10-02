@@ -2,7 +2,39 @@
  * Controlador de Costos de Proyectos
  */
 const { models } = require('./proyecto.utils');
-const { Proyecto, CostoProyecto, sequelize } = models;
+const { Proyecto, CostoProyecto, sequelize, Egreso } = models;
+
+// --- FUNCIÓN AUXILIAR PARA SINCRONIZAR EGRESO ---
+const syncEgreso = async (costo, transaction) => {
+  if (costo.estado === 'ejecutado') {
+    const egresoData = {
+      descripcion: costo.concepto,
+      monto: costo.monto,
+      fecha: costo.fecha,
+      proyecto_id: costo.proyecto_id,
+      proveedor_nombre: costo.proveedor,
+      tipo_documento: costo.tipo_documento,
+      numero_documento: costo.numero_documento,
+      fecha_documento: costo.fecha_documento,
+      observaciones: costo.observaciones,
+      usuario_id: costo.usuario_id,
+      estado: 'pendiente' // O el estado que corresponda
+    };
+
+    if (costo.egreso_id) {
+      // Actualizar egreso existente
+      await Egreso.update(egresoData, { where: { id: costo.egreso_id }, transaction });
+    } else {
+      // Crear nuevo egreso y asociar al costo
+      const nuevoEgreso = await Egreso.create(egresoData, { transaction });
+      await costo.update({ egreso_id: nuevoEgreso.id }, { transaction });
+    }
+  } else if (costo.egreso_id) {
+    // Si el estado no es 'ejecutado' pero existe un egreso, eliminarlo
+    await Egreso.destroy({ where: { id: costo.egreso_id }, transaction });
+    await costo.update({ egreso_id: null }, { transaction });
+  }
+};
 
 // Añadir un costo a un proyecto
 exports.addCosto = async (req, res) => {
@@ -70,6 +102,9 @@ exports.addCosto = async (req, res) => {
     
     // Crear el registro de costo
     const costoProyecto = await CostoProyecto.create(dataCosto, { transaction: t });
+
+    // Sincronizar con la tabla de Egresos
+    await syncEgreso(costoProyecto, t);
     
     // Obtener el proyecto actualizado para verificar el costo_real
     const proyectoActualizado = await Proyecto.findByPk(id, { transaction: t });
@@ -187,14 +222,26 @@ exports.updateCosto = async (req, res) => {
     if (observaciones) dataCosto.observaciones = observaciones;
     if (incluido_rentabilidad !== undefined) dataCosto.incluido_rentabilidad = incluido_rentabilidad;
     
-    // Actualizar el registro de costo
-    await CostoProyecto.update(dataCosto, { 
-      where: { id: costoId, proyecto_id: id },
-      transaction: t 
+    // Obtener la instancia del costo para actualizar
+    const costoInstancia = await CostoProyecto.findByPk(costoId, { transaction: t });
+    if (!costoInstancia) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Costo no encontrado' });
+    }
+
+    // Actualizar los campos en la instancia
+    Object.keys(dataCosto).forEach(key => {
+      costoInstancia[key] = dataCosto[key];
     });
-    
-    // Obtener el costo actualizado
-    const costoActualizado = await CostoProyecto.findByPk(costoId, { transaction: t });
+
+    // Guardar usando el método de instancia para que se ejecute el hook afterSave
+    await costoInstancia.save({ transaction: t });
+
+    // El costo actualizado ya lo tenemos en costoInstancia
+    const costoActualizado = costoInstancia;
+
+    // Sincronizar con la tabla de Egresos
+    await syncEgreso(costoActualizado, t);
     
     await t.commit();
     
@@ -232,6 +279,11 @@ exports.deleteCosto = async (req, res) => {
       return res.status(404).json({ message: 'Costo no encontrado para este proyecto' });
     }
     
+    // Si existe un egreso asociado, eliminarlo primero
+    if (costo.egreso_id) {
+      await Egreso.destroy({ where: { id: costo.egreso_id }, transaction: t });
+    }
+
     // Eliminar el costo
     await CostoProyecto.destroy({
       where: { id: costoId, proyecto_id: id },

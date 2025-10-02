@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Container, 
   Paper, 
@@ -12,10 +12,8 @@ import {
   Select,
   MenuItem,
   Divider,
-  InputAdornment,
   Switch,
-  FormControlLabel,
-  CircularProgress
+  FormControlLabel
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SaveIcon from '@mui/icons-material/Save';
@@ -23,7 +21,6 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { es } from 'date-fns/locale';
 import { useParams } from 'react-router-dom';
-import * as Yup from 'yup';
 
 import { AlertMessage, LoadingIndicator } from '../../components/common';
 import { usuarioService, comisionService } from '../../services';
@@ -62,7 +59,6 @@ const ProyectoFormPage = () => {
     clientes,
     setClientes,
     responsablesDisponibles,
-    userRole,
     holdings,
     holdingFilter,
     empresaFilter,
@@ -70,9 +66,7 @@ const ProyectoFormPage = () => {
     filteredClientes,
     ivaValue,
     retencionHonorariosValue,
-    ppmValue,
     gastosAdminSettingValue,
-    fondoAhorroValue,
     handleChange,
     handleDateChange,
     handleSubmit,
@@ -80,8 +74,6 @@ const ProyectoFormPage = () => {
     handleHoldingChange,
     handleEmpresaChange,
     handleRutChange,
-    handlePpmChange,
-    handleFondoAhorroChange,
     calcularPPM,
     ppmCalculatedValue,
     ppmPercentage,
@@ -93,9 +85,7 @@ const ProyectoFormPage = () => {
     calcularFondoAhorro,
     handleAprobarProyecto,
     usarComisionManual,
-    setUsarComisionManual,
     comisionManual,
-    setComisionManual,
     tipoComision,
     fuenteComision,
     handleToggleComisionManual,
@@ -104,18 +94,13 @@ const ProyectoFormPage = () => {
   
   // Obtener funcionalidad de cursos
   const {
-    cursosSence,
-    modalidades,
-    modos,
     cursosAgregados,
-    setCursosAgregados,
     cursoTemp,
     openCursoModal,
     editingCursoIndex,
     searchQuery,
     setSearchQuery,
     filteredCursos,
-    handleSearchCursos,
     handleOpenCursoModal,
     handleCloseCursoModal,
     handleCursoTempChange,
@@ -432,6 +417,7 @@ const ProyectoFormPage = () => {
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
                 <DatePicker
+                  required
                   label="Fecha de Finalización (estimada)"
                   value={formData.fecha_fin}
                   onChange={handleDateChange('fecha_fin')}

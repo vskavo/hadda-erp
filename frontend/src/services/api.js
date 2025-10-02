@@ -3,7 +3,7 @@ import axios from 'axios';
 // Crear instancia de axios con configuración base
 const api = axios.create({
   baseURL: '/api', // Usamos la ruta relativa para que funcione con el proxy
-  timeout: 15000, // 15 segundos de timeout para todas las solicitudes
+  timeout: 60000, // 60 segundos de timeout para todas las solicitudes (aumentado para operaciones pesadas)
   headers: {
     'Content-Type': 'application/json',
   },
@@ -39,9 +39,9 @@ api.interceptors.response.use(
   (error) => {
     // Errores de timeout
     if (error.code === 'ECONNABORTED') {
-      console.error('La solicitud ha excedido el tiempo de espera');
+      console.error('La solicitud ha excedido el tiempo de espera (60 segundos)');
       // Mostrar alerta si es necesario
-      alert('La solicitud está tomando demasiado tiempo. Por favor, inténtelo de nuevo más tarde.');
+      alert('La solicitud está tomando más tiempo del esperado. Por favor, espere a que termine el proceso.');
     }
     
     // Errores de red

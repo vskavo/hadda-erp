@@ -1,0 +1,1468 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SetDTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 138 central VERSION: v20190409 -->
+        <Documento ID="MiPE77978527-11457">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>34</TipoDTE>
+                    <Folio>3</Folio>
+                    <FchEmis>2025-07-31</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77978527-0</RUTEmisor>
+                    <RznSoc>TRAINING 365 SPA</RznSoc>
+                    <GiroEmis>SERVICIOS DE CAPACITACION</GiroEmis>
+                    <CorreoEmisor>victoralfonsogonzalez.s@gmail.com</CorreoEmisor>
+                    <Acteco>854909</Acteco>
+                    <CdgSIISucur>90735901</CdgSIISucur>
+                    <DirOrigen>TEATINOS 251 DP 212   PrC</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                    <CiudadOrigen>Santiago</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE CONSULTORIA DE INFORMATIC</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>Santiago</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntExe>50</MntExe>
+                    <MntTotal>50</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>Asesoria</NmbItem>
+                <QtyItem>1.00</QtyItem>
+                <UnmdItem>1</UnmdItem>
+                <PrcItem>50.00</PrcItem>
+                <MontoItem>50</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77978527-0</RE>
+                    <TD>34</TD>
+                    <F>3</F>
+                    <FE>2025-07-31</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>50</MNT>
+                    <IT1>Asesoria</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77978527-0</RE>
+                            <RS>TRAINING 365 SPA</RS>
+                            <TD>34</TD>
+                            <RNG>
+                                <D>3</D>
+                                <H>3</H>
+                            </RNG>
+                            <FA>2025-07-31</FA>
+                            <RSAPK>
+                                <M>sypObAxn3ykCXKEZVFqTW7NMM/essQLR98UKquxJm9OVXfH4VCFI2fk5yVu9+pmSTdzB98nE73fo2pLDtwLZGQ==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">fj+XktC1NZCsXVbJMZuNRqge+NyxTriKTO3QS9ViM6JLkLGlqeCJG3ODcU0DhVF3Cx+9PxsdSXaWq2jYi9mFCw==</FRMA>
+                    </CAF>
+                    <TSTED>2025-07-31T10:54:10</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">CDJy5088rNn1VBIS2G9I+u7hEu+4HaJj5ChbQEZHCOD+eJ1C0lTH5T2+R4t5tDU9WNSYuHeh00SxPuj04Qf6EA==</FRMT>
+            </TED>
+            <TmstFirma>2025-07-31T10:54:10</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77978527-11457">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>6bnFHcaj5mA4hp39XYfIyGHH4yA=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+hUoOqlEgZw2Kmrl/oKCCrKjHOH1zVbCWTkmKLeUFJsh4UhgCk0Br0WrEkZCZw+3bzhp8C++1kwpY
+1CxLJN9T3c8maN0GqWd/X8kjRqkArAGBkrqFB1DZCfVXSEiv6Rh1gcZHyWzLZ3WWdk/WDfSz9rmx
+rrCvTy79R/LMjPJZp9lBWnuAlridLCiHJk38HOC3Qk8FTZdWgtiih6F1ilaUBkOtImIPZ2hA0mA7
+QJ37mSgPH2vrDgbUnJ414vTbhZXBk0WkeAKM7uNW3Pgs7OsqnIexMZ/rV7oqAwh9mebWR1+kg9d5
+bWCiWeVT0j3J36WaM5C0M3W4a8AFXNG86RYG5A==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+t9nKRWB1pdBHlIPCPTnFShD43/XYrmcTQz8e9xM6cPoR7/ZIf87vYtHPySNtpbxw0E1gO1VbmiE3
+Gq2V3k9rWbzim12yZACWzVgd3Vs25ww3m6O4C2Lqk5KQFUriN5OiIeYD8BBHVVk4szGBHZIuKLyd
+xIfX6PBI5Cl1l3sP80zXunHpqTN2gHEYmuPllQsiX+Y8DcDAPKLo8rHPpdGwyW+EytTvcBMkFqzi
+x3Ycl4jUrHEWwBY95UcMF/RiZsdchKCJNw/r/eAFfz2c9DHPC51T9lFx2HcvZHq5XLaAX6yA9OxE
+y686OQ/b+1gdtQH+4psuwiL8nURkr+tYnVYbeQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIHwDCCBaigAwIBAgIKcfxucwABAA1/nzANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTI1MDMwNTE4MDkyN1oXDTI4MDMwNDE4MDkyN1owgbwxCzAJBgNVBAYTAkNMMSIw
+IAYDVQQIExlNRVRST1BPTElUQU5BIERFIFNBTlRJQUdPMREwDwYDVQQHEwhTQU5USUFHTzEZMBcG
+A1UEChMQVklDVE9SIFNBTkRPVkFMIDEKMAgGA1UECwwBKjEjMCEGA1UEAxMaVklDVE9SICBHT05a
+QUxFWiAgU0FORE9WQUwxKjAoBgkqhkiG9w0BCQEWG0FUQUxJQS5EVVlWRVNURUlOQEdNQUlMLkNP
+TTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALfZykVgdaXQR5SDwj05xUoQ+N/12K5n
+E0M/HvcTOnD6Ee/2SH/O72LRz8kjbaW8cNBNYDtVW5ohNxqtld5Pa1m84ptdsmQAls1YHd1bNucM
+N5ujuAti6pOSkBVK4jeToiHmA/AQR1VZOLMxgR2SLii8ncSH1+jwSOQpdZd7D/NM17px6akzdoBx
+GJrj5ZULIl/mPA3AwDyi6PKxz6XRsMlvhMrU73ATJBas4sd2HJeI1KxxFsAWPeVHDBf0YmbHXISg
+iTcP6/3gBX89nPQxzwudU/ZRcdh3L2R6uVy2gF+sgPTsRMuvOjkP2/tYHbUB/uKbLsIi/J1EZK/r
+WJ1WG3kCAwEAAaOCAr0wggK5MIIBXwYDVR0gBIIBVjCCAVIwggFOBggrBgEEAcNSBTCCAUAwPQYI
+KwYBBQUHAgEWMWh0dHBzOi8vd3d3LmUtY2VydGNoaWxlLmNsL3BvbGl0aWNhcy15LXByYWN0aWNh
+cy8wgf4GCCsGAQUFBwICMIHxHoHuAEUAbAAgAHIAZQBzAHAAbwBuAGQAZQByACAAZQBzAHQAZQAg
+AGYAbwByAG0AdQBsAGEAcgBpAG8AIABlAHMAIAB1AG4AIAByAGUAcQB1AGkAcwBpAHQAbwAgAGkA
+bgBkAGkAcwBwAGUAbgBzAGEAYgBsAGUAIABwAGEAcgBhACAAZABhAHIAIABpAG4AaQBjAGkAbwAg
+AGEAbAAgAHAAcgBvAGMAZQBzAG8AIABkAGUAIABjAGUAcgB0AGkAZgBpAGMAYQBjAGkA8wBuAC4A
+IABQAG8AcwB0AGUAcgBpAG8AcgBtAGUAbgB0AGUALDAdBgNVHQ4EFgQUNWiZBYShDDfh+cQCEn9B
+lcImiuswCwYDVR0PBAQDAgTwMCMGA1UdEQQcMBqgGAYIKwYBBAHBAQGgDBYKMjU5MTM0MTQtNTAf
+BgNVHSMEGDAWgBR01iGz9FroLXy7WQZjQ+9ptDqTBDBABgNVHR8EOTA3MDWgM6Axhi9odHRwOi8v
+Y3JsLmVjZXJ0Y2hpbGUuY2wvRS1DRVJUQ0hJTEVDQUZFUzAyLmNybDA9BggrBgEFBQcBAQQxMC8w
+LQYIKwYBBQUHMAGGIWh0dHA6Ly9vY3NwZmVzLmVjZXJ0Y2hpbGUuY2wvb2NzcDA8BgkrBgEEAYI3
+FQcELzAtBiUrBgEEAYI3FQiB3dJNl9Q6homdBoeIzm+Dr8xgRYbS7AiGx8p9AgFkAgEHMCMGA1Ud
+EgQcMBqgGAYIKwYBBAHBAQKgDBYKOTY5MjgxODAtNTANBgkqhkiG9w0BAQsFAAOCAgEAWRdXmKwT
+ZvaKmBNN05G62AF+0lzWtGATe4/S6P2pqdts3RqVWDxTWjyZB83ntWmn0ApXfNt52gpZ4fKs53W3
+J0hqERVYaP8WlNpylh0XnFPtCa3a8zgMmalDfJtxsKmiT6OX5ie/D/ySdPhI8Tnf0CnUuBh+cdyl
+3RPvvw+HP8+/5xoDalZUDUKCJpFpXolDtLw5LeiI+Knu/VNNrTyiOsmiIYBKaYSLxGDwFsdDgirj
+S1m5Rd6wl6BQNkLFr/yMkaH1sSoIjrDHsYI5Hbab6wRcgKsFT/SsS3hZjByM2Ws3IrVddh2c54wa
+LuDqr5mXv1vq9pK5eKHtRxnYacg6mTZquCxQRtqc02voag+Vw9+XP0IFVzRZtaixHFpg2ygY5R1p
+QJf6FSbXvngSIwBLakDHXk0UtvMeavH4EEYO0ZBVdS3rtPeU1m0MFqC/g5E/LhlheXcIrMee9ItG
+MFX7zcw7GTPljmT9AA1pt9hsHahfG2O4dQOkAip+1x6Tkr3kShqAIfhKzXzwrScIbWtGazQcw2rK
+OSUurJyVBiHq7KRlUqqK5Oo4YMKIiD7VTZN1Sfe6JBcweEeZzeWDCTZU8dCgTmW0IoHYX+IaxUjN
+2gtTpeK+eOw+EA45oC9e7qMIcaXpvZl9EjRsHoXMwyoveSjjElL34KFIL7DBPO+yAqo=
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 138 central VERSION: v20190409 -->
+        <Documento ID="MiPE77978527-21126">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>61</TipoDTE>
+                    <Folio>1</Folio>
+                    <FchEmis>2025-07-31</FchEmis>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77978527-0</RUTEmisor>
+                    <RznSoc>TRAINING 365 SPA</RznSoc>
+                    <GiroEmis>SERVICIOS DE CAPACITACION</GiroEmis>
+                    <CorreoEmisor>victoralfonsogonzalez.s@gmail.com</CorreoEmisor>
+                    <Acteco>854909</Acteco>
+                    <CdgSIISucur>90735901</CdgSIISucur>
+                    <DirOrigen>TEATINOS 251 DP 212   PrC</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                    <CiudadOrigen>Santiago</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE CONSULTORIA DE INFORMATIC</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>Santiago</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntExe>50</MntExe>
+                    <MntTotal>50</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <IndExe>1</IndExe>
+                <NmbItem>Asesoria</NmbItem>
+                <QtyItem>1.00</QtyItem>
+                <UnmdItem>1</UnmdItem>
+                <PrcItem>50.00</PrcItem>
+                <MontoItem>50</MontoItem>
+            </Detalle>
+            <Referencia>
+                <NroLinRef>1</NroLinRef>
+                <TpoDocRef>34</TpoDocRef>
+                <FolioRef>3</FolioRef>
+                <FchRef>2025-07-31</FchRef>
+                <CodRef>1</CodRef>
+                <RazonRef>ANULA DOCUMENTO DE LA REFERENCIA</RazonRef>
+            </Referencia>
+            <TED version="1.0">
+                <DD>
+                    <RE>77978527-0</RE>
+                    <TD>61</TD>
+                    <F>1</F>
+                    <FE>2025-07-31</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>50</MNT>
+                    <IT1>Asesoria</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77978527-0</RE>
+                            <RS>TRAINING 365 SPA</RS>
+                            <TD>61</TD>
+                            <RNG>
+                                <D>1</D>
+                                <H>1</H>
+                            </RNG>
+                            <FA>2025-07-31</FA>
+                            <RSAPK>
+                                <M>tPF8cS5PfRS9yGETX/oiosqr4vyF7hAOG9yNo+Atxm9ILH0gOnbX6kScSKpM9gkE5VJS0GzM44cV76eStKYIHw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">bL+XxAktndrsICCtqxc/6wSAbeBpzLL8gQCPwkr7drcHSmuD2S4VYEIKdtPNa+dEbeVKsPtMoQtmTxRmQ8cScg==</FRMA>
+                    </CAF>
+                    <TSTED>2025-07-31T10:59:43</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">oGyk7CdlPgdYItSEd/UJItxmp4MpcNBrMb6mZlZ3Na/E9kj23qd8HoQzQvYwU3uivWm+Gcx5ytxC7dnbKkG4HA==</FRMT>
+            </TED>
+            <TmstFirma>2025-07-31T10:59:43</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77978527-21126">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>47MLhDys6556Pb5MoDw1213Kza8=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+aNYnNor/r6xdfBRyBLBLAd9RUmwSOoN7hJFNUFWjkcoBS0X0nTsgOq358ruCoqlcuEXlxeMLCuKF
+Rcx0eF9eOOXeN/mMoNHOFKrKG7+BlrbwnhNnjw10rt1txLMgPP8CWJqME92uo/1M3oE5k/C2ac9e
+egKVCpuej7VpigT3uPu5FNwiS4Udr8wKkAFRyOxrTaX5hAfEJNfPfaD7apVrUfA3lGhygqPxWzXh
+eodOnxkOE70faQrt1u6ex+y/obR5VifItQoihgv3jkIxl8OxTj5hGdlxvpiOJ/HNvu07NqqpnT5Y
+UKg/FOgcUWs9bieCoyGX3BiBrQslKsQqPofU8w==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+t9nKRWB1pdBHlIPCPTnFShD43/XYrmcTQz8e9xM6cPoR7/ZIf87vYtHPySNtpbxw0E1gO1VbmiE3
+Gq2V3k9rWbzim12yZACWzVgd3Vs25ww3m6O4C2Lqk5KQFUriN5OiIeYD8BBHVVk4szGBHZIuKLyd
+xIfX6PBI5Cl1l3sP80zXunHpqTN2gHEYmuPllQsiX+Y8DcDAPKLo8rHPpdGwyW+EytTvcBMkFqzi
+x3Ycl4jUrHEWwBY95UcMF/RiZsdchKCJNw/r/eAFfz2c9DHPC51T9lFx2HcvZHq5XLaAX6yA9OxE
+y686OQ/b+1gdtQH+4psuwiL8nURkr+tYnVYbeQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIHwDCCBaigAwIBAgIKcfxucwABAA1/nzANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTI1MDMwNTE4MDkyN1oXDTI4MDMwNDE4MDkyN1owgbwxCzAJBgNVBAYTAkNMMSIw
+IAYDVQQIExlNRVRST1BPTElUQU5BIERFIFNBTlRJQUdPMREwDwYDVQQHEwhTQU5USUFHTzEZMBcG
+A1UEChMQVklDVE9SIFNBTkRPVkFMIDEKMAgGA1UECwwBKjEjMCEGA1UEAxMaVklDVE9SICBHT05a
+QUxFWiAgU0FORE9WQUwxKjAoBgkqhkiG9w0BCQEWG0FUQUxJQS5EVVlWRVNURUlOQEdNQUlMLkNP
+TTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALfZykVgdaXQR5SDwj05xUoQ+N/12K5n
+E0M/HvcTOnD6Ee/2SH/O72LRz8kjbaW8cNBNYDtVW5ohNxqtld5Pa1m84ptdsmQAls1YHd1bNucM
+N5ujuAti6pOSkBVK4jeToiHmA/AQR1VZOLMxgR2SLii8ncSH1+jwSOQpdZd7D/NM17px6akzdoBx
+GJrj5ZULIl/mPA3AwDyi6PKxz6XRsMlvhMrU73ATJBas4sd2HJeI1KxxFsAWPeVHDBf0YmbHXISg
+iTcP6/3gBX89nPQxzwudU/ZRcdh3L2R6uVy2gF+sgPTsRMuvOjkP2/tYHbUB/uKbLsIi/J1EZK/r
+WJ1WG3kCAwEAAaOCAr0wggK5MIIBXwYDVR0gBIIBVjCCAVIwggFOBggrBgEEAcNSBTCCAUAwPQYI
+KwYBBQUHAgEWMWh0dHBzOi8vd3d3LmUtY2VydGNoaWxlLmNsL3BvbGl0aWNhcy15LXByYWN0aWNh
+cy8wgf4GCCsGAQUFBwICMIHxHoHuAEUAbAAgAHIAZQBzAHAAbwBuAGQAZQByACAAZQBzAHQAZQAg
+AGYAbwByAG0AdQBsAGEAcgBpAG8AIABlAHMAIAB1AG4AIAByAGUAcQB1AGkAcwBpAHQAbwAgAGkA
+bgBkAGkAcwBwAGUAbgBzAGEAYgBsAGUAIABwAGEAcgBhACAAZABhAHIAIABpAG4AaQBjAGkAbwAg
+AGEAbAAgAHAAcgBvAGMAZQBzAG8AIABkAGUAIABjAGUAcgB0AGkAZgBpAGMAYQBjAGkA8wBuAC4A
+IABQAG8AcwB0AGUAcgBpAG8AcgBtAGUAbgB0AGUALDAdBgNVHQ4EFgQUNWiZBYShDDfh+cQCEn9B
+lcImiuswCwYDVR0PBAQDAgTwMCMGA1UdEQQcMBqgGAYIKwYBBAHBAQGgDBYKMjU5MTM0MTQtNTAf
+BgNVHSMEGDAWgBR01iGz9FroLXy7WQZjQ+9ptDqTBDBABgNVHR8EOTA3MDWgM6Axhi9odHRwOi8v
+Y3JsLmVjZXJ0Y2hpbGUuY2wvRS1DRVJUQ0hJTEVDQUZFUzAyLmNybDA9BggrBgEFBQcBAQQxMC8w
+LQYIKwYBBQUHMAGGIWh0dHA6Ly9vY3NwZmVzLmVjZXJ0Y2hpbGUuY2wvb2NzcDA8BgkrBgEEAYI3
+FQcELzAtBiUrBgEEAYI3FQiB3dJNl9Q6homdBoeIzm+Dr8xgRYbS7AiGx8p9AgFkAgEHMCMGA1Ud
+EgQcMBqgGAYIKwYBBAHBAQKgDBYKOTY5MjgxODAtNTANBgkqhkiG9w0BAQsFAAOCAgEAWRdXmKwT
+ZvaKmBNN05G62AF+0lzWtGATe4/S6P2pqdts3RqVWDxTWjyZB83ntWmn0ApXfNt52gpZ4fKs53W3
+J0hqERVYaP8WlNpylh0XnFPtCa3a8zgMmalDfJtxsKmiT6OX5ie/D/ySdPhI8Tnf0CnUuBh+cdyl
+3RPvvw+HP8+/5xoDalZUDUKCJpFpXolDtLw5LeiI+Knu/VNNrTyiOsmiIYBKaYSLxGDwFsdDgirj
+S1m5Rd6wl6BQNkLFr/yMkaH1sSoIjrDHsYI5Hbab6wRcgKsFT/SsS3hZjByM2Ws3IrVddh2c54wa
+LuDqr5mXv1vq9pK5eKHtRxnYacg6mTZquCxQRtqc02voag+Vw9+XP0IFVzRZtaixHFpg2ygY5R1p
+QJf6FSbXvngSIwBLakDHXk0UtvMeavH4EEYO0ZBVdS3rtPeU1m0MFqC/g5E/LhlheXcIrMee9ItG
+MFX7zcw7GTPljmT9AA1pt9hsHahfG2O4dQOkAip+1x6Tkr3kShqAIfhKzXzwrScIbWtGazQcw2rK
+OSUurJyVBiHq7KRlUqqK5Oo4YMKIiD7VTZN1Sfe6JBcweEeZzeWDCTZU8dCgTmW0IoHYX+IaxUjN
+2gtTpeK+eOw+EA45oC9e7qMIcaXpvZl9EjRsHoXMwyoveSjjElL34KFIL7DBPO+yAqo=
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 134 central VERSION: v20190409 -->
+        <Documento ID="MiPE77221675-14220">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>34</TipoDTE>
+                    <Folio>16589</Folio>
+                    <FchEmis>2025-04-03</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77221675-0</RUTEmisor>
+                    <RznSoc>DIVIR SPA</RznSoc>
+                    <GiroEmis>ARRIENDO DE DIRECCI?N VIRTUAL,TRIBUTARIA Y SALA DE REUNION</GiroEmis>
+                    <CorreoEmisor>cobranzas.divir@gmail.com</CorreoEmisor>
+                    <Acteco>681011</Acteco>
+                    <CdgSIISucur>89282225</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET193OF121012P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE CONSULTORIA DE INFORMATIC</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntExe>30000</MntExe>
+                    <MntTotal>30000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>DIRECCI?N VIRTUAL</NmbItem>
+                <DscItem>Plan semestral</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>30000.00</PrcItem>
+                <MontoItem>30000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77221675-0</RE>
+                    <TD>34</TD>
+                    <F>16589</F>
+                    <FE>2025-04-03</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>30000</MNT>
+                    <IT1>DIRECCI?N VIRTUAL</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77221675-0</RE>
+                            <RS>DIVIR SPA</RS>
+                            <TD>34</TD>
+                            <RNG>
+                                <D>16589</D>
+                                <H>16589</H>
+                            </RNG>
+                            <FA>2025-04-03</FA>
+                            <RSAPK>
+                                <M>u4KU6bKJMBRcopd2GuP5o+1yzau8vdHwSPv5bV80hDTrF2yRxnvyFiPUSPBLWwl4CK2S826CeAItyzW5BFLaqw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">jSrnGj949sd9AFkyMyaoPDimiN85mI83vyUn50QQmVNtjDtcwg7m+PHO4IP6BlA+oRfUQyJI4Pj4UGDKfprNqw==</FRMA>
+                    </CAF>
+                    <TSTED>2025-04-03T16:31:53</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">Gbosjn6TPVOYULNND73bwO5qvv5m3QST/tPw3iyLiE8mYBhcZhySW0eNzrgsmJbeFL6EJZlcBL2tz4MK6NZLug==</FRMT>
+            </TED>
+            <TmstFirma>2025-04-03T16:31:53</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77221675-14220">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>cBGI/WoShDTCGbAuB3nGqWkwZYE=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+cr/40phgN0x0LnhZvev1ESk5KjA1Q2PMF5rAjVjAPJjCGkgRFCBb51ho6brz8tAdCuiGOvvvXoBC
+Vl3o0Un87hVQlqmkHPrySdIc3MhpBzYMEe0w8dIkcz1gzbwAr7+xNC58RLyZ8+V7M+o1bmzJT0ht
+z6As0RCUl26T7kBlS7Yflum5tD2iy4XTZJokLaeqa7ACJFb5dGTuvqwVOrE1XJYeVLONmIjZubtu
+0YTAtNM5C3DzGjZkmmjPikewSVYPX1OMRxqhmylUDYo8ilUjcAYjcS/Yfgjoy9Auz5swpaW7Gpb2
+XsHNtQ+gIHJNXDBsyOmonZUsVQhMJMXBA17Ygw==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+t+aVzTbxUv7zA5GjrHE0e1BQu+1Okn8ADvXqwOfqBJOWRJo7xb8E0rswK3WFts5EvAn7WEfnhnL+
+g89Z80l8Qrw8CqB2JT1VmWKP9I5RuKyMMNzLWpuZc8gm2rww6zcPJfB806kNiHtg1GrnYbhva1/8
+DPkRFBQHhQ+ZRdaIA1pF4EhwkjgLL2XsNJ2CwnJFzoIhdBS64Nmuk0mjf9fL4tqlM5ngB641uxKQ
+1Vnlxb05DpsDpQUTOBiH8myh5FhXmEB3srTgCBYQktXYBlN8uX5bfcv80z7zp/8vhOW6JffeqeWx
+A6Cd/P3lduS11R97Us+5BuyHBVsZIEyBcqL+LQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIHszCCBZugAwIBAgIKNGz4xQABAAG1LzANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTIyMDYxNjE1MDc1MloXDTI1MDYxNTE1MDc1Mlowga8xCzAJBgNVBAYTAkNMMRMw
+EQYDVQQIEwpWQUxQQVJBSVNPMRQwEgYDVQQHDAtWQUxQQVJBw41TTzEeMBwGA1UEChMVSVZBTiBB
+TFZBUkVaIE1BUkNIQU5UMQowCAYDVQQLDAEqMR4wHAYDVQQDExVJVkFOIEFMVkFSRVogTUFSQ0hB
+TlQxKTAnBgkqhkiG9w0BCQEWGkFMVkFSRVouQ09OVEFCTEVAR01BSUwuQ09NMIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt+aVzTbxUv7zA5GjrHE0e1BQu+1Okn8ADvXqwOfqBJOWRJo7
+xb8E0rswK3WFts5EvAn7WEfnhnL+g89Z80l8Qrw8CqB2JT1VmWKP9I5RuKyMMNzLWpuZc8gm2rww
+6zcPJfB806kNiHtg1GrnYbhva1/8DPkRFBQHhQ+ZRdaIA1pF4EhwkjgLL2XsNJ2CwnJFzoIhdBS6
+4Nmuk0mjf9fL4tqlM5ngB641uxKQ1Vnlxb05DpsDpQUTOBiH8myh5FhXmEB3srTgCBYQktXYBlN8
+uX5bfcv80z7zp/8vhOW6JffeqeWxA6Cd/P3lduS11R97Us+5BuyHBVsZIEyBcqL+LQIDAQABo4IC
+vTCCArkwggFfBgNVHSAEggFWMIIBUjCCAU4GCCsGAQQBw1IFMIIBQDA9BggrBgEFBQcCARYxaHR0
+cHM6Ly93d3cuZS1jZXJ0Y2hpbGUuY2wvcG9saXRpY2FzLXktcHJhY3RpY2FzLzCB/gYIKwYBBQUH
+AgIwgfEege4ARQBsACAAcgBlAHMAcABvAG4AZABlAHIAIABlAHMAdABlACAAZgBvAHIAbQB1AGwA
+YQByAGkAbwAgAGUAcwAgAHUAbgAgAHIAZQBxAHUAaQBzAGkAdABvACAAaQBuAGQAaQBzAHAAZQBu
+AHMAYQBiAGwAZQAgAHAAYQByAGEAIABkAGEAcgAgAGkAbgBpAGMAaQBvACAAYQBsACAAcAByAG8A
+YwBlAHMAbwAgAGQAZQAgAGMAZQByAHQAaQBmAGkAYwBhAGMAaQDzAG4ALgAgAFAAbwBzAHQAZQBy
+AGkAbwByAG0AZQBuAHQAZQAsMB0GA1UdDgQWBBR8wuY9jp/f/PKl5nLxo6ikg9lszTALBgNVHQ8E
+BAMCBPAwIwYDVR0RBBwwGqAYBggrBgEEAcEBAaAMFgoxNjgyMTE1OC05MB8GA1UdIwQYMBaAFHTW
+IbP0WugtfLtZBmND72m0OpMEMEAGA1UdHwQ5MDcwNaAzoDGGL2h0dHA6Ly9jcmwuZWNlcnRjaGls
+ZS5jbC9FLUNFUlRDSElMRUNBRkVTMDIuY3JsMD0GCCsGAQUFBwEBBDEwLzAtBggrBgEFBQcwAYYh
+aHR0cDovL29jc3BmZXMuZWNlcnRjaGlsZS5jbC9vY3NwMDwGCSsGAQQBgjcVBwQvMC0GJSsGAQQB
+gjcVCIHd0k2X1DqGiZ0Gh4jOb4OvzGBFhtLsCIbHyn0CAWQCAQcwIwYDVR0SBBwwGqAYBggrBgEE
+AcEBAqAMFgo5NjkyODE4MC01MA0GCSqGSIb3DQEBCwUAA4ICAQCWcTzmL1OqxTVw6TM4WMXjDErJ
+W8q3eMRbNTFYAzfrq/RoIm4/8D+ixcrDYx2j1CNv3ra+hb70JGIc2Ag6ZmxjdTvFqkqhO1fSHuhI
+kJO/Lzx1OouNLqaYIruChBNYb5GeCNAYK2++ieD6ygN+cMbHFk4Tsak4OROX9n7GlFWhfQviEUeq
+U0Dg5ZbKTCxy/AYU4BkGgmh240tf99nrrKFVQGFBE15NlSyKh1ETYeScfdlSz/Daptdfcf69r+yo
+Klx/sDcE96F5APr/ZOOM8QpdKd7De9nctotYDCrxigSww2cHOCc1drNvwTTYpYbbanVNYHX2XpiW
+XC/fl82GFszuaRYZM213/7YQGSUq+qLCc1cyzrLtlNYQNMsmt5rNkXMQ+cZEYWVCF0NN1X13ccIF
+rb/eoct153+dyEkLZYxSGp9p4FeYwE9JwmnniR1O2gSXhFL7zj6y+QMgm9HQhbJAIXGJLxHmrqYB
+kk1GHfiDiNphgcl5jBR4uIhtM9k909LkNqahNCkOEOMrU/yd0wp/g2tO7ocCHjvyc2uO9B6KzS9r
+z8xCLNkVF4TBxWnm9hBhYRvUA559y/FhLhppFIZ9eiNqm75fk98FzmgqsYjLPr3U3qRzdCCx5saS
+OW9Ue//aBOaLqG3y1lRQarh0VT8ZXPAsv6I2ymFbl7cWVKKEmA==
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 134 central VERSION: v20190409 -->
+        <Documento ID="MiPE77978527-27343">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>34</TipoDTE>
+                    <Folio>2</Folio>
+                    <FchEmis>2025-03-27</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77978527-0</RUTEmisor>
+                    <RznSoc>TRAINING 365 SPA</RznSoc>
+                    <GiroEmis>SERVICIOS DE CAPACITACION</GiroEmis>
+                    <CorreoEmisor>victoralfonsogonzalez.s@gmail.com</CorreoEmisor>
+                    <Acteco>854909</Acteco>
+                    <CdgSIISucur>90735901</CdgSIISucur>
+                    <DirOrigen>TEATINOS 251 DP 212   PrC</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE CONSULTORIA DE INFORMATIC</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntExe>5200000</MntExe>
+                    <MntTotal>5200000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>CAPACITACIONES INTERNAS</NmbItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>5200000.00</PrcItem>
+                <MontoItem>5200000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77978527-0</RE>
+                    <TD>34</TD>
+                    <F>2</F>
+                    <FE>2025-03-27</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>5200000</MNT>
+                    <IT1>CAPACITACIONES INTERNAS</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77978527-0</RE>
+                            <RS>TRAINING 365 SPA</RS>
+                            <TD>34</TD>
+                            <RNG>
+                                <D>2</D>
+                                <H>2</H>
+                            </RNG>
+                            <FA>2025-03-27</FA>
+                            <RSAPK>
+                                <M>0dDLGG6F2qn1Nul5kz/lBKaj8Oy3mQgNehkqodiLmMYqxan5U3pRcMsxAq7EodFDzlNFKVvCD4ZTNu3tGP1P5w==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">C5XSgdFWwNsOA0Soh3TiqqOrTMBoEX75txxRHsHfTgbptxWkH2qWLQwj+GF4kMC3xbLOqqHk7IFFP5BThAoxbA==</FRMA>
+                    </CAF>
+                    <TSTED>2025-03-27T12:13:17</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">JR3g53syd4YKnKf7FWfaUIDZrl4C3Xuh9p0KZruIsy/9WogCYo+XJgZqpdpMXLVaufXo64qxpmK2L521nbrvAg==</FRMT>
+            </TED>
+            <TmstFirma>2025-03-27T12:13:17</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77978527-27343">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>FFDRb5oBcuwh9Q1T8PnMTONx0V8=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+rvK0aqoobDB/XyrW+qqRhkXFN1ZfnLRJb3YMxG1CB4Phc06eJiiz1z1YXvlCkpA1e6wMRz7GcOsW
+/CYmkxytcFa4vAy4As9sx/Rt9tbA9QQ1gtJUoEwHSYvkTbHNe904uRzLFqTdoc5cHX55kKmZnhxE
+SDMmvWD1WKLJmigHinzbbsLdvNXG1I7d1a3fUIiFfVkRmEzx3SajsEpRb5WFmHGlHiFS4UnOUMqx
+M6cQb17oiiTnuc1UqIm7fh60TsA5fc2DoutZr+yYLUCfD3QvV/NUIYqL4juS7Sm210zr79Q7/Yfv
+zZnCKVZo9t6KxHQCS8MzC45yYdoHXN0BFdTv6A==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+t9nKRWB1pdBHlIPCPTnFShD43/XYrmcTQz8e9xM6cPoR7/ZIf87vYtHPySNtpbxw0E1gO1VbmiE3
+Gq2V3k9rWbzim12yZACWzVgd3Vs25ww3m6O4C2Lqk5KQFUriN5OiIeYD8BBHVVk4szGBHZIuKLyd
+xIfX6PBI5Cl1l3sP80zXunHpqTN2gHEYmuPllQsiX+Y8DcDAPKLo8rHPpdGwyW+EytTvcBMkFqzi
+x3Ycl4jUrHEWwBY95UcMF/RiZsdchKCJNw/r/eAFfz2c9DHPC51T9lFx2HcvZHq5XLaAX6yA9OxE
+y686OQ/b+1gdtQH+4psuwiL8nURkr+tYnVYbeQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIHwDCCBaigAwIBAgIKcfxucwABAA1/nzANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTI1MDMwNTE4MDkyN1oXDTI4MDMwNDE4MDkyN1owgbwxCzAJBgNVBAYTAkNMMSIw
+IAYDVQQIExlNRVRST1BPTElUQU5BIERFIFNBTlRJQUdPMREwDwYDVQQHEwhTQU5USUFHTzEZMBcG
+A1UEChMQVklDVE9SIFNBTkRPVkFMIDEKMAgGA1UECwwBKjEjMCEGA1UEAxMaVklDVE9SICBHT05a
+QUxFWiAgU0FORE9WQUwxKjAoBgkqhkiG9w0BCQEWG0FUQUxJQS5EVVlWRVNURUlOQEdNQUlMLkNP
+TTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALfZykVgdaXQR5SDwj05xUoQ+N/12K5n
+E0M/HvcTOnD6Ee/2SH/O72LRz8kjbaW8cNBNYDtVW5ohNxqtld5Pa1m84ptdsmQAls1YHd1bNucM
+N5ujuAti6pOSkBVK4jeToiHmA/AQR1VZOLMxgR2SLii8ncSH1+jwSOQpdZd7D/NM17px6akzdoBx
+GJrj5ZULIl/mPA3AwDyi6PKxz6XRsMlvhMrU73ATJBas4sd2HJeI1KxxFsAWPeVHDBf0YmbHXISg
+iTcP6/3gBX89nPQxzwudU/ZRcdh3L2R6uVy2gF+sgPTsRMuvOjkP2/tYHbUB/uKbLsIi/J1EZK/r
+WJ1WG3kCAwEAAaOCAr0wggK5MIIBXwYDVR0gBIIBVjCCAVIwggFOBggrBgEEAcNSBTCCAUAwPQYI
+KwYBBQUHAgEWMWh0dHBzOi8vd3d3LmUtY2VydGNoaWxlLmNsL3BvbGl0aWNhcy15LXByYWN0aWNh
+cy8wgf4GCCsGAQUFBwICMIHxHoHuAEUAbAAgAHIAZQBzAHAAbwBuAGQAZQByACAAZQBzAHQAZQAg
+AGYAbwByAG0AdQBsAGEAcgBpAG8AIABlAHMAIAB1AG4AIAByAGUAcQB1AGkAcwBpAHQAbwAgAGkA
+bgBkAGkAcwBwAGUAbgBzAGEAYgBsAGUAIABwAGEAcgBhACAAZABhAHIAIABpAG4AaQBjAGkAbwAg
+AGEAbAAgAHAAcgBvAGMAZQBzAG8AIABkAGUAIABjAGUAcgB0AGkAZgBpAGMAYQBjAGkA8wBuAC4A
+IABQAG8AcwB0AGUAcgBpAG8AcgBtAGUAbgB0AGUALDAdBgNVHQ4EFgQUNWiZBYShDDfh+cQCEn9B
+lcImiuswCwYDVR0PBAQDAgTwMCMGA1UdEQQcMBqgGAYIKwYBBAHBAQGgDBYKMjU5MTM0MTQtNTAf
+BgNVHSMEGDAWgBR01iGz9FroLXy7WQZjQ+9ptDqTBDBABgNVHR8EOTA3MDWgM6Axhi9odHRwOi8v
+Y3JsLmVjZXJ0Y2hpbGUuY2wvRS1DRVJUQ0hJTEVDQUZFUzAyLmNybDA9BggrBgEFBQcBAQQxMC8w
+LQYIKwYBBQUHMAGGIWh0dHA6Ly9vY3NwZmVzLmVjZXJ0Y2hpbGUuY2wvb2NzcDA8BgkrBgEEAYI3
+FQcELzAtBiUrBgEEAYI3FQiB3dJNl9Q6homdBoeIzm+Dr8xgRYbS7AiGx8p9AgFkAgEHMCMGA1Ud
+EgQcMBqgGAYIKwYBBAHBAQKgDBYKOTY5MjgxODAtNTANBgkqhkiG9w0BAQsFAAOCAgEAWRdXmKwT
+ZvaKmBNN05G62AF+0lzWtGATe4/S6P2pqdts3RqVWDxTWjyZB83ntWmn0ApXfNt52gpZ4fKs53W3
+J0hqERVYaP8WlNpylh0XnFPtCa3a8zgMmalDfJtxsKmiT6OX5ie/D/ySdPhI8Tnf0CnUuBh+cdyl
+3RPvvw+HP8+/5xoDalZUDUKCJpFpXolDtLw5LeiI+Knu/VNNrTyiOsmiIYBKaYSLxGDwFsdDgirj
+S1m5Rd6wl6BQNkLFr/yMkaH1sSoIjrDHsYI5Hbab6wRcgKsFT/SsS3hZjByM2Ws3IrVddh2c54wa
+LuDqr5mXv1vq9pK5eKHtRxnYacg6mTZquCxQRtqc02voag+Vw9+XP0IFVzRZtaixHFpg2ygY5R1p
+QJf6FSbXvngSIwBLakDHXk0UtvMeavH4EEYO0ZBVdS3rtPeU1m0MFqC/g5E/LhlheXcIrMee9ItG
+MFX7zcw7GTPljmT9AA1pt9hsHahfG2O4dQOkAip+1x6Tkr3kShqAIfhKzXzwrScIbWtGazQcw2rK
+OSUurJyVBiHq7KRlUqqK5Oo4YMKIiD7VTZN1Sfe6JBcweEeZzeWDCTZU8dCgTmW0IoHYX+IaxUjN
+2gtTpeK+eOw+EA45oC9e7qMIcaXpvZl9EjRsHoXMwyoveSjjElL34KFIL7DBPO+yAqo=
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 134 central VERSION: v20190409 -->
+        <Documento ID="MiPE77978527-4203">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>34</TipoDTE>
+                    <Folio>1</Folio>
+                    <FchEmis>2025-03-27</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77978527-0</RUTEmisor>
+                    <RznSoc>TRAINING 365 SPA</RznSoc>
+                    <GiroEmis>SERVICIOS DE CAPACITACION</GiroEmis>
+                    <CorreoEmisor>victoralfonsogonzalez.s@gmail.com</CorreoEmisor>
+                    <Acteco>854909</Acteco>
+                    <CdgSIISucur>90735901</CdgSIISucur>
+                    <DirOrigen>TEATINOS 251 DP 212   PrC</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE CONSULTORIA DE INFORMATIC</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntExe>7600000</MntExe>
+                    <MntTotal>7600000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>CAPACITACIONES INTERNAS</NmbItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>7600000.00</PrcItem>
+                <MontoItem>7600000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77978527-0</RE>
+                    <TD>34</TD>
+                    <F>1</F>
+                    <FE>2025-03-27</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>7600000</MNT>
+                    <IT1>CAPACITACIONES INTERNAS</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77978527-0</RE>
+                            <RS>TRAINING 365 SPA</RS>
+                            <TD>34</TD>
+                            <RNG>
+                                <D>1</D>
+                                <H>1</H>
+                            </RNG>
+                            <FA>2025-03-27</FA>
+                            <RSAPK>
+                                <M>01KLt7EWmOOMagFlLWR0lWpKQmpr5FDLEiO0ZkTygyMR7qsB3Sq2aaQSDm6GV8tfJocaQqD2ZREXaWoKqmLaDQ==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">Qk0GYhyZ5VFvsxa9IG7JufupvuM1NSuSaD83do9KZj5LPNcjPpwNUdPOEGb0K8mVHOBF33JSpEceaSzPik8zbQ==</FRMA>
+                    </CAF>
+                    <TSTED>2025-03-27T12:12:14</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">xJITFtp9p9G/ksVbQ/lRXhxykiv2qGG56E8pYtglp3RDBeKeE3c9t7vwS/kCiU0NOATYRVw4wAhnh1c0xvyWtw==</FRMT>
+            </TED>
+            <TmstFirma>2025-03-27T12:12:14</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77978527-4203">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>Nkt+DRRa36e9/zXneH3ZvoHHgGQ=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+QM8TRe93oy9QeZEwp8ytQmErQkBPjaFZ5ugN0k3JZDs4gClN+9GIA89I+9g8h1DX9X0UCrp/cLX3
+ZyullzibYmmHhpzEkiij2GFpmxQzSY+qRe+WuxIsHZqDKxzrgD89Cf/Fmmib7bxlgY+WE53Pg8tb
+l8F7ao5vOO6xlvYqnwu7zxC/yGM26eDuKto8A2PDvdtqQRJ5d19Mb1BZapEnW9zcF9rJp1vArRGU
+kHjSOHBI2isYAvdbfLj24N+CB3a6zvSe97CNjKVcE+dEL9sLP4YWygkOhViXa8vW1YOh592wZ2RW
+rDyv0BwsTaNlIJsjWdcNliO9F/3rbqR0x/LN8g==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+t9nKRWB1pdBHlIPCPTnFShD43/XYrmcTQz8e9xM6cPoR7/ZIf87vYtHPySNtpbxw0E1gO1VbmiE3
+Gq2V3k9rWbzim12yZACWzVgd3Vs25ww3m6O4C2Lqk5KQFUriN5OiIeYD8BBHVVk4szGBHZIuKLyd
+xIfX6PBI5Cl1l3sP80zXunHpqTN2gHEYmuPllQsiX+Y8DcDAPKLo8rHPpdGwyW+EytTvcBMkFqzi
+x3Ycl4jUrHEWwBY95UcMF/RiZsdchKCJNw/r/eAFfz2c9DHPC51T9lFx2HcvZHq5XLaAX6yA9OxE
+y686OQ/b+1gdtQH+4psuwiL8nURkr+tYnVYbeQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIHwDCCBaigAwIBAgIKcfxucwABAA1/nzANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTI1MDMwNTE4MDkyN1oXDTI4MDMwNDE4MDkyN1owgbwxCzAJBgNVBAYTAkNMMSIw
+IAYDVQQIExlNRVRST1BPTElUQU5BIERFIFNBTlRJQUdPMREwDwYDVQQHEwhTQU5USUFHTzEZMBcG
+A1UEChMQVklDVE9SIFNBTkRPVkFMIDEKMAgGA1UECwwBKjEjMCEGA1UEAxMaVklDVE9SICBHT05a
+QUxFWiAgU0FORE9WQUwxKjAoBgkqhkiG9w0BCQEWG0FUQUxJQS5EVVlWRVNURUlOQEdNQUlMLkNP
+TTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALfZykVgdaXQR5SDwj05xUoQ+N/12K5n
+E0M/HvcTOnD6Ee/2SH/O72LRz8kjbaW8cNBNYDtVW5ohNxqtld5Pa1m84ptdsmQAls1YHd1bNucM
+N5ujuAti6pOSkBVK4jeToiHmA/AQR1VZOLMxgR2SLii8ncSH1+jwSOQpdZd7D/NM17px6akzdoBx
+GJrj5ZULIl/mPA3AwDyi6PKxz6XRsMlvhMrU73ATJBas4sd2HJeI1KxxFsAWPeVHDBf0YmbHXISg
+iTcP6/3gBX89nPQxzwudU/ZRcdh3L2R6uVy2gF+sgPTsRMuvOjkP2/tYHbUB/uKbLsIi/J1EZK/r
+WJ1WG3kCAwEAAaOCAr0wggK5MIIBXwYDVR0gBIIBVjCCAVIwggFOBggrBgEEAcNSBTCCAUAwPQYI
+KwYBBQUHAgEWMWh0dHBzOi8vd3d3LmUtY2VydGNoaWxlLmNsL3BvbGl0aWNhcy15LXByYWN0aWNh
+cy8wgf4GCCsGAQUFBwICMIHxHoHuAEUAbAAgAHIAZQBzAHAAbwBuAGQAZQByACAAZQBzAHQAZQAg
+AGYAbwByAG0AdQBsAGEAcgBpAG8AIABlAHMAIAB1AG4AIAByAGUAcQB1AGkAcwBpAHQAbwAgAGkA
+bgBkAGkAcwBwAGUAbgBzAGEAYgBsAGUAIABwAGEAcgBhACAAZABhAHIAIABpAG4AaQBjAGkAbwAg
+AGEAbAAgAHAAcgBvAGMAZQBzAG8AIABkAGUAIABjAGUAcgB0AGkAZgBpAGMAYQBjAGkA8wBuAC4A
+IABQAG8AcwB0AGUAcgBpAG8AcgBtAGUAbgB0AGUALDAdBgNVHQ4EFgQUNWiZBYShDDfh+cQCEn9B
+lcImiuswCwYDVR0PBAQDAgTwMCMGA1UdEQQcMBqgGAYIKwYBBAHBAQGgDBYKMjU5MTM0MTQtNTAf
+BgNVHSMEGDAWgBR01iGz9FroLXy7WQZjQ+9ptDqTBDBABgNVHR8EOTA3MDWgM6Axhi9odHRwOi8v
+Y3JsLmVjZXJ0Y2hpbGUuY2wvRS1DRVJUQ0hJTEVDQUZFUzAyLmNybDA9BggrBgEFBQcBAQQxMC8w
+LQYIKwYBBQUHMAGGIWh0dHA6Ly9vY3NwZmVzLmVjZXJ0Y2hpbGUuY2wvb2NzcDA8BgkrBgEEAYI3
+FQcELzAtBiUrBgEEAYI3FQiB3dJNl9Q6homdBoeIzm+Dr8xgRYbS7AiGx8p9AgFkAgEHMCMGA1Ud
+EgQcMBqgGAYIKwYBBAHBAQKgDBYKOTY5MjgxODAtNTANBgkqhkiG9w0BAQsFAAOCAgEAWRdXmKwT
+ZvaKmBNN05G62AF+0lzWtGATe4/S6P2pqdts3RqVWDxTWjyZB83ntWmn0ApXfNt52gpZ4fKs53W3
+J0hqERVYaP8WlNpylh0XnFPtCa3a8zgMmalDfJtxsKmiT6OX5ie/D/ySdPhI8Tnf0CnUuBh+cdyl
+3RPvvw+HP8+/5xoDalZUDUKCJpFpXolDtLw5LeiI+Knu/VNNrTyiOsmiIYBKaYSLxGDwFsdDgirj
+S1m5Rd6wl6BQNkLFr/yMkaH1sSoIjrDHsYI5Hbab6wRcgKsFT/SsS3hZjByM2Ws3IrVddh2c54wa
+LuDqr5mXv1vq9pK5eKHtRxnYacg6mTZquCxQRtqc02voag+Vw9+XP0IFVzRZtaixHFpg2ygY5R1p
+QJf6FSbXvngSIwBLakDHXk0UtvMeavH4EEYO0ZBVdS3rtPeU1m0MFqC/g5E/LhlheXcIrMee9ItG
+MFX7zcw7GTPljmT9AA1pt9hsHahfG2O4dQOkAip+1x6Tkr3kShqAIfhKzXzwrScIbWtGazQcw2rK
+OSUurJyVBiHq7KRlUqqK5Oo4YMKIiD7VTZN1Sfe6JBcweEeZzeWDCTZU8dCgTmW0IoHYX+IaxUjN
+2gtTpeK+eOw+EA45oC9e7qMIcaXpvZl9EjRsHoXMwyoveSjjElL34KFIL7DBPO+yAqo=
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <Documento ID="F27611452T33">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>27611452</Folio>
+                    <FchEmis>2025-03-07</FchEmis>
+                    <FmaPago>1</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>97006000-6</RUTEmisor>
+                    <RznSoc>BANCO DE CREDITO E INVERSIONES</RznSoc>
+                    <GiroEmis>BANCO COMERCIAL</GiroEmis>
+                    <Acteco>81011</Acteco>
+                    <Sucursal>SUC DESC CENTRAL PYM</Sucursal>
+                    <CdgSIISucur>87864752</CdgSIISucur>
+                    <DirOrigen>HUERFANOS 1134 PISO 1</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACT. DE CONSULTORIA DE GESTION</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P NULL</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntNeto>3262</MntNeto>
+                    <TasaIVA>19.0</TasaIVA>
+                    <IVA>620</IVA>
+                    <MntTotal>3882</MntTotal>
+                    <MontoNF>0</MontoNF>
+                    <SaldoAnterior>0</SaldoAnterior>
+                    <VlrPagar>0</VlrPagar>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>COMISION POR PLAN CUENTA CORRIENTE</NmbItem>
+                <MontoItem>3262</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>97006000-6</RE>
+                    <TD>33</TD>
+                    <F>27611452</F>
+                    <FE>2025-03-07</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>3882</MNT>
+                    <IT1>COMISION POR PLAN CUENTA CORRIENTE</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>97006000-6</RE>
+                            <RS>BANCO DE CREDITO E INVERSIONES</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>27378996</D>
+                                <H>28078995</H>
+                            </RNG>
+                            <FA>2025-01-09</FA>
+                            <RSAPK>
+                                <M>vrd9gX+LunE/00hGL6lq/9Ep73cUJGTV4pf4jo0UMvau/blQyc7ojTDKAftdw9dHDx4sP8fN8qRE4OB9sUYNhw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">lgwW7rKq5LIRIWH4AKLZNd5aym7nM/6h/Tp/TEVCLglgJ6Tpr6wWDxHZ6FEIs9Cr4vs0z66PIkpwBQ1bfhplNg==</FRMA>
+                    </CAF>
+                    <TSTED>2025-03-07T23:59:00</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">MxL4+SqMy4iPx3N8oG89sK7nv8GwizKGblpgPDB9O3xCLvn1JOOIuhV9GjR/Bqk41ZCbj49BvXcIdqUCNhjqPw==</FRMT>
+            </TED>
+            <TmstFirma>2025-03-07T23:59:00</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <Reference URI="#F27611452T33">
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                    <DigestValue>mGPdB7Xb257tAcLC4S9Rk5wl49Y=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>gSgJflldka/6+2iHmdPg7EvG+5whlgZCrSIrPVWkGHCp28SN4nlHw1ad9g2uPQG9lH5tGgUGO5vjJeZ9EqgrIsF9n5z9Bfy1vJidDdxYAj3aevkDJOPyhGsUZyoOoWeGM2HF5BN3599iImYdlGXJGfBySQMz6t+zPTE3wTK9L4IjJJJw5ZJFq5Sdh5dUSHkTV5ibSNIH0klOZPL8o9T2CZZ5y0hmOaV8Z0kmUdOyyWJbewHsW7lu09SV5sFbozNAye4vRNsHs5n4XGIMSemdS00trh2LT++/Uftxa/izi0841nPZw/T+m3RaNT2wODjgX9+aq5IDOGDHr5zEu93WDw==</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>xQGQ1wJ9hVE2s0r01FvJRUmw6oE6iur4ZiMGqjnE9EsZvTtFObfYibAMq3bPQZrQJYvQCgi9mip+UoqRx8ePsCk+Wwc9TE/uXNPEPkl3AInKSP7BCLZkBLCiRWLietADZHPM62MDZi0Y5V95yimC+4DE/9YGjtdvmBYx7vB9tuM45RkU1MKqTh+eJEvyYJlgO2iHfP4CDNoakFe94vDSnmWyr8BSy+ZwRDksTGVpK3hNCRlQVl8cophKY94MHCnMw8AzZuBF5lFS+w7xRMIySr7kJmIVpzzAka+VsKzqwnG7EpxEpppfhXCcGI7JR2a4TjCabgrmRjPAO1zKjSPd1w==</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>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</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <Documento ID="F8616T33">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>8616</Folio>
+                    <FchEmis>2024-12-17</FchEmis>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>1</FmaPago>
+                    <TermPagoGlosa>CONTADO</TermPagoGlosa>
+                    <FchVenc>2025-01-17</FchVenc>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>76215821-3</RUTEmisor>
+                    <RznSoc>NYTEC S.A</RznSoc>
+                    <GiroEmis>IMP.EXP Y COM. EQ.AUDIO Y COMPUTACION,INGENIERIA Y SOFTWARE AUDIOVISUA</GiroEmis>
+                    <Telefono>4341200</Telefono>
+                    <Acteco>474100</Acteco>
+                    <DirOrigen>SAN SEBASTIAN 2839, OF. 501</DirOrigen>
+                    <CmnaOrigen>LAS CONDES</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>Informacion Y Comunicaciones</GiroRecep>
+                    <DirRecep>Antonio Bellet 193 of 1210 12P</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntNeto>805128</MntNeto>
+                    <MntExe>0</MntExe>
+                    <TasaIVA>19</TasaIVA>
+                    <IVA>152974</IVA>
+                    <MntTotal>958102</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <CdgItem>
+                    <TpoCodigo>INT1</TpoCodigo>
+                    <VlrCodigo>0</VlrCodigo>
+                </CdgItem>
+                <NmbItem>Logitech Meetup</NmbItem>
+                <DscItem>P/N 960-001101 S/N 2424LZ52FC99 </DscItem>
+                <QtyItem>1</QtyItem>
+                <UnmdItem>UN</UnmdItem>
+                <PrcItem>805128</PrcItem>
+                <MontoItem>805128</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>76215821-3</RE>
+                    <TD>33</TD>
+                    <F>8616</F>
+                    <FE>2024-12-17</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>958102</MNT>
+                    <IT1>Logitech Meetup</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>76215821-3</RE>
+                            <RS>NYTEC S.A</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>8572</D>
+                                <H>9097</H>
+                            </RNG>
+                            <FA>2024-11-25</FA>
+                            <RSAPK>
+                                <M>vl+ghiv0Q2CKBpLd/ZK50zQNRH0Ujgfv4AE48JUWQAAEYaElTxA2xF75KOfiZ3t4O+HKskYNJubz10MOMkW3lw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">ZtDMA3e/2zbwFKxKfefzqRYxmG186pz0RS5vCDiPBzYd+wvfFGpyNnbgunDLxnW4UFQrWD7Z5r76VzWs8wbHNw==</FRMA>
+                    </CAF>
+                    <TSTED>2024-12-17T11:56:51</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">pJK+lTdkFF2tmfFHAZQtzlUR5LGdwnZ9QY1/6fy0Pl895+BsoNgTzrn/elqq3IsRh81tKJnXb2fkMsU/OFrZRg==</FRMT>
+            </TED>
+            <TmstFirma>2024-12-17T11:56:51</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#F8616T33">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>7E9/tAW4JAvxJErAmdsOBCUEfe4=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>XTuf2M3URyZuzTFqpQP0umpGo74EYczkswj0VO+Ntbk3Xq5Ujj1g6XFHw9ZyyPFMkwCzW8yG12AU
+XoWsAzmUGfWkd3qwNB5q9MqBe+m/jZYfvMT5GrOCmtXJ3C5qUx26KtlU/3IgwgbK5Db0uVNNkHS/
+SSbmQvXVBk4WJEPBBxKYuPZCkstPtDrSPsPK5P+ZC0D08wVTeGZF3bmT/dyLwHtnx1JH6PVoPhba
+74MwlFc8qk3D0dhN+Bb8HNhodAaBWYb74UqSBOT6VDjAx843N7ssNn7IJBc9M+x6al/ObAStG66E
+fL8E90JXJddAbK2XtnMVA1vRSfXL4vBqgxl0ag==</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>+OL88pmcMYIt93pEFP/LtqqB94vyarCgGy3ZqsO5lfyD2K7FlwNMxmF622+Dx1uhtIniZ93pDXiv
+HT7CzzIXaRAmDCiDS25eahMB9RNAirCc9Pb7qD7REy8cXaa2KUNysoM4NGRDLY0Qt1Y4ao66fNfy
+HPlvlnnib8KBBKGIr4IViHCK5o2l/A6ZxhTq7zK+77kzCx0vnLY85tL+5Blac2MYDhGKfduXrlIu
+WOlc59HAKN5W/1Od1Y1GKojA/MXe3Ag8bMRgN/9UErGWmehvrbvlDamAhbwbokI7uvY1K2ZhPJyz
+HtoYREIDL/jldlg7YR4qcHFh+dPDDankcM828Q==</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>MIIGgTCCBWmgAwIBAgITfwAAJqjAdZnjN1IHqgAAAAAmqDANBgkqhkiG9w0BAQsFADCBtjELMAkG
+A1UEBhMCQ0wxFjAUBgNVBAgTDU1ldHJvcG9saXRhbmExETAPBgNVBAcTCFNhbnRpYWdvMREwDwYD
+VQQKEwhGaXJtYWRveDETMBEGA1UECxMKNzcxOTA5NDItNjEsMCoGA1UEAxMjRklSTUEgRUxFQ1RS
+T05JQ0EgU0lNUExFIC0gRklSTUFET1gxJjAkBgkqhkiG9w0BCQEWF0NvbnRhY3RvQGZpcm1hZG94
+LmNsLmNsMB4XDTI0MTIxMzEyMTUyMVoXDTI3MTIxMzEyMTUyMVowgbExCzAJBgNVBAYTAkNMMREw
+DwYDVQQIEwhTYW50aWFnbzERMA8GA1UEBxMIU2FudGlhZ28xGDAWBgNVBAoTD3d3dy5GaXJtYWRv
+eC5jbDESMBAGA1UECxMJODg2NDczMS05MSkwJwYDVQQDEyBGRVJOQU5ETyBBTlRPTklPIFZFTEla
+IEdVVElFUlJFWjEjMCEGCSqGSIb3DQEJARYUZmFjdHVyYWNpb25AZGVzaXMuY2wwggEiMA0GCSqG
+SIb3DQEBAQUAA4IBDwAwggEKAoIBAQD44vzymZwxgi33ekQU/8u2qoH3i/JqsKAbLdmqw7mV/IPY
+rsWXA0zGYXrbb4PHW6G0ieJn3ekNeK8dPsLPMhdpECYMKINLbl5qEwH1E0CKsJz09vuoPtETLxxd
+prYpQ3Kygzg0ZEMtjRC3Vjhqjrp81/Ic+W+WeeJvwoEEoYivghWIcIrmjaX8DpnGFOrvMr7vuTML
+HS+ctjzm0v7kGVpzYxgOEYp925euUi5Y6Vzn0cAo3lb/U53VjUYqiMD8xd7cCDxsxGA3/1QSsZaZ
+6G+tu+UNqYCFvBuiQju69jUrZmE8nLMe2hhEQgMv+OV2WDthHipwcWH508MNqeRwzzbxAgMBAAGj
+ggKJMIIChTALBgNVHQ8EBAMCBPAwgc0GA1UdIASBxTCBwjCBvwYJKwYBBAGDvSADMIGxMCsGCCsG
+AQUFBwIBFh9IdHRwOi8vd3d3LmZpcm1hZG94LmNsL0NQUy5odG1sMFYGCCsGAQUFBwICMEoeSABD
+AGUAcgB0AGkAZgBpAGMAYQBkAG8AIABGAGkAcgBtAGEAIABFAGwAZQBjAHQAcgBvAG4AaQBjAGEA
+IABTAGkAbQBwAGwAZTAqBggrBgEFBQcCARYeSHR0cDovL3d3dy5maXJtYWRveC5jbC9DUC5odG1s
+MB0GA1UdDgQWBBQydsy+s6iQoOUPOHi1DaW47pqbEjAjBgNVHREEHDAaoBgGCCsGAQQBwQEBoAwW
+CjA4ODY0NzMxLTkwHwYDVR0jBBgwFoAU+eht3+Xpw9w+OtA0hXtUfg78sGQwVwYDVR0fBFAwTjBM
+oEqgSIYlaHR0cDovL2NybC5maXJtYWRveC5jbC9GaXJtYWRveEZTLmNybIYfXFwxMC4xMC4yMS4z
+XGNybFxGaXJtYWRveEZTLmNybDBBBggrBgEFBQcBAQQ1MDMwMQYIKwYBBQUHMAKGJWh0dHA6Ly9j
+cmwuZmlybWFkb3guY2wvRmlybWFkb3hGUy5jcnQwOgYJKwYBBAGCNxUHBC0wKwYjKwYBBAGCNxUI
+6PtzhNvYWoX1jTXZqTSoxieBb4bQtDPa3xYCAWQCATIwRAYJKoZIhvcNAQkPBDcwNTAOBggqhkiG
+9w0DAgICAIAwDgYIKoZIhvcNAwQCAgCAMAcGBSsOAwIHMAoGCCqGSIb3DQMHMCMGA1UdEgQcMBqg
+GAYIKwYBBAHBAQKgDBYKNzcxOTA5NDItNjANBgkqhkiG9w0BAQsFAAOCAQEAoGAgszIChsQwumW+
+aHY4EVQ2dH6XmZcvjNtvuz1WNqXM09XFXxc9Ifne7I4rPGsJHh5r6wzjWADb2O3Urfe5CYm5RpCA
+M3Vq/Qg8gNCqzs58vaO5VZKO05C8DCkJBHsdYkCmRh6ECmPvImq4hyrSz/lsghqWwsdjK2Ayx5Qn
+Dop04Ix0z12WyNUtqJSAsCNN+cfsKZvSCUfmEy3gZMlN2x/YvFgNkTgvuxlKuwC3gHmyRa1t169G
+sW3sEb4ygiUyd538/QMSKC2SImNPSr3Qf4mbTXZ2dekCvHBFddEbKTC2NS9aKcDuhRWzb0X71gEJ
+qTlCK4UutQM8vtLi8Bow6Q==</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <Documento ID="T33F26942756">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>26942756</Folio>
+                    <FchEmis>2024-10-07</FchEmis>
+                    <FmaPago>1</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>97006000-6</RUTEmisor>
+                    <RznSoc>BANCO DE CREDITO E INVERSIONES</RznSoc>
+                    <GiroEmis>BANCO COMERCIAL</GiroEmis>
+                    <Acteco>81011</Acteco>
+                    <Sucursal>SUC DESC CENTRAL PYM</Sucursal>
+                    <CdgSIISucur>87864752</CdgSIISucur>
+                    <DirOrigen>HUERFANOS 1134 PISO 1</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACT. DE CONSULTORIA DE GESTION</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P NULL</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntNeto>3193</MntNeto>
+                    <MntExe>0</MntExe>
+                    <TasaIVA>19</TasaIVA>
+                    <IVA>607</IVA>
+                    <MntTotal>3800</MntTotal>
+                    <MontoNF>0</MontoNF>
+                    <SaldoAnterior>0</SaldoAnterior>
+                    <VlrPagar>0</VlrPagar>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>COMISION UNICA POR PLAN</NmbItem>
+                <DscItem>COMISION UNICA POR PLAN</DscItem>
+                <QtyItem>1</QtyItem>
+                <PrcItem>3193</PrcItem>
+                <MontoItem>3193</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>97006000-6</RE>
+                    <TD>33</TD>
+                    <F>26942756</F>
+                    <FE>2024-10-07</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>3800</MNT>
+                    <IT1>COMISION UNICA POR PLAN</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>97006000-6</RE>
+                            <RS>BANCO DE CREDITO E INVERSIONES</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>26478996</D>
+                                <H>27078995</H>
+                            </RNG>
+                            <FA>2024-06-11</FA>
+                            <RSAPK>
+                                <M>35MUr14hxqmS+25/yKLGN1HOoNonJSJBATwx1KjbhfZjTpznCmgJmQWfywk+s0fP8m+k/oSUa4ST9FP51dkcTw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">keWSblg/O8LHBtCFZcHQQf2PtOgS9euW6v66H73F2tq2yhOpeOmPRJl6rqp48MdxHfvz/L6gsmctiVSQ+TDkBA==</FRMA>
+                    </CAF>
+                    <TSTED>2024-10-30T01:13:33</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">U5jtwHcLiv33qvXWnVsoxG9h9LIfWiRoQcG6ZhDEvf7xvmzhH4JjCWE3VyUyfKc5KaDBQO9bSb4QD8oD+lWUMg==</FRMT>
+            </TED>
+            <TmstFirma>2024-10-30T01:13:33</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <Reference URI="#T33F26942756">
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                    <DigestValue>qiDDiecTYXQZTA/2PShuToc1YTs=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>CAEosHN0BsK2mwm2eSdMIQOKZKvrol7y4VOK1bNQzkWQFvEvx/3JjNOaDBR3uSQX45TKB0Y3l7OnMtT0CE+DJecd0TawtKLAp9U/xZEFg172VTZSYBE0H5SxucDT5x7mt96A7rdE1aWN/YvsfRAEo4ipU/NyuxVa2FfqKQpsnKRDWat+8FzWm8aMO8DJt/GHC6DaeNIsYPTc0hMrWUDHIASDTU+NT7N76+2YueTpHesQDpjyZyr2eGHmwHcEUAgg8SRbQhjs5OXCKweTHbj7ATF15gs7pQEBmYdy1L5glQgvZ/LXBxGJ6sKeo1GgaKdA44uEz+YwWDEWlMN2cIc8Qw==</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>xQGQ1wJ9hVE2s0r01FvJRUmw6oE6iur4ZiMGqjnE9EsZvTtFObfYibAMq3bPQZrQJYvQCgi9mip+UoqRx8ePsCk+Wwc9TE/uXNPEPkl3AInKSP7BCLZkBLCiRWLietADZHPM62MDZi0Y5V95yimC+4DE/9YGjtdvmBYx7vB9tuM45RkU1MKqTh+eJEvyYJlgO2iHfP4CDNoakFe94vDSnmWyr8BSy+ZwRDksTGVpK3hNCRlQVl8cophKY94MHCnMw8AzZuBF5lFS+w7xRMIySr7kJmIVpzzAka+VsKzqwnG7EpxEpppfhXCcGI7JR2a4TjCabgrmRjPAO1zKjSPd1w==</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>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</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <!-- O Win32 Chrome 129 central VERSION: v20190409 -->
+        <Documento ID="MiPE77221675-24803">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>34</TipoDTE>
+                    <Folio>10780</Folio>
+                    <FchEmis>2024-10-04</FchEmis>
+                    <TpoTranCompra>1</TpoTranCompra>
+                    <TpoTranVenta>1</TpoTranVenta>
+                    <FmaPago>2</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>77221675-0</RUTEmisor>
+                    <RznSoc>DIVIR SPA</RznSoc>
+                    <GiroEmis>ARRIENDO DE DIRECCI?N VIRTUAL, DOMICILIO POSTAL Y TRIBUTARIO</GiroEmis>
+                    <CorreoEmisor>cobranzas.divir@gmail.com</CorreoEmisor>
+                    <Acteco>681012</Acteco>
+                    <CdgSIISucur>89282225</CdgSIISucur>
+                    <DirOrigen>ANTONIO BELLET193OF121012P</DirOrigen>
+                    <CmnaOrigen>PROVIDENCIA</CmnaOrigen>
+                    <CiudadOrigen>SANTIAGO</CiudadOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACTIVIDADES DE CONSULTORIA DE INFORMATIC</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntExe>30000</MntExe>
+                    <MntTotal>30000</MntTotal>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>DIRECCI?N VIRTUAL</NmbItem>
+                <DscItem>Plan semestral</DscItem>
+                <QtyItem>1.00</QtyItem>
+                <PrcItem>30000.00</PrcItem>
+                <MontoItem>30000</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>77221675-0</RE>
+                    <TD>34</TD>
+                    <F>10780</F>
+                    <FE>2024-10-04</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>30000</MNT>
+                    <IT1>DIRECCI?N VIRTUAL</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>77221675-0</RE>
+                            <RS>DIVIR SPA</RS>
+                            <TD>34</TD>
+                            <RNG>
+                                <D>10780</D>
+                                <H>10780</H>
+                            </RNG>
+                            <FA>2024-10-04</FA>
+                            <RSAPK>
+                                <M>so5fH8Xn2xciq2jFs39/MMjHwAGsLPooSrK3jbTTOONe8qesJ5aONcwEqGevjOc069WjYp8V1VCTsG/E8DrDfw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">Xzswi275819dS8oyqbvX7Odyrjmy7XBDEhSkJL1NL034hequgnSrd+AeNy6flNEbqoE/LqmER4shM1LYgNFEYQ==</FRMA>
+                    </CAF>
+                    <TSTED>2024-10-04T11:35:21</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">euSneRZJyClMPjmooNXKh0+wSOZyQ4IG6tMEqR8/89SKCuiWdFs0eJ4RmIX0ugm1IWhqxhW0Iubh/WZzFgLOmg==</FRMT>
+            </TED>
+            <TmstFirma>2024-10-04T11:35:21</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#MiPE77221675-24803">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>aypsAaBWA6MhtNTP9Pv+ZPbdh9U=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+iAZlrSLrR8WtVFpvgjZ2Omsz9MWLSTtNkTmQnV1GyuGoo77CvQyNowVts2oOL68I140N6SwTtOBt
+GlcEsTYBCTtsK5fTxaeVejHu+vpvUQ2PeI/dxlIsq1a4eHyLJLanmYxMzl1lLp5tkgx/p9nXIsr7
+/3fjwhPA07A2Oil7elHPCGeKCqlAv83T13CcaOJz7GQJsYT91utM22asMoQ4O1pXHuJS9gYw3bEK
+7oWP/8mqGRkVrE4VYyrwBuCdkageoZwGO6hqFR8vkcH8zXsYPTRVsg73fmSLip8PI7BA5jLevzEk
+BkpNKyoyFPTxutZCJ1bU+XYzslxVIzDU/solqg==
+</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>
+t+aVzTbxUv7zA5GjrHE0e1BQu+1Okn8ADvXqwOfqBJOWRJo7xb8E0rswK3WFts5EvAn7WEfnhnL+
+g89Z80l8Qrw8CqB2JT1VmWKP9I5RuKyMMNzLWpuZc8gm2rww6zcPJfB806kNiHtg1GrnYbhva1/8
+DPkRFBQHhQ+ZRdaIA1pF4EhwkjgLL2XsNJ2CwnJFzoIhdBS64Nmuk0mjf9fL4tqlM5ngB641uxKQ
+1Vnlxb05DpsDpQUTOBiH8myh5FhXmEB3srTgCBYQktXYBlN8uX5bfcv80z7zp/8vhOW6JffeqeWx
+A6Cd/P3lduS11R97Us+5BuyHBVsZIEyBcqL+LQ==
+</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>
+MIIHszCCBZugAwIBAgIKNGz4xQABAAG1LzANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTIyMDYxNjE1MDc1MloXDTI1MDYxNTE1MDc1Mlowga8xCzAJBgNVBAYTAkNMMRMw
+EQYDVQQIEwpWQUxQQVJBSVNPMRQwEgYDVQQHDAtWQUxQQVJBw41TTzEeMBwGA1UEChMVSVZBTiBB
+TFZBUkVaIE1BUkNIQU5UMQowCAYDVQQLDAEqMR4wHAYDVQQDExVJVkFOIEFMVkFSRVogTUFSQ0hB
+TlQxKTAnBgkqhkiG9w0BCQEWGkFMVkFSRVouQ09OVEFCTEVAR01BSUwuQ09NMIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt+aVzTbxUv7zA5GjrHE0e1BQu+1Okn8ADvXqwOfqBJOWRJo7
+xb8E0rswK3WFts5EvAn7WEfnhnL+g89Z80l8Qrw8CqB2JT1VmWKP9I5RuKyMMNzLWpuZc8gm2rww
+6zcPJfB806kNiHtg1GrnYbhva1/8DPkRFBQHhQ+ZRdaIA1pF4EhwkjgLL2XsNJ2CwnJFzoIhdBS6
+4Nmuk0mjf9fL4tqlM5ngB641uxKQ1Vnlxb05DpsDpQUTOBiH8myh5FhXmEB3srTgCBYQktXYBlN8
+uX5bfcv80z7zp/8vhOW6JffeqeWxA6Cd/P3lduS11R97Us+5BuyHBVsZIEyBcqL+LQIDAQABo4IC
+vTCCArkwggFfBgNVHSAEggFWMIIBUjCCAU4GCCsGAQQBw1IFMIIBQDA9BggrBgEFBQcCARYxaHR0
+cHM6Ly93d3cuZS1jZXJ0Y2hpbGUuY2wvcG9saXRpY2FzLXktcHJhY3RpY2FzLzCB/gYIKwYBBQUH
+AgIwgfEege4ARQBsACAAcgBlAHMAcABvAG4AZABlAHIAIABlAHMAdABlACAAZgBvAHIAbQB1AGwA
+YQByAGkAbwAgAGUAcwAgAHUAbgAgAHIAZQBxAHUAaQBzAGkAdABvACAAaQBuAGQAaQBzAHAAZQBu
+AHMAYQBiAGwAZQAgAHAAYQByAGEAIABkAGEAcgAgAGkAbgBpAGMAaQBvACAAYQBsACAAcAByAG8A
+YwBlAHMAbwAgAGQAZQAgAGMAZQByAHQAaQBmAGkAYwBhAGMAaQDzAG4ALgAgAFAAbwBzAHQAZQBy
+AGkAbwByAG0AZQBuAHQAZQAsMB0GA1UdDgQWBBR8wuY9jp/f/PKl5nLxo6ikg9lszTALBgNVHQ8E
+BAMCBPAwIwYDVR0RBBwwGqAYBggrBgEEAcEBAaAMFgoxNjgyMTE1OC05MB8GA1UdIwQYMBaAFHTW
+IbP0WugtfLtZBmND72m0OpMEMEAGA1UdHwQ5MDcwNaAzoDGGL2h0dHA6Ly9jcmwuZWNlcnRjaGls
+ZS5jbC9FLUNFUlRDSElMRUNBRkVTMDIuY3JsMD0GCCsGAQUFBwEBBDEwLzAtBggrBgEFBQcwAYYh
+aHR0cDovL29jc3BmZXMuZWNlcnRjaGlsZS5jbC9vY3NwMDwGCSsGAQQBgjcVBwQvMC0GJSsGAQQB
+gjcVCIHd0k2X1DqGiZ0Gh4jOb4OvzGBFhtLsCIbHyn0CAWQCAQcwIwYDVR0SBBwwGqAYBggrBgEE
+AcEBAqAMFgo5NjkyODE4MC01MA0GCSqGSIb3DQEBCwUAA4ICAQCWcTzmL1OqxTVw6TM4WMXjDErJ
+W8q3eMRbNTFYAzfrq/RoIm4/8D+ixcrDYx2j1CNv3ra+hb70JGIc2Ag6ZmxjdTvFqkqhO1fSHuhI
+kJO/Lzx1OouNLqaYIruChBNYb5GeCNAYK2++ieD6ygN+cMbHFk4Tsak4OROX9n7GlFWhfQviEUeq
+U0Dg5ZbKTCxy/AYU4BkGgmh240tf99nrrKFVQGFBE15NlSyKh1ETYeScfdlSz/Daptdfcf69r+yo
+Klx/sDcE96F5APr/ZOOM8QpdKd7De9nctotYDCrxigSww2cHOCc1drNvwTTYpYbbanVNYHX2XpiW
+XC/fl82GFszuaRYZM213/7YQGSUq+qLCc1cyzrLtlNYQNMsmt5rNkXMQ+cZEYWVCF0NN1X13ccIF
+rb/eoct153+dyEkLZYxSGp9p4FeYwE9JwmnniR1O2gSXhFL7zj6y+QMgm9HQhbJAIXGJLxHmrqYB
+kk1GHfiDiNphgcl5jBR4uIhtM9k909LkNqahNCkOEOMrU/yd0wp/g2tO7ocCHjvyc2uO9B6KzS9r
+z8xCLNkVF4TBxWnm9hBhYRvUA559y/FhLhppFIZ9eiNqm75fk98FzmgqsYjLPr3U3qRzdCCx5saS
+OW9Ue//aBOaLqG3y1lRQarh0VT8ZXPAsv6I2ymFbl7cWVKKEmA==
+</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <Documento ID="F26758307T33">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>26758307</Folio>
+                    <FchEmis>2024-09-06</FchEmis>
+                    <FmaPago>1</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>97006000-6</RUTEmisor>
+                    <RznSoc>BANCO DE CREDITO E INVERSIONES</RznSoc>
+                    <GiroEmis>BANCO COMERCIAL</GiroEmis>
+                    <Acteco>81011</Acteco>
+                    <Sucursal>SUC DESC CENTRAL PYM</Sucursal>
+                    <CdgSIISucur>87864752</CdgSIISucur>
+                    <DirOrigen>HUERFANOS 1134 PISO 1</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACT. DE CONSULTORIA DE GESTION</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P NULL</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntNeto>3182</MntNeto>
+                    <TasaIVA>19.0</TasaIVA>
+                    <IVA>605</IVA>
+                    <MntTotal>3787</MntTotal>
+                    <MontoNF>0</MontoNF>
+                    <SaldoAnterior>0</SaldoAnterior>
+                    <VlrPagar>0</VlrPagar>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>COMISION UNICA POR PLAN</NmbItem>
+                <MontoItem>3182</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>97006000-6</RE>
+                    <TD>33</TD>
+                    <F>26758307</F>
+                    <FE>2024-09-06</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>3787</MNT>
+                    <IT1>COMISION UNICA POR PLAN</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>97006000-6</RE>
+                            <RS>BANCO DE CREDITO E INVERSIONES</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>26478996</D>
+                                <H>27078995</H>
+                            </RNG>
+                            <FA>2024-06-11</FA>
+                            <RSAPK>
+                                <M>35MUr14hxqmS+25/yKLGN1HOoNonJSJBATwx1KjbhfZjTpznCmgJmQWfywk+s0fP8m+k/oSUa4ST9FP51dkcTw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">keWSblg/O8LHBtCFZcHQQf2PtOgS9euW6v66H73F2tq2yhOpeOmPRJl6rqp48MdxHfvz/L6gsmctiVSQ+TDkBA==</FRMA>
+                    </CAF>
+                    <TSTED>2024-09-06T23:59:00</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">fpnXsjUobUFQeabh66KLC/YHgiobrClU2tORExTNv8HnJPlq/oDWmCWk5jzUyK1qJunGsvo+nIEHHWoMv2SPGw==</FRMT>
+            </TED>
+            <TmstFirma>2024-09-06T23:59:00</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <Reference URI="#F26758307T33">
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                    <DigestValue>UGp9g382dK9ZNjsgvBff3715Txs=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>iIk5Tfsi3tFRh1MNCBIXmF0pqjLo0rRAMpyUUjJed5I13q0crcqEfDZTnm8QN1c7SZL8EsYwvGNfvj0AgQ5lwpFfT0eYjo5eST1WbcO8Rf0aMxlpbn4OKv7yo+G6g3LSsTVykws2ci5qo6CimEVcnKwStJC1vu1qftqM495V6udew0+V81vlD80SS4iFBm2vex1pb114XmqPUT1z2+HlEKoVEJfDtOKsiuwdkt1oU4SSB+WL/gJUAZX/GyRrJoZaUAwgTB2TBNOAH2CViDtg7RUFrlMTi6BVLT//gf8Z+wBZoYUQSOxXiYhH/zjcG+uhXneRt8pxvaR+1j6WeanMCQ==</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>pEC/fR5/jEzxABhpJECzKZnxNYPccN9ONwKtVXG1eaqYogpM3mii0yM217j/QeYAZIFA5Jo5eS+jOWMnZjCJaYCxb4ZkKM7bhAPYnrwM2YrBOaHfxYylGeJ64GKmB4nO/EcNTcCV8nS4Pt12bPFE3S5vZLLRwYZ0+DnTRNXQatk8Yz4xmYHhstAESuvFqbiFu3Wj+O7PxMslEDpvCq8B/3PX/KfGAbvlp2SGRPxj07nMVmVb9Yh2QWW5J+bmfKXSq+lAxIgzlQUAxmf34lqtt4tdCYnkpZ8Axra0RJtI/ZtyijGJ66aGBv1G8SMtqRTKtbqpNTpaIezkpaB9AtvIkQ==</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>MIIH1jCCBb6gAwIBAgIKEd7tngABAAZL5zANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wxHTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UEChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQDExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNoaWxlLmNsMB4XDTIzMDYxNDE1NDA1NFoXDTI2MDYxMzE1NDA1NFowgdIxCzAJBgNVBAYTAkNMMSowKAYDVQQIDCFSRUdJw5NOIE1FVFJPUE9MSVRBTkEgREUgU0FOVElBR08xETAPBgNVBAcTCFNhbnRpYWdvMSIwIAYDVQQKExlCQU5DTyBDUkVESVRPIElOVkVSU0lPTkVTMRwwGgYDVQQLExNHRVJFTkNJQSBUUklCVVRBUklBMSAwHgYDVQQDExdKVUFOIENBUkxPUyBPSkVEQSBWSVZBUjEgMB4GCSqGSIb3DQEJARYRanVhbi5vamVkYUBiY2kuY2wwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCkQL99Hn+MTPEAGGkkQLMpmfE1g9xw3043Aq1VcbV5qpiiCkzeaKLTIzbXuP9B5gBkgUDkmjl5L6M5YydmMIlpgLFvhmQoztuEA9ievAzZisE5od/FjKUZ4nrgYqYHic78Rw1NwJXydLg+3XZs8UTdLm9kstHBhnT4OdNE1dBq2TxjPjGZgeGy0ARK68WpuIW7daP47s/EyyUQOm8KrwH/c9f8p8YBu+WnZIZE/GPTucxWZVv1iHZBZbkn5uZ8pdKr6UDEiDOVBQDGZ/fiWq23i10JieSlnwDGtrREm0j9m3KKMYnrpoYG/UbxIy2pFMq1uqk1Oloh7OSloH0C28iRAgMBAAGjggK9MIICuTCCAV8GA1UdIASCAVYwggFSMIIBTgYIKwYBBAHDUgUwggFAMD0GCCsGAQUFBwIBFjFodHRwczovL3d3dy5lLWNlcnRjaGlsZS5jbC9wb2xpdGljYXMteS1wcmFjdGljYXMvMIH+BggrBgEFBQcCAjCB8R6B7gBFAGwAIAByAGUAcwBwAG8AbgBkAGUAcgAgAGUAcwB0AGUAIABmAG8AcgBtAHUAbABhAHIAaQBvACAAZQBzACAAdQBuACAAcgBlAHEAdQBpAHMAaQB0AG8AIABpAG4AZABpAHMAcABlAG4AcwBhAGIAbABlACAAcABhAHIAYQAgAGQAYQByACAAaQBuAGkAYwBpAG8AIABhAGwAIABwAHIAbwBjAGUAcwBvACAAZABlACAAYwBlAHIAdABpAGYAaQBjAGEAYwBpAPMAbgAuACAAUABvAHMAdABlAHIAaQBvAHIAbQBlAG4AdABlACwwHQYDVR0OBBYEFCyXDc8V2fsMeWNYaI6oOreM50jmMAsGA1UdDwQEAwIE8DAjBgNVHREEHDAaoBgGCCsGAQQBwQEBoAwWCjA5NDU2NzUxLTMwHwYDVR0jBBgwFoAUdNYhs/Ra6C18u1kGY0PvabQ6kwQwQAYDVR0fBDkwNzA1oDOgMYYvaHR0cDovL2NybC5lY2VydGNoaWxlLmNsL0UtQ0VSVENISUxFQ0FGRVMwMi5jcmwwPQYIKwYBBQUHAQEEMTAvMC0GCCsGAQUFBzABhiFodHRwOi8vb2NzcGZlcy5lY2VydGNoaWxlLmNsL29jc3AwPAYJKwYBBAGCNxUHBC8wLQYlKwYBBAGCNxUIgd3STZfUOoaJnQaHiM5vg6/MYEWG0uwIhsfKfQIBZAIBBzAjBgNVHRIEHDAaoBgGCCsGAQQBwQECoAwWCjk2OTI4MTgwLTUwDQYJKoZIhvcNAQELBQADggIBACEF3YpQGaxVh8SVhQtk37BRvBsaTigpV8dlFm7DwmrkcpQtZ25zLrFTki22oahadPfGphMa1jdF5n2okZW2J6eAWZar7YgCvHSZpeLPPnPOgn6XmqtIRGv3Y70AczZBufcy9/qVevpXSGv6l2jbs+5aJY64WfooxABJuhAQkRgWk9BDwUO9ha7UhKD5d3WYaHx2EN1HSBflGRiN2uuhm36tdIbuSy5vEz5rx6kExb8gh7te8aUH4Bi5mJyQDCZSzhuO2GOUl0+z8U99FhFELlfUKkYro0xoJ2THBk+XihxtsvVy6XDNgd2zrGJduJL0RRxEi7yvvosT2GqSITjkUkrm0Kp2B0MapeE9DrHRLHt48potyPFoXK2pThqzNIfbQlJWKy2H0bsG7Fh2GxlDKfc8QtC6ASKRtLgLWAu+V9Z5j7FEjKKZKR8GLZikq4lGvSpR3ucaZR2FG/tixn18KP0xhM1AOVZ4rt7Npx5ia1P67+PRFGmDv77n+HwIEXfkqOaQ7BRKs/YCZqXFDdFx83GJ9/6wL3OEak5UaFAhRTez7R8vKzUj8Zeu8WaKGtGM8rw2iq/clk1CX9l+bGZWZGsabFVQ7kOAj2i59Mk3v+jt3aABAE1+BuhPE5DiBXuOyRxKr8tEAYEvBnQLHupnISyqUPw8qmWgQoZWUAHmV1Vk</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+    <DTE version="1.0" >
+        <Documento ID="F26620066T33">
+            <Encabezado>
+                <IdDoc>
+                    <TipoDTE>33</TipoDTE>
+                    <Folio>26620066</Folio>
+                    <FchEmis>2024-08-06</FchEmis>
+                    <FmaPago>1</FmaPago>
+                </IdDoc>
+                <Emisor>
+                    <RUTEmisor>97006000-6</RUTEmisor>
+                    <RznSoc>BANCO DE CREDITO E INVERSIONES</RznSoc>
+                    <GiroEmis>BANCO COMERCIAL</GiroEmis>
+                    <Acteco>81011</Acteco>
+                    <Sucursal>SUC DESC CENTRAL PYM</Sucursal>
+                    <CdgSIISucur>87864752</CdgSIISucur>
+                    <DirOrigen>HUERFANOS 1134 PISO 1</DirOrigen>
+                    <CmnaOrigen>SANTIAGO</CmnaOrigen>
+                </Emisor>
+                <Receptor>
+                    <RUTRecep>77845621-4</RUTRecep>
+                    <RznSocRecep>DATAOTEC SPA</RznSocRecep>
+                    <GiroRecep>ACT. DE CONSULTORIA DE GESTION</GiroRecep>
+                    <DirRecep>ANTONIO BELLET 193 OF 1210 12P NULL</DirRecep>
+                    <CmnaRecep>PROVIDENCIA</CmnaRecep>
+                    <CiudadRecep>SANTIAGO</CiudadRecep>
+                </Receptor>
+                <Totales>
+                    <MntNeto>3162</MntNeto>
+                    <TasaIVA>19.0</TasaIVA>
+                    <IVA>601</IVA>
+                    <MntTotal>3763</MntTotal>
+                    <MontoNF>0</MontoNF>
+                    <SaldoAnterior>0</SaldoAnterior>
+                    <VlrPagar>0</VlrPagar>
+                </Totales>
+            </Encabezado>
+            <Detalle>
+                <NroLinDet>1</NroLinDet>
+                <NmbItem>COMISION UNICA POR PLAN</NmbItem>
+                <MontoItem>3162</MontoItem>
+            </Detalle>
+            <TED version="1.0">
+                <DD>
+                    <RE>97006000-6</RE>
+                    <TD>33</TD>
+                    <F>26620066</F>
+                    <FE>2024-08-06</FE>
+                    <RR>77845621-4</RR>
+                    <RSR>DATAOTEC SPA</RSR>
+                    <MNT>3763</MNT>
+                    <IT1>COMISION UNICA POR PLAN</IT1>
+                    <CAF version="1.0">
+                        <DA>
+                            <RE>97006000-6</RE>
+                            <RS>BANCO DE CREDITO E INVERSIONES</RS>
+                            <TD>33</TD>
+                            <RNG>
+                                <D>26478996</D>
+                                <H>27078995</H>
+                            </RNG>
+                            <FA>2024-06-11</FA>
+                            <RSAPK>
+                                <M>35MUr14hxqmS+25/yKLGN1HOoNonJSJBATwx1KjbhfZjTpznCmgJmQWfywk+s0fP8m+k/oSUa4ST9FP51dkcTw==</M>
+                                <E>Aw==</E>
+                            </RSAPK>
+                            <IDK>300</IDK>
+                        </DA>
+                        <FRMA algoritmo="SHA1withRSA">keWSblg/O8LHBtCFZcHQQf2PtOgS9euW6v66H73F2tq2yhOpeOmPRJl6rqp48MdxHfvz/L6gsmctiVSQ+TDkBA==</FRMA>
+                    </CAF>
+                    <TSTED>2024-08-06T23:59:00</TSTED>
+                </DD>
+                <FRMT algoritmo="SHA1withRSA">J8KsLo94kSJS9H/aa9zUSQtryACV52UqOjmynNskpyBIQMfA4qs54fCv55rGfE6oWvtQLV2YPEdGktX8W0cmfg==</FRMT>
+            </TED>
+            <TmstFirma>2024-08-06T23:59:00</TmstFirma>
+        </Documento>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <Reference URI="#F26620066T33">
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                    <DigestValue>0ULzok8/THL2mCe0kYMh24iOelQ=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>HQQDikhj0IIzr7xBQLcDcS8gn+waKeDty+b/saoNYx/WkliX7oc2ABEBfWDuA6Lg6B3+5Z2q+wiWIDcxoCaSScd+UpZ8B4cK4ChEGqh2AK+47+CGdbhHjFMNWtnTAL+x/ZNkFSFPGOCXcD8vLpHJDfmOWMG4uEy8QJXxFd75uRkLNHtRbUMbnn7N6GnlRpDWFrDS6ErVoYiUfGAX8P4LRkE7viZaBaItm0QzmjfZFq7VQXbiGY3CQ8z0Oh/Tp7R2d3q7lmFY73ZUy+laTQDKrBODM3fQzqa7/NB3Jggyul351xlAnW/BWQRQLFrjYNsGxRmOdV+jmvAfgMSdvFSCoQ==</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>pEC/fR5/jEzxABhpJECzKZnxNYPccN9ONwKtVXG1eaqYogpM3mii0yM217j/QeYAZIFA5Jo5eS+jOWMnZjCJaYCxb4ZkKM7bhAPYnrwM2YrBOaHfxYylGeJ64GKmB4nO/EcNTcCV8nS4Pt12bPFE3S5vZLLRwYZ0+DnTRNXQatk8Yz4xmYHhstAESuvFqbiFu3Wj+O7PxMslEDpvCq8B/3PX/KfGAbvlp2SGRPxj07nMVmVb9Yh2QWW5J+bmfKXSq+lAxIgzlQUAxmf34lqtt4tdCYnkpZ8Axra0RJtI/ZtyijGJ66aGBv1G8SMtqRTKtbqpNTpaIezkpaB9AtvIkQ==</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+                <X509Data>
+                    <X509Certificate>MIIH1jCCBb6gAwIBAgIKEd7tngABAAZL5zANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wxHTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UEChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQDExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNoaWxlLmNsMB4XDTIzMDYxNDE1NDA1NFoXDTI2MDYxMzE1NDA1NFowgdIxCzAJBgNVBAYTAkNMMSowKAYDVQQIDCFSRUdJw5NOIE1FVFJPUE9MSVRBTkEgREUgU0FOVElBR08xETAPBgNVBAcTCFNhbnRpYWdvMSIwIAYDVQQKExlCQU5DTyBDUkVESVRPIElOVkVSU0lPTkVTMRwwGgYDVQQLExNHRVJFTkNJQSBUUklCVVRBUklBMSAwHgYDVQQDExdKVUFOIENBUkxPUyBPSkVEQSBWSVZBUjEgMB4GCSqGSIb3DQEJARYRanVhbi5vamVkYUBiY2kuY2wwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCkQL99Hn+MTPEAGGkkQLMpmfE1g9xw3043Aq1VcbV5qpiiCkzeaKLTIzbXuP9B5gBkgUDkmjl5L6M5YydmMIlpgLFvhmQoztuEA9ievAzZisE5od/FjKUZ4nrgYqYHic78Rw1NwJXydLg+3XZs8UTdLm9kstHBhnT4OdNE1dBq2TxjPjGZgeGy0ARK68WpuIW7daP47s/EyyUQOm8KrwH/c9f8p8YBu+WnZIZE/GPTucxWZVv1iHZBZbkn5uZ8pdKr6UDEiDOVBQDGZ/fiWq23i10JieSlnwDGtrREm0j9m3KKMYnrpoYG/UbxIy2pFMq1uqk1Oloh7OSloH0C28iRAgMBAAGjggK9MIICuTCCAV8GA1UdIASCAVYwggFSMIIBTgYIKwYBBAHDUgUwggFAMD0GCCsGAQUFBwIBFjFodHRwczovL3d3dy5lLWNlcnRjaGlsZS5jbC9wb2xpdGljYXMteS1wcmFjdGljYXMvMIH+BggrBgEFBQcCAjCB8R6B7gBFAGwAIAByAGUAcwBwAG8AbgBkAGUAcgAgAGUAcwB0AGUAIABmAG8AcgBtAHUAbABhAHIAaQBvACAAZQBzACAAdQBuACAAcgBlAHEAdQBpAHMAaQB0AG8AIABpAG4AZABpAHMAcABlAG4AcwBhAGIAbABlACAAcABhAHIAYQAgAGQAYQByACAAaQBuAGkAYwBpAG8AIABhAGwAIABwAHIAbwBjAGUAcwBvACAAZABlACAAYwBlAHIAdABpAGYAaQBjAGEAYwBpAPMAbgAuACAAUABvAHMAdABlAHIAaQBvAHIAbQBlAG4AdABlACwwHQYDVR0OBBYEFCyXDc8V2fsMeWNYaI6oOreM50jmMAsGA1UdDwQEAwIE8DAjBgNVHREEHDAaoBgGCCsGAQQBwQEBoAwWCjA5NDU2NzUxLTMwHwYDVR0jBBgwFoAUdNYhs/Ra6C18u1kGY0PvabQ6kwQwQAYDVR0fBDkwNzA1oDOgMYYvaHR0cDovL2NybC5lY2VydGNoaWxlLmNsL0UtQ0VSVENISUxFQ0FGRVMwMi5jcmwwPQYIKwYBBQUHAQEEMTAvMC0GCCsGAQUFBzABhiFodHRwOi8vb2NzcGZlcy5lY2VydGNoaWxlLmNsL29jc3AwPAYJKwYBBAGCNxUHBC8wLQYlKwYBBAGCNxUIgd3STZfUOoaJnQaHiM5vg6/MYEWG0uwIhsfKfQIBZAIBBzAjBgNVHRIEHDAaoBgGCCsGAQQBwQECoAwWCjk2OTI4MTgwLTUwDQYJKoZIhvcNAQELBQADggIBACEF3YpQGaxVh8SVhQtk37BRvBsaTigpV8dlFm7DwmrkcpQtZ25zLrFTki22oahadPfGphMa1jdF5n2okZW2J6eAWZar7YgCvHSZpeLPPnPOgn6XmqtIRGv3Y70AczZBufcy9/qVevpXSGv6l2jbs+5aJY64WfooxABJuhAQkRgWk9BDwUO9ha7UhKD5d3WYaHx2EN1HSBflGRiN2uuhm36tdIbuSy5vEz5rx6kExb8gh7te8aUH4Bi5mJyQDCZSzhuO2GOUl0+z8U99FhFELlfUKkYro0xoJ2THBk+XihxtsvVy6XDNgd2zrGJduJL0RRxEi7yvvosT2GqSITjkUkrm0Kp2B0MapeE9DrHRLHt48potyPFoXK2pThqzNIfbQlJWKy2H0bsG7Fh2GxlDKfc8QtC6ASKRtLgLWAu+V9Z5j7FEjKKZKR8GLZikq4lGvSpR3ucaZR2FG/tixn18KP0xhM1AOVZ4rt7Npx5ia1P67+PRFGmDv77n+HwIEXfkqOaQ7BRKs/YCZqXFDdFx83GJ9/6wL3OEak5UaFAhRTez7R8vKzUj8Zeu8WaKGtGM8rw2iq/clk1CX9l+bGZWZGsabFVQ7kOAj2i59Mk3v+jt3aABAE1+BuhPE5DiBXuOyRxKr8tEAYEvBnQLHupnISyqUPw8qmWgQoZWUAHmV1Vk</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </DTE>
+</SetDTE>

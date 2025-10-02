@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
     },
     numero_factura: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true
     },
     fecha_emision: {
@@ -42,15 +42,15 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     estado: {
-      type: DataTypes.ENUM('emitida', 'pagada', 'anulada', 'vencida'),
-      defaultValue: 'emitida'
+      type: DataTypes.ENUM('borrador', 'emitida', 'pagada', 'anulada', 'vencida'),
+      defaultValue: 'borrador'
     },
     fecha_pago: {
       type: DataTypes.DATE
     },
     metodo_pago: {
-      type: DataTypes.ENUM('transferencia', 'cheque', 'efectivo', 'tarjeta', 'otro'),
-      defaultValue: 'transferencia'
+      type: DataTypes.ENUM('CREDITO', 'transferencia', 'cheque', 'efectivo', 'tarjeta', 'otro'),
+      defaultValue: 'CREDITO'
     },
     observaciones: {
       type: DataTypes.TEXT
@@ -70,6 +70,14 @@ module.exports = (sequelize) => {
         model: 'proyectos',
         key: 'id'
       }
+    },
+    ciudad_emision: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    ciudad_receptor: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     tableName: 'facturas',
