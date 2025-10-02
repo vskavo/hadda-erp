@@ -63,6 +63,13 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A6301767893F4AA8854C986A10B54054 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_27C4040771C34FD29133F558562EDE9B }}
 
+      - name: Stop Azure Web App before deployment
+        run: az webapp stop --name hadda-erp-v2 --resource-group erp-service
+        continue-on-error: true
+
+      - name: Wait for app to stop
+        run: sleep 10
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -71,4 +78,8 @@ jobs:
           slot-name: 'Production'
           package: .
           clean: true
+          restart: true
+
+      - name: Start Azure Web App after deployment
+        run: az webapp start --name hadda-erp-v2 --resource-group erp-service
           
