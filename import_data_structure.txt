@@ -1,6 +1,6 @@
 Estructura de Tablas para Importación de Datos
 
-Este documento describe la estructura de las tablas necesarias para importar datos de clientes, ventas y cursos a la plataforma Hadda ERP.
+Este documento describe la estructura de las tablas necesarias para importar datos de clientes, ventas y cursos a la plataforma Hadda ERP. Los campos que no conozcan, no es necesario completarlos, los hacemos por sistema (id, owner, cliente_id,proyecto_id,cotizacion_id,usuario_id,factura_id,owner_operaciones)
 
 ---
 
@@ -89,7 +89,7 @@ Representa los cursos ofrecidos por la empresa.
 
 ## 4. Participantes (Tabla: participantes)
 
-Representa a los participantes (alumnos) inscritos en un curso.
+Representa a los participantes (alumnos) inscritos en un curso. Solo se deben agregar los alumnos que han sido becados, los Sence se extraen desde Sence
 
 | Campo                 | Tipo de Dato      | Nulo  | Descripción                                       | Ejemplo                        |
 |-----------------------|-------------------|-------|---------------------------------------------------|--------------------------------|
@@ -115,22 +115,3 @@ Representa a los participantes (alumnos) inscritos en un curso.
 | observaciones         | TEXT              | Sí    | Observaciones sobre el participante               | "Requiere material especial"   |
 
 ---
-
-## 5. Sesiones de Curso (Tabla: sesiones)
-
-Representa cada una de las sesiones (clases) que componen un curso.
-
-| Campo            | Tipo de Dato | Nulo  | Descripción                                     | Ejemplo               |
-|------------------|--------------|-------|-------------------------------------------------|-----------------------|
-| id               | INTEGER      | No    | Identificador único de la sesión (autoincremental) | 2001                |
-| curso_id         | INTEGER      | No    | ID del curso al que pertenece la sesión (FK a cursos.id) | 501               |
-| numero           | INTEGER      | No    | Número de la sesión dentro del curso (1, 2, 3...) | 1                     |
-| fecha            | DATEONLY     | No    | Fecha de la sesión                              | "2023-11-15"          |
-| hora_inicio      | TIME         | Sí    | Hora de inicio de la sesión                     | "09:00:00"            |
-| hora_fin         | TIME         | Sí    | Hora de fin de la sesión                        | "13:00:00"            |
-| duracion_minutos | INTEGER      | Sí    | Duración de la sesión en minutos                | 240                   |
-| modalidad        | STRING       | Sí    | Modalidad de la sesión (e.g., 'presencial', 'online') | "presencial"        |
-| ubicacion        | STRING       | Sí    | Ubicación física o enlace de la sesión online   | "Sala 1 / link.zoom.us/..." |
-| contenido        | TEXT         | Sí    | Contenido o temario de la sesión                | "Introducción al Liderazgo" |
-| estado           | STRING       | No    | Estado de la sesión ('programada', 'realizada', 'cancelada') | "programada" |
-| observaciones    | TEXT         | Sí    | Observaciones sobre la sesión                   | "Traer computador"    |

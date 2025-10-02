@@ -8,7 +8,8 @@
     "dev": "nodemon start.js",
     "build": "cd frontend && npm install && npm run build:production",
     "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
-    "test": "echo \"Skipping tests\" && exit 0"
+    "test": "echo \"Skipping tests\" && exit 0",
+    "postinstall": "npm run install-all"
   },
   "dependencies": {
     "@sendgrid/mail": "^8.1.5",

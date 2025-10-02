@@ -44,4 +44,15 @@ backups/
 /coverage # Carpeta de reportes de cobertura de Jest
 
 # Archivos de dependencias de desarrollo (si se generan)
-# Por ejemplo, si alguna herramienta genera archivos temporales en la raíz 
+# Por ejemplo, si alguna herramienta genera archivos temporales en la raíz
+
+# Archivos específicos de deployment
+deploy-package/
+*.zip
+*.tar.gz
+
+# Archivos temporales de Azure
+iisnode/
+.azure/*.publish
+azure-credentials.json
+publish-profile.xml

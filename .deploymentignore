@@ -1,0 +1,70 @@
+# Archivos que no se deben copiar a Azure
+node_modules/
+**/node_modules/
+
+# Logs
+*.log
+logs/
+db_error.log
+error.log
+
+# Archivos de desarrollo
+.git/
+.vscode/
+.idea/
+*.suo
+*.user
+.DS_Store
+Thumbs.db
+
+# Backups
+backups/
+backend/backups/
+
+# Variables de entorno (no deberían estar en repo, pero por seguridad)
+.env
+.env.*
+!.env.example
+
+# Archivos de test
+coverage/
+*.test.js
+
+# Frontend build (se construye en Azure)
+frontend/build/
+frontend/node_modules/
+
+# Backend node_modules (se instalan en Azure)
+backend/node_modules/
+
+# Archivos temporales de test
+test_*.js
+test-*.js
+
+# Archivos de debug
+debug.js
+debug.log
+
+# Archivos XML de ejemplo
+*.xml
+!config/**/*.xml
+
+# CSVs de demo
+demo_*.csv
+
+# Documentación de desarrollo (opcional, comentar si quieres incluirlos)
+docs/
+*.md
+!README.md
+
+# Scripts de migración temporal
+migrations/
+
+# Archivos .bak
+*.bak
+
+# Lock files (Azure instalará desde package.json)
+package-lock.json
+yarn.lock
+
+
