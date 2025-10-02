@@ -1,3 +1,2 @@
 [config]
-SCM_DO_BUILD_DURING_DEPLOYMENT=true
-ORYX_BUILD_COMMANDS=npm install --prefix backend && npm install --prefix frontend
+SCM_DO_BUILD_DURING_DEPLOYMENT=false

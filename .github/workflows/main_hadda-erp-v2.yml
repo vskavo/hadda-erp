@@ -22,19 +22,33 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
+          cache: 'npm'
 
-      - name: Remove all node_modules before upload
+      - name: Install root dependencies
+        run: npm ci --production --omit=dev || npm install --production --omit=dev
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm ci --production --omit=dev || npm install --production --omit=dev
+
+      - name: Install frontend dependencies and build
+        working-directory: ./frontend
         run: |
-          rm -rf node_modules || true
-          rm -rf backend/node_modules || true
-          rm -rf frontend/node_modules || true
-          find . -type d -name "node_modules" -prune -exec rm -rf {} + || true
+          npm ci || npm install
+          npm run build --if-present || echo "No build script"
+
+      - name: Clean unnecessary files before upload
+        run: |
           rm -rf logs || true
           rm -rf backups || true
           rm -rf backend/backups || true
-          rm -f *.log || true
-          echo "Remaining files:"
-          find . -type f | wc -l
+          rm -rf coverage || true
+          rm -rf .git || true
+          find . -name "*.log" -type f -delete || true
+          find . -name "test_*.js" -type f -delete || true
+          find . -name "test-*.js" -type f -delete || true
+          echo "Files to upload:"
+          du -sh .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
