@@ -56,3 +56,13 @@ iisnode/
 .azure/*.publish
 azure-credentials.json
 publish-profile.xml
+
+# Docker
+.env.local
+.env.docker
+
+# Clientes (datos sensibles)
+clientes.json
+clientes.txt
+**/secrets/
+credentials/

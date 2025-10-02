@@ -1,0 +1,81 @@
+{
+  "clientes": [
+    {
+      "id": "empresa-abc",
+      "nombre": "Empresa ABC S.A.",
+      "contacto": {
+        "nombre": "Juan Pérez",
+        "email": "juan@empresaabc.com",
+        "telefono": "+56912345678"
+      },
+      "supabase": {
+        "project_id": "abc-xyz-ref",
+        "region": "aws-0-us-east-1",
+        "connection_string": "postgresql://postgres.abc:***@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
+      },
+      "deployment": {
+        "platform": "azure",
+        "resource_group": "hadda-clientes-rg",
+        "container_name": "hadda-erp-empresa-abc",
+        "url": "https://hadda-erp-empresa-abc.eastus.azurecontainer.io",
+        "deployed_at": "2025-10-02T10:30:00Z",
+        "version": "v1.0.0"
+      },
+      "admin": {
+        "email": "admin@empresa-abc.com",
+        "password_changed": false,
+        "last_login": null
+      },
+      "billing": {
+        "plan": "pro",
+        "monthly_cost": 65,
+        "billing_email": "facturacion@empresaabc.com"
+      },
+      "custom_domain": "erp.empresaabc.com",
+      "active": true,
+      "notes": "Cliente piloto. Requiere soporte prioritario."
+    },
+    {
+      "id": "empresa-xyz",
+      "nombre": "Empresa XYZ Ltda.",
+      "contacto": {
+        "nombre": "María González",
+        "email": "maria@empresaxyz.com",
+        "telefono": "+56987654321"
+      },
+      "supabase": {
+        "project_id": "xyz-abc-ref",
+        "region": "aws-0-sa-east-1",
+        "connection_string": "postgresql://postgres.xyz:***@aws-0-sa-east-1.pooler.supabase.com:6543/postgres"
+      },
+      "deployment": {
+        "platform": "azure",
+        "resource_group": "hadda-clientes-rg",
+        "container_name": "hadda-erp-empresa-xyz",
+        "url": "https://hadda-erp-empresa-xyz.eastus.azurecontainer.io",
+        "deployed_at": "2025-10-05T15:45:00Z",
+        "version": "v1.0.0"
+      },
+      "admin": {
+        "email": "admin@empresa-xyz.com",
+        "password_changed": true,
+        "last_login": "2025-10-06T09:00:00Z"
+      },
+      "billing": {
+        "plan": "basic",
+        "monthly_cost": 40,
+        "billing_email": "contabilidad@empresaxyz.com"
+      },
+      "custom_domain": null,
+      "active": true,
+      "notes": "Cliente estándar."
+    }
+  ],
+  "metadata": {
+    "total_clientes": 2,
+    "total_activos": 2,
+    "ultima_actualizacion": "2025-10-02T12:00:00Z",
+    "version_actual": "v1.0.0"
+  }
+}
+
