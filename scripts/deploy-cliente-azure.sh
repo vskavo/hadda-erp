@@ -68,6 +68,7 @@ az container create \
   --resource-group $RESOURCE_GROUP \
   --name hadda-erp-${CLIENTE_NAME} \
   --image $REGISTRY \
+  --os-type Linux \
   --dns-name-label hadda-erp-${CLIENTE_NAME} \
   --ports 8080 \
   --cpu 1 \
