@@ -20,8 +20,9 @@ exports.esAdministrador = async (req, res, next) => {
       return res.status(403).json({ message: 'No tiene permisos suficientes' });
     }
 
-    // Verificar si el rol es administrador por su nombre
-    if (usuario.Rol.nombre.toLowerCase() === 'administrador') {
+    // Verificar si el rol es administrador o superadmin por su nombre
+    const rolNormalizado = usuario.Rol.nombre.toLowerCase();
+    if (rolNormalizado === 'administrador' || rolNormalizado === 'superadmin') {
       return next();
     }
 
@@ -122,8 +123,9 @@ exports.esSupervisor = async (req, res, next) => {
       return res.status(403).json({ message: 'No tiene permisos suficientes' });
     }
 
-    // Verificar si el rol es administrador o supervisor por su nombre
-    if (usuario.Rol.nombre.toLowerCase() === 'administrador' || usuario.Rol.nombre.toLowerCase() === 'supervisor') {
+    // Verificar si el rol es administrador, superadmin o supervisor por su nombre
+    const rolNormalizado = usuario.Rol.nombre.toLowerCase();
+    if (rolNormalizado === 'administrador' || rolNormalizado === 'superadmin' || rolNormalizado === 'supervisor') {
       return next();
     }
 
@@ -181,9 +183,10 @@ exports.tienePermiso = (codigoPermiso) => {
       const idRolUsuario = usuario.Rol.id;
       console.log(`[DEBUG][tienePermiso] Rol del usuario: "${nombreRolUsuario}" (ID: ${idRolUsuario})`);
 
-      // Si es administrador, permitimos acceso a todo
-      if (nombreRolUsuario.toLowerCase() === 'administrador') {
-        console.log(`[DEBUG][tienePermiso] Usuario es administrador. Permitiendo acceso.`);
+      // Si es administrador o superadmin, permitimos acceso a todo
+      const rolNormalizado = nombreRolUsuario.toLowerCase();
+      if (rolNormalizado === 'administrador' || rolNormalizado === 'superadmin') {
+        console.log(`[DEBUG][tienePermiso] Usuario es administrador/superadmin. Permitiendo acceso.`);
         return next();
       }
 

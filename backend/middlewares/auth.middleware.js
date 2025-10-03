@@ -80,8 +80,9 @@ exports.autorizar = (rolesPermitidos) => {
       // Asegurarse de que rolesPermitidos sea un array
       const rolesPermitidosArray = Array.isArray(rolesPermitidos) ? rolesPermitidos : [rolesPermitidos];
       
-      // Permitir siempre al administrador (o el nombre exacto del rol admin si es diferente)
-      const esAdmin = rolUsuario && rolUsuario.toLowerCase() === 'administrador'; // Ajustar si el nombre del rol admin es diferente
+      // Permitir siempre al administrador o superadmin
+      const rolNormalizado = rolUsuario ? rolUsuario.toLowerCase() : '';
+      const esAdmin = rolNormalizado === 'administrador' || rolNormalizado === 'superadmin';
       
       // Verificar si el rol del usuario está en la lista o si es admin
       if (esAdmin || rolesPermitidosArray.includes(rolUsuario)) {
