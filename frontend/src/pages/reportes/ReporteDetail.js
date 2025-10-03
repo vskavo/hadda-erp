@@ -391,7 +391,7 @@ const ReporteDetail = () => {
               {reporteData.columnas && reporteData.filas && (
                 <DataTable
                   columns={reporteData.columnas}
-                  data={reporteData.filas}
+                  rows={reporteData.filas}
                   initialOrderBy={reporteData.columnas[0]?.id || ''}
                   initialOrder="asc"
                   defaultRowsPerPage={10}

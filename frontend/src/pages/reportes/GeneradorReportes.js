@@ -516,7 +516,7 @@ const GeneradorReportes = () => {
           {reporteGenerado.columnas && reporteGenerado.filas && (
             <DataTable
               columns={reporteGenerado.columnas}
-              data={reporteGenerado.filas}
+              rows={reporteGenerado.filas}
               initialOrderBy={reporteGenerado.columnas[0]?.id || ''}
               initialOrder="asc"
               defaultRowsPerPage={10}

@@ -46,16 +46,34 @@ exports.findAll = async (req, res) => {
     const { count, rows: usuarios } = await Usuario.findAndCountAll({
       where: whereConditions,
       attributes: { exclude: ['password'] }, // No devolver el password
+      include: [
+        {
+          model: Rol,
+          as: 'Rol',  // Usar el alias definido en models/index.js
+          attributes: ['nombre', 'descripcion']
+        }
+      ],
       limit: parseInt(limit),
       offset,
       order: [[orderColumn, sortOrder]]
+    });
+    
+    // Transformar los datos para adaptarlos al formato esperado por el frontend
+    const usuariosFormateados = usuarios.map(usuario => {
+      const usuarioJson = usuario.toJSON();
+      return {
+        ...usuarioJson,
+        role: usuarioJson.Rol?.nombre || null,
+        createdAt: usuarioJson.created_at,
+        updatedAt: usuarioJson.updated_at
+      };
     });
     
     res.status(200).json({
       total: count,
       totalPages: Math.ceil(count / limit),
       currentPage: parseInt(page),
-      usuarios
+      usuarios: usuariosFormateados
     });
   } catch (error) {
     console.error('Error al obtener usuarios:', error);

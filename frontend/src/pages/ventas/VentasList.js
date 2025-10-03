@@ -192,7 +192,7 @@ const VentasList = () => {
         ) : ventasFiltradas.length > 0 ? (
           <DataTable
             columns={columns}
-            data={ventasFiltradas}
+            rows={ventasFiltradas}
             actions={[
               {
                 label: 'Ver detalles',

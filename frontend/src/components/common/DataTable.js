@@ -363,24 +363,30 @@ const DataTable = ({
         open={Boolean(anchorEl)}
         onClose={handleActionClose}
       >
-        {actions
-          .filter(action => !action.hide || !selectedRow || !action.hide(selectedRow))
-          .map((action, index, filteredActions) => (
-          <React.Fragment key={action.label}>
-            <MenuItem 
-              onClick={() => handleActionSelect(action)}
-              disabled={action.disabled && selectedRow ? action.disabled(selectedRow) : false}
-            >
-              {action.icon && (
-                <Box component="span" sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-                  {action.icon}
-                </Box>
-              )}
-              {action.label}
-            </MenuItem>
-            {index < filteredActions.length - 1 && <Divider />}
-          </React.Fragment>
-        ))}
+        {selectedRow && actions
+          .filter(action => !action.hide || !action.hide(selectedRow))
+          .map((action, index, filteredActions) => {
+            // Evaluar label e icon si son funciones - solo cuando selectedRow existe
+            const label = typeof action.label === 'function' ? action.label(selectedRow) : action.label;
+            const icon = typeof action.icon === 'function' ? action.icon(selectedRow) : action.icon;
+            
+            return (
+              <React.Fragment key={`action-${index}`}>
+                <MenuItem 
+                  onClick={() => handleActionSelect(action)}
+                  disabled={action.disabled ? action.disabled(selectedRow) : false}
+                >
+                  {icon && (
+                    <Box component="span" sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
+                      {icon}
+                    </Box>
+                  )}
+                  {label}
+                </MenuItem>
+                {index < filteredActions.length - 1 && <Divider />}
+              </React.Fragment>
+            );
+          })}
       </Menu>
     </Paper>
   );

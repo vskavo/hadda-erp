@@ -88,7 +88,6 @@ const ClientesList = () => {
         limit: 1000,
         page: 1
       });
-      console.log('Respuesta del servidor:', data);
       
       // El backend devuelve un objeto con formato {total, totalPages, currentPage, clientes}
       // donde clientes es el array que necesitamos
@@ -132,7 +131,6 @@ const ClientesList = () => {
           };
         });
         
-        console.log('Clientes formateados:', clientesFormateados);
         setClientes(clientesFormateados);
       } else {
         setClientes([]);
@@ -520,7 +518,7 @@ const ClientesList = () => {
         <Paper sx={{ width: '100%', mb: 2 }}>
           <DataTable
             columns={columns}
-            data={filteredClientes}
+            rows={filteredClientes}
             title="Listado de Clientes"
             actions={actions}
             initialOrderBy="nombreCompleto"

@@ -719,7 +719,7 @@ const ProyeccionesView = () => {
               {ingresos.length > 0 ? (
                 <DataTable
                   columns={columnasIngresos}
-                  data={ingresos}
+                  rows={ingresos}
                   loading={loading}
                   page={pageIngresos}
                   rowsPerPage={rowsPerPage}
@@ -923,7 +923,7 @@ const ProyeccionesView = () => {
               {egresos.length > 0 ? (
                 <DataTable
                   columns={columnasEgresos}
-                  data={egresos}
+                  rows={egresos}
                   loading={loading}
                   page={pageEgresos}
                   rowsPerPage={rowsPerPage}

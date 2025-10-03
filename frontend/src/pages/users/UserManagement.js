@@ -61,9 +61,11 @@ const UserManagement = () => {
     setLoading(true);
     try {
       const response = await axios.get('/api/usuarios');
-      setUsers(response.data.usuarios || response.data);
+      const usuariosData = response.data.usuarios || response.data;
+      setUsers(usuariosData);
       setError('');
     } catch (err) {
+      console.error('Error al cargar usuarios:', err);
       setError('Error al cargar usuarios. ' + (err.response?.data?.message || ''));
     } finally {
       setLoading(false);
@@ -409,7 +411,7 @@ const UserManagement = () => {
         <Paper sx={{ width: '100%', mb: 2 }}>
           <DataTable
             columns={columns}
-            data={users}
+            rows={users}
             title="Usuarios"
             actions={actions}
             initialOrderBy="nombre"

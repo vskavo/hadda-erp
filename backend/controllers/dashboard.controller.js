@@ -10,28 +10,27 @@ const {
 const { Op } = require('sequelize');
 
 // Controlador del Dashboard
-// Estas funciones deberían reemplazarse con consultas reales a la base de datos
+// Consulta datos reales de la base de datos
 
 /**
  * Obtener estadísticas generales para el dashboard
  */
 exports.getEstadisticas = async (req, res) => {
   try {
-    // Aquí deberían ir consultas reales a la base de datos
-    // Por ejemplo:
-    
-    /* 
     // Contar clientes activos
     const clientesCount = await Cliente.count({
-      where: { activo: true }
+      where: { estado: 'activo' }
     });
     
-    // Contar cursos activos
+    // Contar cursos activos (estado activo y fecha_fin mayor o igual a hoy)
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    
     const cursosCount = await Curso.count({
       where: { 
-        estado: 'en_progreso',
+        estado: 'activo',
         fecha_fin: {
-          [Op.gte]: new Date()
+          [Op.gte]: hoy
         }
       }
     });
@@ -41,29 +40,38 @@ exports.getEstadisticas = async (req, res) => {
     inicioMes.setDate(1);
     inicioMes.setHours(0, 0, 0, 0);
     
+    const finMes = new Date();
+    finMes.setMonth(finMes.getMonth() + 1);
+    finMes.setDate(0);
+    finMes.setHours(23, 59, 59, 999);
+    
     const ingresosMes = await Ingreso.sum('monto', {
       where: {
         fecha: {
-          [Op.gte]: inicioMes
+          [Op.between]: [inicioMes, finMes]
         },
-        estado: 'aprobado'
+        estado: 'confirmado'
       }
-    });
+    }) || 0; // Si no hay ingresos, devolver 0
     
-    // Contar proyectos activos
+    // Formatear ingresos a CLP
+    const ingresosFormateados = new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP'
+    }).format(ingresosMes);
+    
+    // Contar proyectos en curso
     const proyectosCount = await Proyecto.count({
       where: { 
-        estado: 'activo'
+        estado: 'En curso'
       }
     });
-    */
     
-    // Por ahora devolvemos datos estáticos de ejemplo
     res.status(200).json({
-      clientes: { title: 'Clientes', value: 42 },
-      cursos: { title: 'Cursos Activos', value: 8 },
-      ingresos: { title: 'Ingresos Mensuales', value: '$3.450.000' },
-      proyectos: { title: 'Proyectos en Curso', value: 6 }
+      clientes: { title: 'Clientes', value: clientesCount },
+      cursos: { title: 'Cursos Activos', value: cursosCount },
+      ingresos: { title: 'Ingresos Mensuales', value: ingresosFormateados },
+      proyectos: { title: 'Proyectos en Curso', value: proyectosCount }
     });
   } catch (error) {
     console.error('Error al obtener estadísticas del dashboard:', error);
@@ -80,52 +88,130 @@ exports.getEstadisticas = async (req, res) => {
 exports.getActividades = async (req, res) => {
   try {
     const { limit = 5 } = req.query;
+    const limitInt = parseInt(limit);
     
-    // Aquí deberían ir consultas reales a la base de datos
-    // Por ejemplo:
-    
-    /*
     // Obtener últimos clientes registrados
     const nuevosClientes = await Cliente.findAll({
-      order: [['createdAt', 'DESC']],
-      limit: parseInt(limit),
-      attributes: ['id', 'razon_social', 'rut', 'createdAt']
+      order: [['created_at', 'DESC']],
+      limit: limitInt,
+      attributes: ['id', 'razon_social', 'rut', 'created_at']
     });
     
-    // Obtener últimos cursos finalizados
-    const cursosFinalizados = await Curso.findAll({
+    // Obtener últimos cursos creados
+    const cursosRecientes = await Curso.findAll({
+      order: [['created_at', 'DESC']],
+      limit: limitInt,
+      attributes: ['id', 'nombre', 'codigo_sence', 'created_at']
+    });
+    
+    // Obtener últimos ingresos confirmados
+    const ingresosRecientes = await Ingreso.findAll({
       where: { 
-        estado: 'finalizado',
-        fecha_fin: {
-          [Op.lte]: new Date(),
-          [Op.gte]: new Date(new Date() - 30 * 24 * 60 * 60 * 1000) // Últimos 30 días
-        }
+        estado: 'confirmado'
       },
-      order: [['fecha_fin', 'DESC']],
-      limit: parseInt(limit),
-      attributes: ['id', 'nombre', 'codigo', 'fecha_fin']
+      order: [['fecha', 'DESC']],
+      limit: limitInt,
+      attributes: ['id', 'descripcion', 'monto', 'fecha'],
+      include: [{
+        model: Cliente,
+        attributes: ['razon_social'],
+        required: false
+      }]
     });
     
-    // Obtener últimas facturas emitidas
-    const facturasEmitidas = await Factura.findAll({
-      where: {
-        estado: 'emitida'
-      },
-      order: [['fecha_emision', 'DESC']],
-      limit: parseInt(limit),
-      attributes: ['id', 'numero_factura', 'monto_total', 'fecha_emision']
+    // Obtener últimos proyectos creados
+    const proyectosRecientes = await Proyecto.findAll({
+      order: [['created_at', 'DESC']],
+      limit: limitInt,
+      attributes: ['id', 'nombre', 'created_at'],
+      include: [{
+        model: Cliente,
+        attributes: ['razon_social'],
+        required: false
+      }]
     });
     
-    // Combinar y formatear los resultados
-    */
+    // Formatear y combinar todas las actividades
+    const actividades = [];
     
-    // Por ahora devolvemos datos estáticos de ejemplo
-    res.status(200).json([
-      { id: 1, type: 'client', title: 'Nuevo cliente', description: 'Se registró Empresa ABC', time: '2 horas atrás' },
-      { id: 2, type: 'course', title: 'Curso finalizado', description: 'Curso de Excel Avanzado', time: '1 día atrás' },
-      { id: 3, type: 'invoice', title: 'Factura emitida', description: 'Factura #1234 por $750.000', time: '2 días atrás' },
-      { id: 4, type: 'project', title: 'Proyecto iniciado', description: 'Capacitación corporativa XYZ', time: '3 días atrás' }
-    ]);
+    // Función auxiliar para calcular tiempo relativo
+    const tiempoRelativo = (fecha) => {
+      const ahora = new Date();
+      const diff = ahora - new Date(fecha);
+      const minutos = Math.floor(diff / 60000);
+      const horas = Math.floor(diff / 3600000);
+      const dias = Math.floor(diff / 86400000);
+      
+      if (minutos < 60) return `${minutos} minuto${minutos !== 1 ? 's' : ''} atrás`;
+      if (horas < 24) return `${horas} hora${horas !== 1 ? 's' : ''} atrás`;
+      return `${dias} día${dias !== 1 ? 's' : ''} atrás`;
+    };
+    
+    // Agregar clientes
+    nuevosClientes.forEach(cliente => {
+      actividades.push({
+        id: `client-${cliente.id}`,
+        type: 'client',
+        title: 'Nuevo cliente',
+        description: `Se registró ${cliente.razon_social}`,
+        time: tiempoRelativo(cliente.created_at),
+        fecha: cliente.created_at
+      });
+    });
+    
+    // Agregar cursos
+    cursosRecientes.forEach(curso => {
+      actividades.push({
+        id: `course-${curso.id}`,
+        type: 'course',
+        title: 'Nuevo curso',
+        description: `${curso.nombre}`,
+        time: tiempoRelativo(curso.created_at),
+        fecha: curso.created_at
+      });
+    });
+    
+    // Agregar ingresos
+    ingresosRecientes.forEach(ingreso => {
+      const montoFormateado = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP'
+      }).format(ingreso.monto);
+      
+      const clienteNombre = ingreso.Cliente?.razon_social || 'Cliente';
+      
+      actividades.push({
+        id: `invoice-${ingreso.id}`,
+        type: 'invoice',
+        title: 'Ingreso confirmado',
+        description: `${clienteNombre} - ${montoFormateado}`,
+        time: tiempoRelativo(ingreso.fecha),
+        fecha: ingreso.fecha
+      });
+    });
+    
+    // Agregar proyectos
+    proyectosRecientes.forEach(proyecto => {
+      const clienteNombre = proyecto.Cliente?.razon_social || 'Cliente';
+      
+      actividades.push({
+        id: `project-${proyecto.id}`,
+        type: 'project',
+        title: 'Nuevo proyecto',
+        description: `${proyecto.nombre} - ${clienteNombre}`,
+        time: tiempoRelativo(proyecto.created_at),
+        fecha: proyecto.created_at
+      });
+    });
+    
+    // Ordenar por fecha más reciente y limitar resultados
+    actividades.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+    const actividadesLimitadas = actividades.slice(0, limitInt);
+    
+    // Eliminar el campo fecha antes de enviar la respuesta
+    const actividadesFinales = actividadesLimitadas.map(({ fecha, ...rest }) => rest);
+    
+    res.status(200).json(actividadesFinales);
   } catch (error) {
     console.error('Error al obtener actividades recientes:', error);
     res.status(500).json({ 
@@ -141,52 +227,44 @@ exports.getActividades = async (req, res) => {
 exports.getProximosCursos = async (req, res) => {
   try {
     const { limit = 3 } = req.query;
+    const limitInt = parseInt(limit);
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
     
-    // Aquí deberían ir consultas reales a la base de datos
-    // Por ejemplo:
-    
-    /*
-    // Obtener próximos cursos
+    // Obtener próximos cursos con participantes
     const proximosCursos = await Curso.findAll({
       where: {
         fecha_inicio: {
-          [Op.gt]: new Date()
-        },
-        estado: 'programado'
+          [Op.gt]: hoy
+        }
       },
       order: [['fecha_inicio', 'ASC']],
-      limit: parseInt(limit),
-      include: [
-        {
-          model: Participante,
-          as: 'participantes',
-          attributes: []
-        }
-      ],
-      attributes: [
-        'id', 
-        'nombre', 
-        'fecha_inicio',
-        [sequelize.fn('COUNT', sequelize.col('participantes.id')), 'participantes_count']
-      ],
-      group: ['Curso.id']
+      limit: limitInt,
+      attributes: ['id', 'nombre', 'fecha_inicio', 'nro_participantes']
     });
     
     // Formatear los resultados
-    const cursosFormateados = proximosCursos.map(curso => ({
+    const cursosFormateados = await Promise.all(proximosCursos.map(async (curso) => {
+      // Contar participantes reales del curso
+      const { Participante } = require('../models');
+      const participantesCount = await Participante.count({
+        where: { curso_id: curso.id }
+      });
+      
+      // Formatear fecha a formato español
+      const fecha = new Date(curso.fecha_inicio);
+      const opciones = { day: '2-digit', month: 'long', year: 'numeric' };
+      const fechaFormateada = fecha.toLocaleDateString('es-CL', opciones);
+      
+      return {
       id: curso.id,
       name: curso.nombre,
-      date: format(new Date(curso.fecha_inicio), 'dd/MM/yyyy'),
-      participants: curso.dataValues.participantes_count || 0
+        date: fechaFormateada,
+        participants: participantesCount || curso.nro_participantes || 0
+      };
     }));
-    */
     
-    // Por ahora devolvemos datos estáticos de ejemplo
-    res.status(200).json([
-      { id: 1, name: 'Liderazgo Efectivo', date: '15 de diciembre, 2023', participants: 12 },
-      { id: 2, name: 'Excel Intermedio', date: '20 de diciembre, 2023', participants: 8 },
-      { id: 3, name: 'Atención al Cliente', date: '05 de enero, 2024', participants: 15 }
-    ]);
+    res.status(200).json(cursosFormateados);
   } catch (error) {
     console.error('Error al obtener próximos cursos:', error);
     res.status(500).json({ 
@@ -294,43 +372,207 @@ exports.getDashboardCompleto = async (req, res) => {
   try {
     console.log('Solicitud a dashboard completo recibida');
     
-    // En lugar de hacer múltiples consultas que pueden ser lentas,
-    // devolvemos datos estáticos de ejemplo para mejorar el rendimiento
+    // ============ ESTADÍSTICAS ============
+    // Contar clientes activos
+    const clientesCount = await Cliente.count({
+      where: { estado: 'activo' }
+    });
     
-    // Datos de ejemplo
+    // Contar cursos activos
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    
+    const cursosCount = await Curso.count({
+      where: { 
+        estado: 'activo',
+        fecha_fin: {
+          [Op.gte]: hoy
+        }
+      }
+    });
+    
+    // Calcular ingresos del mes actual
+    const inicioMes = new Date();
+    inicioMes.setDate(1);
+    inicioMes.setHours(0, 0, 0, 0);
+    
+    const finMes = new Date();
+    finMes.setMonth(finMes.getMonth() + 1);
+    finMes.setDate(0);
+    finMes.setHours(23, 59, 59, 999);
+    
+    const ingresosMes = await Ingreso.sum('monto', {
+      where: {
+        fecha: {
+          [Op.between]: [inicioMes, finMes]
+        },
+        estado: 'confirmado'
+      }
+    }) || 0;
+    
+    const ingresosFormateados = new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP'
+    }).format(ingresosMes);
+    
+    // Contar proyectos en curso
+    const proyectosCount = await Proyecto.count({
+      where: { 
+        estado: 'En curso'
+      }
+    });
+    
+    // ============ ACTIVIDADES RECIENTES ============
+    const limitActividades = 5;
+    
+    const nuevosClientes = await Cliente.findAll({
+      order: [['created_at', 'DESC']],
+      limit: limitActividades,
+      attributes: ['id', 'razon_social', 'created_at']
+    });
+    
+    const cursosRecientes = await Curso.findAll({
+      order: [['created_at', 'DESC']],
+      limit: limitActividades,
+      attributes: ['id', 'nombre', 'created_at']
+    });
+    
+    const ingresosRecientes = await Ingreso.findAll({
+      where: {
+        estado: 'confirmado'
+      },
+      order: [['fecha', 'DESC']],
+      limit: limitActividades,
+      attributes: ['id', 'descripcion', 'monto', 'fecha'],
+      include: [{
+        model: Cliente,
+        attributes: ['razon_social'],
+        required: false
+      }]
+    });
+    
+    const proyectosRecientes = await Proyecto.findAll({
+      order: [['created_at', 'DESC']],
+      limit: limitActividades,
+      attributes: ['id', 'nombre', 'created_at'],
+      include: [{
+        model: Cliente,
+        attributes: ['razon_social'],
+        required: false
+      }]
+    });
+    
+    // Formatear actividades
+    const actividades = [];
+    
+    const tiempoRelativo = (fecha) => {
+      const ahora = new Date();
+      const diff = ahora - new Date(fecha);
+      const minutos = Math.floor(diff / 60000);
+      const horas = Math.floor(diff / 3600000);
+      const dias = Math.floor(diff / 86400000);
+      
+      if (minutos < 60) return `${minutos} minuto${minutos !== 1 ? 's' : ''} atrás`;
+      if (horas < 24) return `${horas} hora${horas !== 1 ? 's' : ''} atrás`;
+      return `${dias} día${dias !== 1 ? 's' : ''} atrás`;
+    };
+    
+    nuevosClientes.forEach(cliente => {
+      actividades.push({
+        id: `client-${cliente.id}`,
+        type: 'client',
+        title: 'Nuevo cliente',
+        description: `Se registró ${cliente.razon_social}`,
+        time: tiempoRelativo(cliente.created_at),
+        fecha: cliente.created_at
+      });
+    });
+    
+    cursosRecientes.forEach(curso => {
+      actividades.push({
+        id: `course-${curso.id}`,
+        type: 'course',
+        title: 'Nuevo curso',
+        description: `${curso.nombre}`,
+        time: tiempoRelativo(curso.created_at),
+        fecha: curso.created_at
+      });
+    });
+    
+    ingresosRecientes.forEach(ingreso => {
+      const montoFormateado = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP'
+      }).format(ingreso.monto);
+      
+      const clienteNombre = ingreso.Cliente?.razon_social || 'Cliente';
+      
+      actividades.push({
+        id: `invoice-${ingreso.id}`,
+        type: 'invoice',
+        title: 'Ingreso confirmado',
+        description: `${clienteNombre} - ${montoFormateado}`,
+        time: tiempoRelativo(ingreso.fecha),
+        fecha: ingreso.fecha
+      });
+    });
+    
+    proyectosRecientes.forEach(proyecto => {
+      const clienteNombre = proyecto.Cliente?.razon_social || 'Cliente';
+      
+      actividades.push({
+        id: `project-${proyecto.id}`,
+        type: 'project',
+        title: 'Nuevo proyecto',
+        description: `${proyecto.nombre} - ${clienteNombre}`,
+        time: tiempoRelativo(proyecto.created_at),
+        fecha: proyecto.created_at
+      });
+    });
+    
+    actividades.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+    const actividadesFinales = actividades.slice(0, limitActividades).map(({ fecha, ...rest }) => rest);
+    
+    // ============ PRÓXIMOS CURSOS ============
+    const proximosCursos = await Curso.findAll({
+      where: {
+        fecha_inicio: {
+          [Op.gt]: hoy
+        }
+      },
+      order: [['fecha_inicio', 'ASC']],
+      limit: 3,
+      attributes: ['id', 'nombre', 'fecha_inicio', 'nro_participantes']
+    });
+    
+    const { Participante } = require('../models');
+    const cursosFormateados = await Promise.all(proximosCursos.map(async (curso) => {
+      const participantesCount = await Participante.count({
+        where: { curso_id: curso.id }
+      });
+      
+      const fecha = new Date(curso.fecha_inicio);
+      const opciones = { day: '2-digit', month: 'long', year: 'numeric' };
+      const fechaFormateada = fecha.toLocaleDateString('es-CL', opciones);
+      
+      return {
+        id: curso.id,
+        name: curso.nombre,
+        date: fechaFormateada,
+        participants: participantesCount || curso.nro_participantes || 0
+      };
+    }));
+    
+    // ============ CONSTRUIR RESPUESTA ============
     const dashboardData = {
       estadisticas: {
-        clientes: { title: 'Clientes', value: 42 },
-        cursos: { title: 'Cursos Activos', value: 8 },
-        ingresos: { title: 'Ingresos Mensuales', value: '$3.450.000' },
-        proyectos: { title: 'Proyectos en Curso', value: 6 }
+        clientes: { title: 'Clientes', value: clientesCount },
+        cursos: { title: 'Cursos Activos', value: cursosCount },
+        ingresos: { title: 'Ingresos Mensuales', value: ingresosFormateados },
+        proyectos: { title: 'Proyectos en Curso', value: proyectosCount }
       },
-      actividades: [
-        { id: 1, type: 'client', title: 'Nuevo cliente', description: 'Se registró Empresa ABC', time: '2 horas atrás' },
-        { id: 2, type: 'course', title: 'Curso finalizado', description: 'Curso de Excel Avanzado', time: '1 día atrás' },
-        { id: 3, type: 'invoice', title: 'Factura emitida', description: 'Factura #1234 por $750.000', time: '2 días atrás' },
-        { id: 4, type: 'project', title: 'Proyecto iniciado', description: 'Capacitación corporativa XYZ', time: '3 días atrás' }
-      ],
-      proximosCursos: [
-        { id: 1, name: 'Liderazgo Efectivo', date: '15 de diciembre, 2023', participants: 12 },
-        { id: 2, name: 'Excel Intermedio', date: '20 de diciembre, 2023', participants: 8 },
-        { id: 3, name: 'Atención al Cliente', date: '05 de enero, 2024', participants: 15 }
-      ],
-      resumenFinanciero: {
-        ingresos: {
-          labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-          data: [1800000, 2100000, 1950000, 2400000, 2850000, 3450000]
-        },
-        egresos: {
-          labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-          data: [1500000, 1650000, 1800000, 1950000, 2250000, 2700000]
-        },
-        facturasPendientes: [
-          { id: 1, cliente: 'Empresa XYZ', monto: '$2.500.000', vencimiento: '15/12/2023' },
-          { id: 2, cliente: 'Corporación ABC', monto: '$1.800.000', vencimiento: '20/12/2023' },
-          { id: 3, cliente: 'Servicios 123', monto: '$950.000', vencimiento: '28/12/2023' }
-        ]
-      }
+      actividades: actividadesFinales,
+      proximosCursos: cursosFormateados
     };
     
     res.status(200).json(dashboardData);

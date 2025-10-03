@@ -765,7 +765,7 @@ const ClienteDetail = () => {
           ) : contactos.length > 0 ? (
             <DataTable
               columns={contactosColumns}
-              data={contactos}
+              rows={contactos}
               actions={[
                 { 
                   label: 'Editar', 
@@ -812,7 +812,7 @@ const ClienteDetail = () => {
           ) : actividades.length > 0 ? (
             <DataTable
               columns={actividadesColumns}
-              data={actividades}
+              rows={actividades}
               actions={[
                 { 
                   label: 'Ver detalles', 
@@ -914,7 +914,7 @@ const ClienteDetail = () => {
                 {groupVentas.length > 0 ? (
                   <DataTable
                     columns={ventasColumns}
-                    data={groupVentas}
+                    rows={groupVentas}
                     actions={[
                       { 
                         label: 'Ver detalles', 

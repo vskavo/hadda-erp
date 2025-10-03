@@ -815,7 +815,7 @@ const SiiView = () => {
               {ingresosSii.length > 0 ? (
                 <DataTable
                   columns={columnasIngresosSii}
-                  data={ingresosSii}
+                  rows={ingresosSii}
                   loading={loading}
                   page={pageIngresosSii}
                   rowsPerPage={rowsPerPage}
@@ -990,7 +990,7 @@ const SiiView = () => {
               {egresosSii.length > 0 ? (
                 <DataTable
                   columns={columnasEgresosSii}
-                  data={egresosSii}
+                  rows={egresosSii}
                   loading={loading}
                   page={pageEgresosSii}
                   rowsPerPage={rowsPerPage}
