@@ -152,7 +152,48 @@ const { Sequelize } = require('sequelize');
         rolId = roles[0].id;
         console.log('✓ Rol superadmin encontrado con ID:', rolId);
 
-        // 2. Verificar si ya existe un usuario con ese rol
+        // 2. Crear permiso ADMIN_FULL_ACCESS si no existe
+        console.log('✓ Verificando permiso de acceso total...');
+        let [permisos] = await sequelize.query(
+            "SELECT id FROM permisos WHERE codigo = 'ADMIN_FULL_ACCESS' LIMIT 1"
+        );
+
+        let permisoId;
+        if (permisos.length === 0) {
+            console.log('✓ Creando permiso de acceso total...');
+            await sequelize.query(\`
+                INSERT INTO permisos (nombre, descripcion, modulo, codigo, sistema, activo, created_at, updated_at)
+                VALUES ('Acceso Total (Admin)', 'Permite realizar cualquier acción en el sistema.', 'Administración', 'ADMIN_FULL_ACCESS', true, true, NOW(), NOW())
+                ON CONFLICT (codigo) DO NOTHING
+            \`);
+            
+            [permisos] = await sequelize.query(
+                "SELECT id FROM permisos WHERE codigo = 'ADMIN_FULL_ACCESS' LIMIT 1"
+            );
+        }
+        
+        permisoId = permisos[0].id;
+        console.log('✓ Permiso ADMIN_FULL_ACCESS encontrado con ID:', permisoId);
+
+        // 3. Asociar permiso al rol si no está asociado
+        const [rolPermisos] = await sequelize.query(
+            "SELECT COUNT(*) as count FROM rol_permisos WHERE rol_id = :rolId AND permiso_id = :permisoId",
+            { replacements: { rolId, permisoId } }
+        );
+
+        if (rolPermisos[0].count === 0) {
+            console.log('✓ Asignando permiso al rol superadmin...');
+            await sequelize.query(\`
+                INSERT INTO rol_permisos (rol_id, permiso_id, created_at, updated_at)
+                VALUES (:rolId, :permisoId, NOW(), NOW())
+                ON CONFLICT (rol_id, permiso_id) DO NOTHING
+            \`, { replacements: { rolId, permisoId } });
+            console.log('✓ Permiso asignado exitosamente');
+        } else {
+            console.log('✓ Permiso ya está asignado al rol');
+        }
+
+        // 4. Verificar si ya existe un usuario con ese rol
         const [users] = await sequelize.query(
             "SELECT COUNT(*) as count FROM usuarios WHERE rol_id = :rolId",
             { replacements: { rolId } }
@@ -164,7 +205,7 @@ const { Sequelize } = require('sequelize');
             return;
         }
 
-        // 3. Crear usuario admin por defecto
+        // 5. Crear usuario admin por defecto
         const bcrypt = require('bcryptjs');
         const defaultPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'Admin123!';
         const hashedPassword = await bcrypt.hash(defaultPassword, 10);

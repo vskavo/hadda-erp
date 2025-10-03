@@ -206,7 +206,13 @@ exports.tienePermiso = (codigoPermiso) => {
         const permisosEncontrados = rolConPermisos?.permisos?.map(p => p.codigo) || [];
         console.log(`[DEBUG][tienePermiso] Permisos encontrados para el rol:`, permisosEncontrados);
         
-        // Realizar la verificación
+        // Si tiene ADMIN_FULL_ACCESS, dar acceso total
+        if (permisosEncontrados.includes('ADMIN_FULL_ACCESS')) {
+          console.log(`[DEBUG][tienePermiso] Usuario tiene ADMIN_FULL_ACCESS. Permitiendo acceso.`);
+          return next();
+        }
+        
+        // Realizar la verificación del permiso específico
         const tieneElPermiso = permisosEncontrados.includes(codigoPermiso);
         console.log(`[DEBUG][tienePermiso] ¿Tiene el permiso "${codigoPermiso}"? ${tieneElPermiso}`);
 
