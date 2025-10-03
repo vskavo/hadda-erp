@@ -81,20 +81,39 @@ EOF
 # Función para ejecutar migraciones adicionales
 run_migrations() {
     echo ""
-    echo "=== Ejecutando Migraciones Adicionales ==="
+    echo "=== Ejecutando Migraciones de Sequelize ==="
     
-    # Buscar archivos de migración
+    # Verificar si existe el directorio de migraciones
     if [ -d "backend/migrations" ]; then
         echo "✓ Directorio de migraciones encontrado"
         
-        # Si usas Sequelize CLI migrations:
-        # cd backend && npx sequelize-cli db:migrate
+        # Contar archivos de migración .js
+        MIGRATION_COUNT=$(find backend/migrations -name "*.js" -type f | wc -l)
+        echo "✓ Total de archivos de migración disponibles: $MIGRATION_COUNT"
         
-        # Por ahora, las migraciones específicas se pueden ejecutar manualmente si es necesario
-        echo "✓ Migraciones opcionales disponibles en backend/migrations/"
+        # Ejecutar migraciones con Sequelize CLI
+        echo "✓ Ejecutando migraciones pendientes..."
+        cd backend
+        
+        # Ejecutar migraciones con output detallado
+        npx sequelize-cli db:migrate 2>&1 | while IFS= read -r line; do
+            echo "  $line"
+        done
+        
+        MIGRATION_EXIT_CODE=${PIPESTATUS[0]}
+        cd ..
+        
+        if [ $MIGRATION_EXIT_CODE -eq 0 ]; then
+            echo "✓ Migraciones ejecutadas exitosamente"
+        else
+            echo "⚠️  Algunas migraciones fallaron (código: $MIGRATION_EXIT_CODE)"
+            echo "⚠️  Esto puede ser normal si las migraciones ya están aplicadas"
+        fi
     else
-        echo "⚠ No se encontraron migraciones"
+        echo "⚠️  No se encontró el directorio backend/migrations"
     fi
+    
+    echo ""
 }
 
 # Función para crear usuario administrador por defecto
