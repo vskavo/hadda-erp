@@ -123,17 +123,14 @@ az webapp config appsettings set \
     DEFAULT_ADMIN_PASSWORD="Temporal123!" \
     BASE_URL=https://hadda-erp-${CLIENTE_NAME}.azurewebsites.net
 
-# Configurar health check
+# Configurar always on y otras opciones
+echo -e "${YELLOW}Configurando opciones de Web App...${NC}"
 az webapp config set \
   --name hadda-erp-${CLIENTE_NAME} \
   --resource-group $RESOURCE_GROUP \
-  --health-check-path /api/health
-
-# Configurar always on (importante para que no se duerma)
-az webapp config set \
-  --name hadda-erp-${CLIENTE_NAME} \
-  --resource-group $RESOURCE_GROUP \
-  --always-on true
+  --always-on true \
+  --http20-enabled true \
+  --min-tls-version 1.2
 
 echo ""
 echo -e "${GREEN}✅ Deployment completado!${NC}"
