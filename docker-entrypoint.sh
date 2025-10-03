@@ -128,29 +128,29 @@ const { Sequelize } = require('sequelize');
         await sequelize.authenticate();
         console.log('✓ Conexión a BD establecida');
 
-        // 1. Verificar/Crear rol 'superadmin'
+        // 1. Verificar/Crear rol 'administrador'
         let [roles] = await sequelize.query(
-            "SELECT id FROM roles WHERE LOWER(nombre) = 'superadmin' LIMIT 1"
+            "SELECT id FROM roles WHERE LOWER(nombre) = 'administrador' LIMIT 1"
         );
 
         let rolId;
         if (roles.length === 0) {
-            console.log('✓ Creando rol superadmin...');
+            console.log('✓ Creando rol administrador...');
             await sequelize.query(\`
                 INSERT INTO roles (nombre, descripcion, sistema, activo, created_at, updated_at)
-                VALUES ('superadmin', 'Super Administrador del Sistema', true, true, NOW(), NOW())
+                VALUES ('administrador', 'Rol con acceso completo al sistema', true, true, NOW(), NOW())
                 ON CONFLICT (nombre) DO NOTHING
                 RETURNING id
             \`);
             
             // Obtener el ID del rol recién creado
             [roles] = await sequelize.query(
-                "SELECT id FROM roles WHERE LOWER(nombre) = 'superadmin' LIMIT 1"
+                "SELECT id FROM roles WHERE LOWER(nombre) = 'administrador' LIMIT 1"
             );
         }
         
         rolId = roles[0].id;
-        console.log('✓ Rol superadmin encontrado con ID:', rolId);
+        console.log('✓ Rol administrador encontrado con ID:', rolId);
 
         // 2. Crear permiso ADMIN_FULL_ACCESS si no existe
         console.log('✓ Verificando permiso de acceso total...');
@@ -182,7 +182,7 @@ const { Sequelize } = require('sequelize');
         );
 
         if (rolPermisos[0].count === 0) {
-            console.log('✓ Asignando permiso al rol superadmin...');
+            console.log('✓ Asignando permiso al rol administrador...');
             await sequelize.query(\`
                 INSERT INTO rol_permisos (rol_id, permiso_id, created_at, updated_at)
                 VALUES (:rolId, :permisoId, NOW(), NOW())
