@@ -175,23 +175,39 @@ const { Sequelize } = require('sequelize');
         permisoId = permisos[0].id;
         console.log('✓ Permiso ADMIN_FULL_ACCESS encontrado con ID:', permisoId);
 
-        // 3. Asociar permiso al rol si no está asociado
-        const [rolPermisos] = await sequelize.query(
-            "SELECT COUNT(*) as count FROM rol_permisos WHERE rol_id = :rolId AND permiso_id = :permisoId",
+        // 3. Asociar permiso al rol (FORZAR asociación)
+        console.log(\`✓ Verificando asociación: Rol ID \${rolId} <-> Permiso ID \${permisoId}\`);
+        
+        // Verificar si ya existe la asociación
+        const [existingAssoc] = await sequelize.query(
+            "SELECT id FROM rol_permisos WHERE rol_id = :rolId AND permiso_id = :permisoId LIMIT 1",
             { replacements: { rolId, permisoId } }
         );
-
-        if (rolPermisos[0].count === 0) {
-            console.log('✓ Asignando permiso al rol administrador...');
+        
+        if (existingAssoc.length === 0) {
+            // No existe, crearla
+            console.log('✓ Creando asociación rol-permiso...');
             await sequelize.query(\`
                 INSERT INTO rol_permisos (rol_id, permiso_id, created_at, updated_at)
                 VALUES (:rolId, :permisoId, NOW(), NOW())
-                ON CONFLICT (rol_id, permiso_id) DO NOTHING
             \`, { replacements: { rolId, permisoId } });
-            console.log('✓ Permiso asignado exitosamente');
+            console.log('✓ Asociación creada exitosamente');
         } else {
-            console.log('✓ Permiso ya está asignado al rol');
+            console.log(\`✓ Asociación ya existe (ID: \${existingAssoc[0].id})\`);
         }
+        
+        // Verificación final: contar todos los permisos del rol administrador
+        const [todosLosPermisos] = await sequelize.query(
+            "SELECT p.codigo FROM rol_permisos rp JOIN permisos p ON rp.permiso_id = p.id WHERE rp.rol_id = :rolId",
+            { replacements: { rolId } }
+        );
+        
+        console.log('');
+        console.log('========================================');
+        console.log(\`✓ Permisos asignados al rol administrador (\${todosLosPermisos.length}):\`);
+        todosLosPermisos.forEach(p => console.log(\`  - \${p.codigo}\`));
+        console.log('========================================');
+        console.log('');
 
         // 4. Verificar si ya existe un usuario con ese rol
         const [users] = await sequelize.query(
