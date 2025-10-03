@@ -11,7 +11,10 @@ wait_for_db() {
     max_attempts=30
     attempt=0
     
-    until PGPASSWORD=$DB_PASSWORD psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -c '\q' 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+    # Determinar el puerto correcto (por defecto 5432)
+    DB_PORT_CHECK=${DB_PORT:-5432}
+    
+    until PGPASSWORD=$DB_PASSWORD psql -h "$DB_HOST" -p "$DB_PORT_CHECK" -U "$DB_USER" -d "$DB_NAME" -c '\q' --set=sslmode=require 2>/dev/null || [ $attempt -eq $max_attempts ]; do
         attempt=$((attempt + 1))
         echo "Intento $attempt/$max_attempts - Base de datos no está lista aún..."
         sleep 2
