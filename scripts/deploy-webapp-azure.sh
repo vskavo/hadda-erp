@@ -86,15 +86,15 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Configurar container registry (GitHub)
+# Configurar container registry (GitHub) - usando nuevos parámetros
 echo -e "${YELLOW}Configurando acceso a GitHub Container Registry...${NC}"
 az webapp config container set \
   --name hadda-erp-${CLIENTE_NAME} \
   --resource-group $RESOURCE_GROUP \
-  --docker-custom-image-name $REGISTRY \
-  --docker-registry-server-url https://ghcr.io \
-  --docker-registry-server-user $GITHUB_USERNAME \
-  --docker-registry-server-password $GITHUB_TOKEN
+  --container-image-name $REGISTRY \
+  --container-registry-url https://ghcr.io \
+  --container-registry-user $GITHUB_USERNAME \
+  --container-registry-password $GITHUB_TOKEN
 
 # Habilitar continuous deployment
 az webapp deployment container config \
