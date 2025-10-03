@@ -33,6 +33,17 @@ Este sistema te permite deployar múltiples instancias de Hadda ERP para diferen
 ✅ **Scripts Automatizados** - Gestión completa desde CLI  
 ✅ **Datos Aislados** - Cada cliente su propia BD en Supabase  
 
+### ⚠️ Changelog Importante (Octubre 2025)
+
+**Scripts actualizados para Azure CLI v2.x+**
+- ✅ Parámetros deprecados reemplazados con nuevos:
+  - `--docker-custom-image-name` → `--container-image-name`
+  - `--docker-registry-server-url` → `--container-registry-url`
+  - `--docker-registry-server-user` → `--container-registry-user`
+  - `--docker-registry-server-password` → `--container-registry-password`
+- ✅ Compatibilidad garantizada con futuras versiones de Azure CLI
+- ✅ Sin warnings de deprecación en los logs
+
 ---
 
 ## Arquitectura
