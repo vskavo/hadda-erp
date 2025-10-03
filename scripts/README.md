@@ -34,17 +34,28 @@ Estos scripts facilitan el deployment y gestión de múltiples clientes usando C
 
 ### 2. Deploy Nuevo Cliente
 
-**Paso A: Crear proyecto Supabase**
+**Paso A: Configurar variables de GitHub**
+```bash
+export GITHUB_USERNAME=tu-usuario-github
+export GITHUB_TOKEN=ghp_tu_personal_access_token
+```
+
+**Paso B: Crear proyecto Supabase**
 1. Ve a https://supabase.com/dashboard
 2. New Project → Configura nombre y región
 3. Settings → Database → Connection String
 4. Copia la connection string (URI format)
 
-**Paso B: Deploy**
+**Paso C: Deploy**
 ```bash
-./scripts/deploy-cliente-azure.sh \
+./scripts/deploy-webapp-azure.sh \
   cliente1 \
   'postgresql://postgres.abc:password@aws-0-us-east-1.pooler.supabase.com:6543/postgres'
+```
+
+**O en una sola línea:**
+```bash
+GITHUB_USERNAME=vskavo GITHUB_TOKEN=ghp_xxx ./scripts/deploy-webapp-azure.sh cliente1 'postgresql://...'
 ```
 
 ### 3. Verificar Cliente

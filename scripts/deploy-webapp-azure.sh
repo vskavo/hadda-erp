@@ -28,6 +28,20 @@ APP_SERVICE_PLAN=${3:-hadda-erp-plan}
 RESOURCE_GROUP=${4:-hadda-clientes-rg}
 REGISTRY="ghcr.io/vskavo/hadda-erp:latest"
 
+# Verificar que las variables de GitHub estén configuradas
+if [ -z "$GITHUB_USERNAME" ] || [ -z "$GITHUB_TOKEN" ]; then
+    echo -e "${RED}❌ ERROR: Variables de GitHub no configuradas${NC}"
+    echo ""
+    echo "Configura las variables de entorno antes de ejecutar:"
+    echo "  export GITHUB_USERNAME=tu-usuario-github"
+    echo "  export GITHUB_TOKEN=tu-personal-access-token"
+    echo ""
+    echo "O pásalas directamente:"
+    echo "  GITHUB_USERNAME=xxx GITHUB_TOKEN=yyy ./scripts/deploy-webapp-azure.sh ..."
+    echo ""
+    exit 1
+fi
+
 # Extraer información de Supabase connection string
 DB_USER=$(echo $SUPABASE_CONN | sed -n 's/.*:\/\/\([^:]*\):.*/\1/p')
 DB_PASSWORD=$(echo $SUPABASE_CONN | sed -n 's/.*:\([^@]*\)@.*/\1/p')
