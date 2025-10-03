@@ -103,6 +103,7 @@ try {
   try {
     const usuarioRoutes = require('./usuario.routes');
     router.use('/usuarios', usuarioRoutes);
+    router.use('/users', usuarioRoutes); // Ruta compatible con el frontend
     console.log('✅ Rutas de usuarios cargadas correctamente');
   } catch (error) {
     console.error('❌ Error al cargar rutas de usuarios:', error);

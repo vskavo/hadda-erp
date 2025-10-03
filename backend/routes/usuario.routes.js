@@ -22,6 +22,11 @@ router.get('/perfil/permisos', auth, usuarioController.getMisPermisos);
 // Ruta para actualizar perfil del usuario actual (requiere autenticación)
 router.put('/perfil', auth, usuarioController.updatePerfilUsuarioActual);
 
+// Rutas compatibles con el frontend (en inglés)
+router.get('/profile', auth, usuarioController.getPerfilUsuarioActual);
+router.put('/profile', auth, usuarioController.updatePerfilUsuarioActual);
+router.put('/change-password', auth, usuarioController.changePasswordForCurrentUser);
+
 // Rutas para administración de usuarios
 router.get('/', auth, tienePermiso('usuarios:read:list'), usuarioController.findAll);
 router.get('/:id', auth, esAdmin, usuarioController.findOne);

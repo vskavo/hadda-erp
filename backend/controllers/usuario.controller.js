@@ -422,6 +422,50 @@ exports.changeRole = async (req, res) => {
   }
 };
 
+// Cambiar contraseña del usuario actual (para compatibilidad con frontend)
+exports.changePasswordForCurrentUser = async (req, res) => {
+  const t = await sequelize.transaction();
+
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.usuario.id; // Obtener ID del usuario autenticado
+
+    // Verificar que se proporcionen ambas contraseñas
+    if (!currentPassword || !newPassword) {
+      await t.rollback();
+      return res.status(400).json({
+        message: 'Se requieren la contraseña actual y la nueva contraseña'
+      });
+    }
+
+    // Obtener el usuario de la base de datos
+    const usuario = await Usuario.findByPk(userId, { transaction: t });
+
+    if (!usuario) {
+      await t.rollback();
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    // Verificar la contraseña actual
+    const isMatch = await bcrypt.compare(currentPassword, usuario.password);
+    if (!isMatch) {
+      await t.rollback();
+      return res.status(400).json({ message: 'Contraseña actual incorrecta' });
+    }
+
+    // Actualizar la contraseña
+    await usuario.update({ password: newPassword }, { transaction: t });
+
+    await t.commit();
+
+    res.status(200).json({ message: 'Contraseña actualizada exitosamente' });
+  } catch (error) {
+    await t.rollback();
+    console.error('Error al cambiar contraseña:', error);
+    res.status(500).json({ message: 'Error al cambiar contraseña', error: error.message });
+  }
+};
+
 // Cambiar contraseña
 exports.changePassword = async (req, res) => {
   const t = await sequelize.transaction();
@@ -507,23 +551,24 @@ exports.getProfile = async (req, res) => {
 // Actualizar perfil del usuario actual
 exports.updateProfile = async (req, res) => {
   const t = await sequelize.transaction();
-  
+
   try {
-    const { nombre, apellido, telefono, direccion } = req.body;
+    const { nombre, apellido, telefono, cargo, direccion } = req.body;
     const userId = req.usuario.id;
-    
+
     const usuario = await Usuario.findByPk(userId, { transaction: t });
-    
+
     if (!usuario) {
       await t.rollback();
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
-    
+
     // Actualizar datos del perfil
     const updateData = {
       ...(nombre && { nombre }),
       ...(apellido && { apellido }),
       ...(telefono && { telefono }),
+      ...(cargo && { cargo }),
       ...(direccion && { direccion })
     };
     
@@ -565,7 +610,7 @@ exports.getPerfilUsuarioActual = async (req, res) => {
 exports.updatePerfilUsuarioActual = async (req, res) => {
   const t = await sequelize.transaction();
   try {
-    const { nombre, apellido, email, password } = req.body;
+    const { nombre, apellido, email, telefono, cargo, password } = req.body;
     const userId = req.usuario.id; // Obtener ID del usuario autenticado
 
     if (!userId) {
@@ -581,7 +626,7 @@ exports.updatePerfilUsuarioActual = async (req, res) => {
 
     // Verificar que el email no esté en uso por otro usuario si se cambia
     if (email && email !== usuario.email) {
-      const existingUser = await Usuario.findOne({ 
+      const existingUser = await Usuario.findOne({
         where: { email, id: { [Op.ne]: userId } },
         transaction: t
       });
@@ -596,8 +641,10 @@ exports.updatePerfilUsuarioActual = async (req, res) => {
     if (nombre) updateData.nombre = nombre;
     if (apellido) updateData.apellido = apellido;
     if (email) updateData.email = email;
+    if (telefono) updateData.telefono = telefono;
+    if (cargo) updateData.cargo = cargo;
     // La contraseña se hashea automáticamente con el hook beforeUpdate
-    if (password) updateData.password = password; 
+    if (password) updateData.password = password;
 
     await usuario.update(updateData, { transaction: t });
     await t.commit();
