@@ -38,7 +38,7 @@ import otecDataService from '../../../services/otecDataService';
 import usuariosSenceService from '../../../services/usuariosSenceService';
 import usuarioSiiService from '../../../services/usuarioSiiService';
 
-// Claves de las configuraciones que queremos manejar
+// Claves de las configuraciones que queremos manejar con valores por defecto
 const CONFIG_KEYS = [
     'retencion_honorarios',
     'IVA',
@@ -46,6 +46,45 @@ const CONFIG_KEYS = [
     'gastos_administracion',
     'ahorro_caja'
 ];
+
+// Valores por defecto para configuraciones que no existen en la DB
+const DEFAULT_SETTINGS = {
+    'retencion_honorarios': {
+        key: 'retencion_honorarios',
+        value: '0',
+        description: 'Porcentaje de Retención de Honorarios Profesionales',
+        type: 'number',
+        category: 'finanzas'
+    },
+    'IVA': {
+        key: 'IVA',
+        value: '0',
+        description: 'Porcentaje de IVA para cálculos',
+        type: 'number',
+        category: 'finanzas'
+    },
+    'ppm': {
+        key: 'ppm',
+        value: '0',
+        description: 'Porcentaje de PPM (Pago Provisional Mensual)',
+        type: 'number',
+        category: 'finanzas'
+    },
+    'gastos_administracion': {
+        key: 'gastos_administracion',
+        value: '0',
+        description: 'Monto de gastos de administración',
+        type: 'number',
+        category: 'finanzas'
+    },
+    'ahorro_caja': {
+        key: 'ahorro_caja',
+        value: '0',
+        description: 'Porcentaje de ahorro en caja',
+        type: 'number',
+        category: 'finanzas'
+    }
+};
 
 const ConfiguracionesERP = () => {
     const [settings, setSettings] = useState({});
@@ -122,12 +161,12 @@ const ConfiguracionesERP = () => {
                     return acc;
                 }, {});
                 
-                // Inicializar si alguna clave falta (aunque no debería si existen en DB)
+                // Inicializar con valores por defecto si alguna clave falta en la DB
                 CONFIG_KEYS.forEach(key => {
                     if (!settingsMap[key]) {
-                        console.warn(`Configuración "${key}" no encontrada en la DB.`);
-                        // Podríamos inicializarla con valores por defecto si es necesario
-                        // settingsMap[key] = { key, value: '0', description: 'Valor no encontrado', type: 'number', category: 'erp' };
+                        console.warn(`Configuración "${key}" no encontrada en la DB. Usando valor por defecto.`);
+                        // Inicializar con valor por defecto
+                        settingsMap[key] = { ...DEFAULT_SETTINGS[key] };
                     }
                 });
 
@@ -272,8 +311,8 @@ const ConfiguracionesERP = () => {
                   }
                 }
 
-                // Solo enviar la actualización si el setting existe (puede que se haya filtrado)
-                if(settings[key].id) { // Asumiendo que los settings cargados tienen id
+                // Si el setting existe en la DB (tiene id), actualizar; si no, crear
+                if(settings[key].id) {
                   await settingService.updateSetting(key, {
                       value: settings[key].value,
                       // Podríamos enviar otros campos si fueran editables
@@ -281,8 +320,15 @@ const ConfiguracionesERP = () => {
                       // type: settings[key].type,
                   });
                 } else {
-                   console.warn(`Intentando guardar la configuración "${key}" que no fue cargada inicialmente.`);
-                   // O podríamos intentar crearla si no existe: await settingService.createSetting(settings[key]);
+                   console.log(`Creando la configuración "${key}" ya que no existe en la DB.`);
+                   // Crear la configuración si no existe
+                   await settingService.createSetting({
+                       key: settings[key].key,
+                       value: settings[key].value,
+                       description: settings[key].description,
+                       type: settings[key].type,
+                       category: settings[key].category
+                   });
                 }
             } catch (err) {
                 console.error(`Error al guardar configuración ${key}:`, err);
