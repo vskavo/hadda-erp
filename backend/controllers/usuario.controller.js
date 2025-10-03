@@ -577,12 +577,31 @@ exports.updateProfile = async (req, res) => {
     await t.commit();
     
     const updatedUser = await Usuario.findByPk(userId, {
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
+      include: [{
+        model: Rol,
+        as: 'Rol',
+        attributes: ['nombre']
+      }]
     });
-    
+
+    // Preparar respuesta con formato consistente
+    const userResponse = {
+      id: updatedUser.id,
+      nombre: updatedUser.nombre,
+      apellido: updatedUser.apellido,
+      email: updatedUser.email,
+      telefono: updatedUser.telefono,
+      cargo: updatedUser.cargo,
+      rol: updatedUser.Rol?.nombre || req.usuario.rol || 'usuario',
+      activo: updatedUser.activo,
+      created_at: updatedUser.created_at,
+      updated_at: updatedUser.updated_at
+    };
+
     res.status(200).json({
       message: 'Perfil actualizado exitosamente',
-      usuario: updatedUser
+      usuario: userResponse
     });
   } catch (error) {
     await t.rollback();
@@ -649,15 +668,33 @@ exports.updatePerfilUsuarioActual = async (req, res) => {
     await usuario.update(updateData, { transaction: t });
     await t.commit();
 
-    // Devolver datos actualizados (sin password)
-    const perfilActualizado = { ...usuario.toJSON(), ...updateData };
-    delete perfilActualizado.password;
-    // Asegurarse de devolver el nombre del rol correcto
-    perfilActualizado.rol = req.usuario.rol;
+    // Obtener el usuario actualizado con el rol
+    const updatedUser = await Usuario.findByPk(userId, {
+      attributes: { exclude: ['password'] },
+      include: [{
+        model: Rol,
+        as: 'Rol',
+        attributes: ['nombre']
+      }]
+    });
+
+    // Preparar respuesta con formato consistente
+    const userResponse = {
+      id: updatedUser.id,
+      nombre: updatedUser.nombre,
+      apellido: updatedUser.apellido,
+      email: updatedUser.email,
+      telefono: updatedUser.telefono,
+      cargo: updatedUser.cargo,
+      rol: updatedUser.Rol?.nombre || req.usuario.rol || 'usuario',
+      activo: updatedUser.activo,
+      created_at: updatedUser.created_at,
+      updated_at: updatedUser.updated_at
+    };
 
     res.json({
       message: 'Perfil actualizado exitosamente',
-      usuario: perfilActualizado
+      usuario: userResponse
     });
   } catch (error) {
     await t.rollback();

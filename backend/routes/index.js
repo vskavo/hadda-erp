@@ -13,40 +13,51 @@ try {
   });
   
   // Añadir ruta de usuario para compatibilidad con el frontend
-  router.get('/users/me', autenticar, (req, res) => {
+  router.get('/users/me', autenticar, async (req, res) => {
     console.log('Solicitud a /users/me recibida');
     console.log('Información del usuario en el token:', req.usuario);
-    
+
     if (!req.usuario) {
       return res.status(401).json({ message: 'No autenticado' });
     }
-    
-    // Convertir el valor de rol a string si es un número
-    let rolValue = req.usuario.rol;
-    if (typeof rolValue === 'number') {
-      console.log('Convirtiendo rol de número a string');
-      // Mapeo de roles numéricos a nombres (ajusta según tu sistema)
-      const rolesMap = {
-        1: 'administrador',
-        2: 'gerencia',
-        3: 'ventas',
-        4: 'contabilidad',
-        5: 'operaciones'
+
+    try {
+      // Consultar los datos reales del usuario desde la base de datos
+      const { Usuario, Rol } = require('../models');
+      const usuario = await Usuario.findByPk(req.usuario.id, {
+        attributes: { exclude: ['password'] }, // Excluir la contraseña
+        include: [{
+          model: Rol,
+          as: 'Rol',
+          attributes: ['nombre']
+        }]
+      });
+
+      if (!usuario) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+
+      // Preparar la respuesta con los datos reales de la base de datos
+      const userResponse = {
+        id: usuario.id,
+        nombre: usuario.nombre || 'Usuario',
+        apellido: usuario.apellido || '',
+        email: usuario.email,
+        telefono: usuario.telefono || '',
+        cargo: usuario.cargo || '',
+        rol: usuario.Rol?.nombre || req.usuario.rol || 'usuario',
+        activo: usuario.activo,
+        created_at: usuario.created_at,
+        updated_at: usuario.updated_at
       };
-      rolValue = rolesMap[rolValue] || 'usuario';
+
+      console.log('Respuesta enviada desde /users/me:', userResponse);
+
+      res.json({ usuario: userResponse });
+    } catch (error) {
+      console.error('Error al obtener datos del usuario:', error);
+      res.status(500).json({ message: 'Error al obtener datos del usuario', error: error.message });
     }
-    
-    const userResponse = {
-      id: req.usuario.id,
-      nombre: req.usuario.nombre || 'Usuario',
-      apellido: req.usuario.apellido || '',
-      email: req.usuario.email,
-      rol: rolValue
-    };
-    
-    console.log('Respuesta enviada desde /users/me:', userResponse);
-    
-    res.json({ usuario: userResponse });
   });
   
   // Ruta de respaldo para clientes directamente en index.js
