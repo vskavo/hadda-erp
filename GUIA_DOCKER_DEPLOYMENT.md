@@ -1,4 +1,4 @@
-# 🐳 Guía Completa: Docker Deployment Multi-Cliente
+# 🐳 Guía Completa: Docker Deployment Multi-Cliente (Azure Web App + Supabase)
 
 ## 📋 Tabla de Contenidos
 
@@ -7,11 +7,12 @@
 3. [Setup Inicial](#setup-inicial)
 4. [Deployment de Clientes](#deployment-de-clientes)
 5. [Gestión Diaria](#gestión-diaria)
-6. [Scripts Disponibles](#scripts-disponibles)
-7. [Container Registry](#container-registry)
-8. [Supabase Configuration](#supabase-configuration)
-9. [Troubleshooting](#troubleshooting)
-10. [Costos](#costos)
+6. [Actualización Masiva](#actualización-masiva)
+7. [Scripts Disponibles](#scripts-disponibles)
+8. [Container Registry](#container-registry)
+9. [Supabase Configuration](#supabase-configuration)
+10. [Troubleshooting](#troubleshooting)
+11. [Costos](#costos)
 
 ---
 
@@ -19,9 +20,9 @@
 
 Este sistema te permite deployar múltiples instancias de Hadda ERP para diferentes clientes usando:
 - **Docker** para contenedorización
-- **Container Registry** (GitHub/Azure/Docker Hub) para distribución
+- **GitHub Container Registry** para distribución de la imagen
 - **Supabase** como base de datos PostgreSQL gestionada
-- **Azure Container Instances** para hosting serverless
+- **Azure Web App (App Service)** para hosting con HTTPS automático y SSL
 
 ### Características Principales
 
@@ -275,7 +276,69 @@ done
 
 ## Scripts Disponibles
 
-### `build-and-push.sh`
+### Scripts para Azure Web App (RECOMENDADO)
+
+#### `deploy-webapp-azure.sh` ⭐
+Deploya nuevo cliente en Azure Web App con HTTPS automático.
+
+```bash
+# Uso:
+./scripts/deploy-webapp-azure.sh <cliente-name> <supabase-connection-string> [app-service-plan] [resource-group]
+
+# Ejemplo:
+./scripts/deploy-webapp-azure.sh \
+  empresa-abc \
+  'postgresql://postgres.xyz:pass@host:6543/postgres'
+
+# Con opciones personalizadas:
+./scripts/deploy-webapp-azure.sh \
+  empresa-abc \
+  'postgresql://...' \
+  mi-plan-custom \
+  mi-resource-group
+```
+
+**Características:**
+- ✅ HTTPS automático con SSL
+- ✅ Health check configurado
+- ✅ Always-on habilitado
+- ✅ Continuous deployment desde GitHub
+- ✅ Custom domains fácil de configurar
+
+#### `update-webapp.sh`
+Actualiza un cliente específico a la última versión.
+
+```bash
+./scripts/update-webapp.sh empresa-abc
+```
+
+#### `update-all-webapps.sh` ⭐
+Actualiza TODOS los clientes de forma masiva.
+
+```bash
+./scripts/update-all-webapps.sh
+# Pide confirmación antes de ejecutar
+```
+
+#### `list-webapps.sh`
+Lista todos los clientes deployados.
+
+```bash
+./scripts/list-webapps.sh
+```
+
+#### `delete-webapp.sh`
+Elimina un cliente (requiere confirmación).
+
+```bash
+./scripts/delete-webapp.sh empresa-abc
+```
+
+---
+
+### Scripts Generales
+
+#### `build-and-push.sh`
 Construye y sube imagen a Container Registry.
 
 ```bash

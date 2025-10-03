@@ -69,6 +69,9 @@ az container create \
   --name hadda-erp-${CLIENTE_NAME} \
   --image $REGISTRY \
   --os-type Linux \
+  --registry-login-server ghcr.io \
+  --registry-username $GITHUB_USERNAME \
+  --registry-password $GITHUB_TOKEN \
   --dns-name-label hadda-erp-${CLIENTE_NAME} \
   --ports 8080 \
   --cpu 1 \
