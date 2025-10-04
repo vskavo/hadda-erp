@@ -14,34 +14,33 @@ exports.getReportesPredefinidos = async (req, res) => {
     const { categoria, tipo_reporte } = req.query;
     const usuarioId = req.usuario?.id;
 
-    const whereConditions = {
-      activo: true
-    };
-
-    // Filtros opcionales
-    if (categoria) {
-      whereConditions.categoria = categoria;
-    }
-
-    if (tipo_reporte) {
-      whereConditions.tipo_reporte = tipo_reporte;
-    }
-
     // Verificar permisos del usuario
     const usuario = await Usuario.findByPk(usuarioId, {
       include: [{ model: require('../models/rol.model')(sequelize), as: 'Rol' }]
     });
 
-    // Construir condiciones de permisos más flexibles
     const isAdmin = usuario?.Rol?.nombre.toLowerCase().includes('admin');
     const userRole = usuario?.Rol?.nombre.toLowerCase();
 
+    // ============================================
+    // 1. OBTENER TEMPLATES DE REPORTES
+    // ============================================
+    const templateWhereConditions = {
+      activo: true
+    };
+
+    // Filtros opcionales para templates
+    if (categoria) {
+      templateWhereConditions.categoria = categoria;
+    }
+
+    if (tipo_reporte) {
+      templateWhereConditions.tipo_reporte = tipo_reporte;
+    }
+
+    // Construir condiciones de permisos para templates
     if (!isAdmin) {
-      // Para usuarios no admin, mostrar:
-      // 1. Templates creados por ellos mismos
-      // 2. Templates del sistema
-      // 3. Templates que tienen roles permitidos que incluyen su rol
-      whereConditions[Op.or] = [
+      templateWhereConditions[Op.or] = [
         { usuario_id: usuarioId }, // Templates propios
         { sistema: true }, // Templates del sistema
         {
@@ -56,8 +55,8 @@ exports.getReportesPredefinidos = async (req, res) => {
       ];
     }
 
-    const reportesPredefinidos = await ReporteTemplate.findAll({
-      where: whereConditions,
+    const reportesTemplates = await ReporteTemplate.findAll({
+      where: templateWhereConditions,
       include: [{
         model: Usuario,
         as: 'TemplatesCreados',
@@ -66,12 +65,61 @@ exports.getReportesPredefinidos = async (req, res) => {
       order: [['orden', 'ASC'], ['nombre', 'ASC']]
     });
 
-    // Obtener estadísticas de uso para cada reporte
-    const reportesConEstadisticas = await Promise.all(
-      reportesPredefinidos.map(async (reporte) => {
+    // ============================================
+    // 2. OBTENER REPORTES GENERADOS
+    // ============================================
+    const reporteWhereConditions = {
+      estado: 'completado'
+    };
+
+    // Filtros opcionales para reportes generados
+    if (categoria) {
+      reporteWhereConditions.modulo = categoria;
+    }
+
+    if (tipo_reporte) {
+      reporteWhereConditions.tipo_reporte = tipo_reporte;
+    }
+
+    // Condiciones de permisos para reportes generados
+    if (!isAdmin) {
+      reporteWhereConditions[Op.or] = [
+        { usuario_id: usuarioId }, // Reportes propios
+        { compartido: true }, // Reportes compartidos
+        {
+          [Op.and]: [
+            sequelize.where(
+              sequelize.fn('array_to_string', sequelize.col('roles_permitidos'), ','),
+              { [Op.like]: `%${userRole}%` }
+            )
+          ]
+        }
+      ];
+    }
+
+    const reportesGenerados = await Reporte.findAll({
+      where: reporteWhereConditions,
+      include: [{
+        model: Usuario,
+        attributes: ['id', 'nombre', 'apellido']
+      }, {
+        model: ReporteTemplate,
+        as: 'ReporteTemplate',
+        required: false,
+        attributes: ['id', 'nombre']
+      }],
+      order: [['created_at', 'DESC']],
+      limit: 50 // Limitar para no sobrecargar
+    });
+
+    // ============================================
+    // 3. OBTENER ESTADÍSTICAS PARA TEMPLATES
+    // ============================================
+    const templatesConEstadisticas = await Promise.all(
+      reportesTemplates.map(async (template) => {
         const estadisticas = await Reporte.findAll({
           where: {
-            template_id: reporte.id,
+            template_id: template.id,
             estado: 'completado'
           },
           attributes: [
@@ -82,14 +130,48 @@ exports.getReportesPredefinidos = async (req, res) => {
         });
 
         return {
-          ...reporte.toJSON(),
+          ...template.toJSON(),
+          tipo: 'template', // Identificador para el frontend
           consultasRealizadas: estadisticas[0]?.consultas_realizadas || 0,
           ultimaConsulta: estadisticas[0]?.ultima_consulta
         };
       })
     );
 
-    res.status(200).json(reportesConEstadisticas);
+    // ============================================
+    // 4. FORMATEAR REPORTES GENERADOS
+    // ============================================
+    const reportesGeneradosFormateados = reportesGenerados.map(reporte => ({
+      ...reporte.toJSON(),
+      tipo: 'reporte_generado', // Identificador para el frontend
+      consultasRealizadas: 1, // Los reportes generados siempre tienen 1 consulta
+      ultimaConsulta: reporte.created_at,
+      // Copiar campos para compatibilidad con templates
+      categoria: reporte.modulo,
+      tipo_reporte: reporte.tipo_reporte,
+      descripcion: reporte.descripcion,
+      formatos_disponibles: [reporte.formato],
+      sistema: false,
+      orden: 999 // Los reportes generados van al final
+    }));
+
+    // ============================================
+    // 5. COMBINAR Y ORDENAR RESULTADOS
+    // ============================================
+    const todosLosReportes = [
+      ...templatesConEstadisticas,
+      ...reportesGeneradosFormateados
+    ].sort((a, b) => {
+      // Templates primero (orden por campo orden), luego reportes generados
+      if (a.tipo === 'template' && b.tipo === 'template') {
+        return (a.orden || 0) - (b.orden || 0);
+      }
+      if (a.tipo === 'template') return -1;
+      if (b.tipo === 'template') return 1;
+      return new Date(b.ultimaConsulta) - new Date(a.ultimaConsulta);
+    });
+
+    res.status(200).json(todosLosReportes);
   } catch (error) {
     logError('Error al obtener reportes predefinidos', error);
     res.status(500).json({

@@ -23,6 +23,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { reporteService } from '../../services';
 import { DataTable, AlertMessage, LoadingIndicator, Confirm } from '../../components/common';
 
@@ -170,12 +171,41 @@ const ReportesList = () => {
       setLoading(true);
       await reporteService.eliminarReportePredefinido(reporteToDelete.id);
       setReportes(reportes.filter(r => r.id !== reporteToDelete.id));
-      setSuccess('Reporte eliminado correctamente');
+      setSuccess('Template eliminado correctamente');
       setConfirmOpen(false);
     } catch (err) {
-      setError('Error al eliminar el reporte. ' + err.message);
+      setError('Error al eliminar el template. ' + err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleVerResultado = (reporteId) => {
+    // Navegar directamente al detalle del reporte generado
+    navigate(`/reportes/${reporteId}`);
+  };
+
+  const handleDescargarDirecto = async (reporte) => {
+    try {
+      let blob;
+      if (reporte.formato === 'excel') {
+        blob = await reporteService.exportarExcel(reporte.id);
+      } else if (reporte.formato === 'pdf') {
+        blob = await reporteService.exportarPDF(reporte.id);
+      }
+
+      if (blob) {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${reporte.nombre}.${reporte.formato}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      setError(`Error al descargar ${reporte.formato.toUpperCase()}: ${err.message}`);
     }
   };
 
@@ -202,49 +232,75 @@ const ReportesList = () => {
               {reporte.descripcion}
             </Typography>
             <Box mt={1}>
-              <Chip 
-                size="small" 
-                label={reporte.categoria} 
-                color="primary" 
-                variant="outlined" 
-                sx={{ mr: 1 }} 
+              <Chip
+                size="small"
+                label={reporte.categoria}
+                color="primary"
+                variant="outlined"
+                sx={{ mr: 1 }}
               />
-              <Chip 
-                size="small" 
-                label={`${reporte.consultasRealizadas} consultas`} 
-                color="default" 
-                variant="outlined" 
-              />
+              {reporte.tipo === 'template' && (
+                <Chip
+                  size="small"
+                  label={`${reporte.consultasRealizadas} consultas`}
+                  color="default"
+                  variant="outlined"
+                />
+              )}
+              {reporte.tipo === 'reporte_generado' && (
+                <Chip
+                  size="small"
+                  label={`Generado: ${new Date(reporte.fecha_generacion).toLocaleDateString()}`}
+                  color="success"
+                  variant="outlined"
+                />
+              )}
             </Box>
           </Grid>
           <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'left', md: 'right' }}}>
-            <Tooltip title="Generar reporte y ver resultados">
-              <IconButton 
-                color="primary" 
-                onClick={() => handleVerReporte(reporte.id)}
-                aria-label="ejecutar"
-              >
-                <PlayArrowIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Exportar">
-              <IconButton 
-                color="success" 
-                onClick={() => handleExportarDialog(reporte)}
-                aria-label="exportar"
-              >
-                <FileDownloadIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Eliminar">
-              <IconButton 
-                color="error" 
-                onClick={() => handleDeleteClick(reporte)}
-                aria-label="eliminar"
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
+            {reporte.tipo === 'template' ? (
+              <Tooltip title="Generar reporte y ver resultados">
+                <IconButton
+                  color="primary"
+                  onClick={() => handleVerReporte(reporte.id)}
+                  aria-label="ejecutar"
+                >
+                  <PlayArrowIcon />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Ver resultado del reporte">
+                <IconButton
+                  color="primary"
+                  onClick={() => handleVerResultado(reporte.id)}
+                  aria-label="ver"
+                >
+                  <VisibilityIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+            {reporte.tipo === 'reporte_generado' && reporte.ruta_archivo && (
+              <Tooltip title={`Descargar ${reporte.formato.toUpperCase()}`}>
+                <IconButton
+                  color="success"
+                  onClick={() => handleDescargarDirecto(reporte)}
+                  aria-label="descargar"
+                >
+                  <FileDownloadIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+            {reporte.tipo === 'template' && reporte.sistema === false && (
+              <Tooltip title="Eliminar template">
+                <IconButton
+                  color="error"
+                  onClick={() => handleDeleteClick(reporte)}
+                  aria-label="eliminar"
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Grid>
         </Grid>
       </CardContent>
@@ -319,9 +375,13 @@ const ReportesList = () => {
       <Confirm
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}
+        onCancel={() => setConfirmOpen(false)}
         onConfirm={handleDeleteConfirm}
-        title="Eliminar informe"
-        description={`¿Está seguro de que desea eliminar el informe "${reporteToDelete?.nombre}"? Esta acción no se puede deshacer.`}
+        title="Eliminar template"
+        message={`¿Está seguro de que desea eliminar el template "${reporteToDelete?.nombre}"? Esta acción no se puede deshacer.`}
+        type="error"
+        confirmText="Eliminar"
+        loading={loading}
       />
 
       {/* Diálogo de ejecución de reporte */}
