@@ -48,9 +48,9 @@ const ReporteDetail = () => {
     cargarReporte();
   }, [id]);
 
-  const cargarReporte = async () => {
-    try {
-      setLoading(true);
+    const cargarReporte = async () => {
+      try {
+        setLoading(true);
       const reporteData = await reporteService.getReporteById(id);
       setReporte(reporteData);
 
@@ -58,12 +58,12 @@ const ReporteDetail = () => {
       if (reporteData.estado === 'completado') {
         await cargarDatosReporte();
       }
-    } catch (err) {
+      } catch (err) {
       setError('Error al cargar el reporte: ' + err.message);
     } finally {
-      setLoading(false);
-    }
-  };
+        setLoading(false);
+      }
+    };
 
   const cargarDatosReporte = async () => {
     try {
@@ -189,17 +189,17 @@ const ReporteDetail = () => {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ mb: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <IconButton onClick={handleVolver} sx={{ mr: 1 }}>
-              <ArrowBackIcon />
-            </IconButton>
-            <Typography variant="h4" component="h1">
+          <Box sx={{ mb: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <IconButton onClick={handleVolver} sx={{ mr: 1 }}>
+                  <ArrowBackIcon />
+                </IconButton>
+                <Typography variant="h4" component="h1">
               Detalle del Reporte
-            </Typography>
-          </Box>
-          <Box>
+                </Typography>
+              </Box>
+              <Box>
             {reporte.estado === 'generando' && (
               <Button
                 variant="outlined"
@@ -213,8 +213,8 @@ const ReporteDetail = () => {
             {reporte.estado === 'completado' && (
               <>
                 <Tooltip title="Exportar a Excel">
-                  <IconButton
-                    color="primary"
+                  <IconButton 
+                    color="primary" 
                     onClick={handleExportarExcel}
                     disabled={exportando}
                     sx={{ mr: 1 }}
@@ -223,8 +223,8 @@ const ReporteDetail = () => {
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Exportar a PDF">
-                  <IconButton
-                    color="secondary"
+                  <IconButton 
+                    color="secondary" 
                     onClick={handleExportarPDF}
                     disabled={exportando}
                   >
@@ -233,45 +233,45 @@ const ReporteDetail = () => {
                 </Tooltip>
               </>
             )}
+              </Box>
+            </Box>
+            <Divider />
           </Box>
-        </Box>
-        <Divider />
-      </Box>
 
       {/* Alertas */}
-      {error && (
-        <AlertMessage
-          severity="error"
-          message={error}
-          onClose={() => setError(null)}
-        />
-      )}
-      {success && (
-        <AlertMessage
-          severity="success"
-          message={success}
-          onClose={() => setSuccess(null)}
-        />
-      )}
+          {error && (
+            <AlertMessage 
+              severity="error" 
+              message={error}
+              onClose={() => setError(null)}
+            />
+          )}
+          {success && (
+            <AlertMessage 
+              severity="success" 
+              message={success}
+              onClose={() => setSuccess(null)}
+            />
+          )}
 
       {/* Información del reporte */}
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom>
               Información del Reporte
-            </Typography>
-            <Grid container spacing={2}>
+              </Typography>
+              <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Typography variant="subtitle2">Nombre:</Typography>
                 <Typography variant="body1">{reporte.nombre}</Typography>
-              </Grid>
+                    </Grid>
               {reporte.descripcion && (
                 <Grid item xs={12}>
                   <Typography variant="subtitle2">Descripción:</Typography>
                   <Typography variant="body1">{reporte.descripcion}</Typography>
-                </Grid>
-              )}
+                  </Grid>
+                )}
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle2">Tipo:</Typography>
                 <Typography variant="body1">{reporte.tipo_reporte}</Typography>
@@ -308,8 +308,8 @@ const ReporteDetail = () => {
                   <Typography variant="body1">
                     {reporte.usuario.nombre} {reporte.usuario.apellido}
                   </Typography>
-                </Grid>
-              )}
+                  </Grid>
+                )}
             </Grid>
           </Paper>
 
@@ -427,16 +427,16 @@ const ReporteDetail = () => {
               )}
             </TableContainer>
           ) : (
-            <Box sx={{ p: 4, textAlign: 'center' }}>
-              <Typography variant="h6">
-                No hay datos disponibles
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
+                <Box sx={{ p: 4, textAlign: 'center' }}>
+                  <Typography variant="h6">
+                    No hay datos disponibles
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
                 El reporte no contiene datos para mostrar.
-              </Typography>
-            </Box>
-          )}
-        </Paper>
+                  </Typography>
+                </Box>
+              )}
+            </Paper>
       )}
 
       {/* Estados de procesamiento */}
@@ -480,4 +480,4 @@ const ReporteDetail = () => {
   );
 };
 
-export default ReporteDetail;
+export default ReporteDetail; 
