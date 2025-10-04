@@ -141,19 +141,34 @@ exports.getReportesPredefinidos = async (req, res) => {
     // ============================================
     // 4. FORMATEAR REPORTES GENERADOS
     // ============================================
-    const reportesGeneradosFormateados = reportesGenerados.map(reporte => ({
-      ...reporte.toJSON(),
-      tipo: 'reporte_generado', // Identificador para el frontend
-      consultasRealizadas: 1, // Los reportes generados siempre tienen 1 consulta
-      ultimaConsulta: reporte.created_at,
-      // Copiar campos para compatibilidad con templates
-      categoria: reporte.modulo,
-      tipo_reporte: reporte.tipo_reporte,
-      descripcion: reporte.descripcion,
-      formatos_disponibles: [reporte.formato],
-      sistema: false,
-      orden: 999 // Los reportes generados van al final
-    }));
+    const reportesGeneradosFormateados = reportesGenerados.map(reporte => {
+      // Formatear fecha de generación
+      const fechaGeneracion = new Date(reporte.fecha_generacion);
+      const fechaFormateada = fechaGeneracion.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+
+      // Crear nombre descriptivo
+      const nombreDescriptivo = `Reporte ${reporte.tipo_reporte} - ${fechaFormateada}`;
+
+      return {
+        ...reporte.toJSON(),
+        nombre: nombreDescriptivo, // Nombre descriptivo con tipo y fecha
+        nombre_original: reporte.nombre, // Guardar el nombre original
+        tipo: 'reporte_generado', // Identificador para el frontend
+        consultasRealizadas: 1, // Los reportes generados siempre tienen 1 consulta
+        ultimaConsulta: reporte.created_at,
+        // Copiar campos para compatibilidad con templates
+        categoria: reporte.modulo,
+        tipo_reporte: reporte.tipo_reporte,
+        descripcion: reporte.descripcion || `Reporte generado el ${fechaFormateada}`,
+        formatos_disponibles: [reporte.formato],
+        sistema: false,
+        orden: 999 // Los reportes generados van al final
+      };
+    });
 
     // ============================================
     // 5. COMBINAR Y ORDENAR RESULTADOS
