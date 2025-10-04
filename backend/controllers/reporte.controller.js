@@ -32,13 +32,28 @@ exports.getReportesPredefinidos = async (req, res) => {
       include: [{ model: require('../models/rol.model')(sequelize), as: 'Rol' }]
     });
 
-    if (usuario && usuario.Rol) {
-      // Si no es admin, filtrar por roles permitidos
-      if (!usuario.Rol.nombre.toLowerCase().includes('admin')) {
-        whereConditions.roles_permitidos = {
-          [Op.contains]: [usuario.Rol.nombre.toLowerCase()]
-        };
-      }
+    // Construir condiciones de permisos más flexibles
+    const isAdmin = usuario?.Rol?.nombre.toLowerCase().includes('admin');
+    const userRole = usuario?.Rol?.nombre.toLowerCase();
+
+    if (!isAdmin) {
+      // Para usuarios no admin, mostrar:
+      // 1. Templates creados por ellos mismos
+      // 2. Templates del sistema
+      // 3. Templates que tienen roles permitidos que incluyen su rol
+      whereConditions[Op.or] = [
+        { usuario_id: usuarioId }, // Templates propios
+        { sistema: true }, // Templates del sistema
+        {
+          [Op.and]: [
+            { sistema: false }, // Templates no del sistema
+            sequelize.where(
+              sequelize.fn('array_to_string', sequelize.col('roles_permitidos'), ','),
+              { [Op.like]: `%${userRole}%` }
+            )
+          ]
+        }
+      ];
     }
 
     const reportesPredefinidos = await ReporteTemplate.findAll({
