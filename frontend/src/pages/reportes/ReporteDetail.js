@@ -7,109 +7,73 @@ import {
   Button,
   Paper,
   Grid,
-  IconButton,
-  Divider,
-  TextField,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
   Chip,
+  Divider,
+  IconButton,
   Tooltip,
-  CircularProgress
+  CircularProgress,
+  Alert,
+  Card,
+  CardContent,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import DateRangeIcon from '@mui/icons-material/DateRange';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-import { es } from 'date-fns/locale';
-import { format } from 'date-fns';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import ErrorIcon from '@mui/icons-material/Error';
 import { reporteService } from '../../services';
-import { DataTable, AlertMessage, LoadingIndicator } from '../../components/common';
+import { AlertMessage } from '../../components/common';
 
 const ReporteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [reporte, setReporte] = useState(null);
-  const [reporteData, setReporteData] = useState(null);
+  const [datos, setDatos] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [applyingFilters, setApplyingFilters] = useState(false);
+  const [loadingDatos, setLoadingDatos] = useState(false);
+  const [exportando, setExportando] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [filtros, setFiltros] = useState({
-    fechaInicio: null,
-    fechaFin: null,
-    estado: '',
-    categoria: '',
-  });
 
+  // Cargar datos del reporte
   useEffect(() => {
-    const cargarReporte = async () => {
-      try {
-        setLoading(true);
-        // Cargar definición del reporte
-        const data = await reporteService.getReporteById(id);
-        setReporte(data);
-        
-        // Prepopular fechas con mes actual si es reporte con fechas
-        if (data.requiereFechas) {
-          const hoy = new Date();
-          const primerDiaDelMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-          const ultimoDiaDelMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
-          
-          setFiltros({
-            ...filtros,
-            fechaInicio: primerDiaDelMes,
-            fechaFin: ultimoDiaDelMes
-          });
-        }
-        
-        // Ejecutar reporte con filtros por defecto
-        await cargarDatosReporte(id, {
-          fechaInicio: data.requiereFechas ? format(primerDiaDelMes, 'yyyy-MM-dd') : null,
-          fechaFin: data.requiereFechas ? format(ultimoDiaDelMes, 'yyyy-MM-dd') : null,
-          estado: '',
-          categoria: ''
-        });
-        
-      } catch (err) {
-        setError('Error al cargar el reporte. ' + err.message);
-        setLoading(false);
-      }
-    };
-
     cargarReporte();
   }, [id]);
 
-  const cargarDatosReporte = async (reporteId, filtrosAplicar) => {
+  const cargarReporte = async () => {
     try {
-      setApplyingFilters(true);
-      // Preparar filtros
-      const filtrosParaEnviar = {};
-      if (filtrosAplicar.fechaInicio) {
-        filtrosParaEnviar.fechaInicio = typeof filtrosAplicar.fechaInicio === 'string' 
-          ? filtrosAplicar.fechaInicio 
-          : format(filtrosAplicar.fechaInicio, 'yyyy-MM-dd');
+      setLoading(true);
+      const reporteData = await reporteService.getReporteById(id);
+      setReporte(reporteData);
+
+      // Si el reporte está completado, cargar los datos
+      if (reporteData.estado === 'completado') {
+        await cargarDatosReporte();
       }
-      if (filtrosAplicar.fechaFin) {
-        filtrosParaEnviar.fechaFin = typeof filtrosAplicar.fechaFin === 'string' 
-          ? filtrosAplicar.fechaFin 
-          : format(filtrosAplicar.fechaFin, 'yyyy-MM-dd');
-      }
-      if (filtrosAplicar.estado) filtrosParaEnviar.estado = filtrosAplicar.estado;
-      if (filtrosAplicar.categoria) filtrosParaEnviar.categoria = filtrosAplicar.categoria;
-      
-      const data = await reporteService.getReporteById(reporteId, filtrosParaEnviar);
-      setReporteData(data.resultados);
-      setSuccess('Reporte generado correctamente');
     } catch (err) {
-      setError('Error al generar el reporte. ' + err.message);
+      setError('Error al cargar el reporte: ' + err.message);
     } finally {
-      setApplyingFilters(false);
       setLoading(false);
+    }
+  };
+
+  const cargarDatosReporte = async () => {
+    try {
+      setLoadingDatos(true);
+      const datosReporte = await reporteService.getDatosReporte(id);
+      setDatos(datosReporte);
+    } catch (err) {
+      setError('Error al cargar los datos del reporte: ' + err.message);
+    } finally {
+      setLoadingDatos(false);
     }
   };
 
@@ -117,302 +81,403 @@ const ReporteDetail = () => {
     navigate('/reportes');
   };
 
-  const handleFiltroChange = (campo, valor) => {
-    setFiltros({
-      ...filtros,
-      [campo]: valor
-    });
-  };
+  const handleActualizarEstado = async () => {
+    try {
+      const estadoData = await reporteService.getEstadoReporte(id);
+      setReporte(prev => ({ ...prev, ...estadoData }));
 
-  const handleAplicarFiltros = () => {
-    cargarDatosReporte(id, filtros);
+      // Si ahora está completado y no tenemos datos, cargarlos
+      if (estadoData.estado === 'completado' && !datos) {
+        await cargarDatosReporte();
+      }
+    } catch (err) {
+      setError('Error al actualizar estado: ' + err.message);
+    }
   };
 
   const handleExportarExcel = async () => {
     try {
-      setLoading(true);
-      // Preparar filtros para la exportación
-      const filtrosParaEnviar = {};
-      if (filtros.fechaInicio) {
-        filtrosParaEnviar.fechaInicio = typeof filtros.fechaInicio === 'string' 
-          ? filtros.fechaInicio 
-          : format(filtros.fechaInicio, 'yyyy-MM-dd');
-      }
-      if (filtros.fechaFin) {
-        filtrosParaEnviar.fechaFin = typeof filtros.fechaFin === 'string' 
-          ? filtros.fechaFin 
-          : format(filtros.fechaFin, 'yyyy-MM-dd');
-      }
-      if (filtros.estado) filtrosParaEnviar.estado = filtros.estado;
-      if (filtros.categoria) filtrosParaEnviar.categoria = filtros.categoria;
+      setExportando(true);
+      const blob = await reporteService.exportarExcel(id);
       
-      const blob = await reporteService.exportarExcel(id, filtrosParaEnviar);
-      
-      // Crear URL para descarga
+      // Crear enlace de descarga
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${reporte.nombre}.xlsx`;
-      document.body.appendChild(a);
-      a.click();
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${reporte.nombre || 'reporte'}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
       
       setSuccess('Reporte exportado a Excel correctamente');
     } catch (err) {
-      setError('Error al exportar a Excel. ' + err.message);
+      setError('Error al exportar a Excel: ' + err.message);
     } finally {
-      setLoading(false);
+      setExportando(false);
     }
   };
 
   const handleExportarPDF = async () => {
     try {
-      setLoading(true);
-      // Preparar filtros para la exportación
-      const filtrosParaEnviar = {};
-      if (filtros.fechaInicio) {
-        filtrosParaEnviar.fechaInicio = typeof filtros.fechaInicio === 'string' 
-          ? filtros.fechaInicio 
-          : format(filtros.fechaInicio, 'yyyy-MM-dd');
-      }
-      if (filtros.fechaFin) {
-        filtrosParaEnviar.fechaFin = typeof filtros.fechaFin === 'string' 
-          ? filtros.fechaFin 
-          : format(filtros.fechaFin, 'yyyy-MM-dd');
-      }
-      if (filtros.estado) filtrosParaEnviar.estado = filtros.estado;
-      if (filtros.categoria) filtrosParaEnviar.categoria = filtros.categoria;
+      setExportando(true);
+      const blob = await reporteService.exportarPDF(id);
       
-      const blob = await reporteService.exportarPDF(id, filtrosParaEnviar);
-      
-      // Crear URL para descarga
+      // Crear enlace de descarga
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${reporte.nombre}.pdf`;
-      document.body.appendChild(a);
-      a.click();
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${reporte.nombre || 'reporte'}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
       
       setSuccess('Reporte exportado a PDF correctamente');
     } catch (err) {
-      setError('Error al exportar a PDF. ' + err.message);
+      setError('Error al exportar a PDF: ' + err.message);
     } finally {
-      setLoading(false);
+      setExportando(false);
     }
   };
 
-  if (loading && !reporte) {
-    return <LoadingIndicator />;
+  const getEstadoIcon = (estado) => {
+    switch (estado) {
+      case 'completado':
+        return <CheckCircleIcon color="success" />;
+      case 'generando':
+        return <HourglassEmptyIcon color="warning" />;
+      case 'error':
+        return <ErrorIcon color="error" />;
+      default:
+        return <HourglassEmptyIcon color="default" />;
+    }
+  };
+
+  const getEstadoColor = (estado) => {
+    switch (estado) {
+      case 'completado':
+        return 'success';
+      case 'generando':
+        return 'warning';
+      case 'error':
+        return 'error';
+      default:
+        return 'default';
+    }
+  };
+
+  if (loading) {
+    return (
+      <Container maxWidth="lg">
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
+          <CircularProgress />
+        </Box>
+      </Container>
+    );
+  }
+
+  if (!reporte) {
+    return (
+      <Container maxWidth="lg">
+        <Alert severity="error">
+          Reporte no encontrado
+        </Alert>
+      </Container>
+    );
   }
 
   return (
     <Container maxWidth="lg">
-      {reporte && (
-        <>
-          <Box sx={{ mb: 4 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton onClick={handleVolver} sx={{ mr: 1 }}>
-                  <ArrowBackIcon />
-                </IconButton>
-                <Typography variant="h4" component="h1">
-                  {reporte.nombre}
-                </Typography>
-              </Box>
-              <Box>
+      <Box sx={{ mb: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton onClick={handleVolver} sx={{ mr: 1 }}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h4" component="h1">
+              Detalle del Reporte
+            </Typography>
+          </Box>
+          <Box>
+            {reporte.estado === 'generando' && (
+              <Button
+                variant="outlined"
+                startIcon={<RefreshIcon />}
+                onClick={handleActualizarEstado}
+                sx={{ mr: 1 }}
+              >
+                Actualizar Estado
+              </Button>
+            )}
+            {reporte.estado === 'completado' && (
+              <>
                 <Tooltip title="Exportar a Excel">
-                  <IconButton 
-                    color="primary" 
+                  <IconButton
+                    color="primary"
                     onClick={handleExportarExcel}
-                    disabled={loading || applyingFilters}
+                    disabled={exportando}
                     sx={{ mr: 1 }}
                   >
                     <FileDownloadIcon />
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Exportar a PDF">
-                  <IconButton 
-                    color="secondary" 
+                  <IconButton
+                    color="secondary"
                     onClick={handleExportarPDF}
-                    disabled={loading || applyingFilters}
-                    sx={{ mr: 1 }}
+                    disabled={exportando}
                   >
                     <PictureAsPdfIcon />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Actualizar datos">
-                  <IconButton 
-                    color="default" 
-                    onClick={() => handleAplicarFiltros()}
-                    disabled={loading || applyingFilters}
-                  >
-                    <RefreshIcon />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            </Box>
-            <Typography variant="body1" color="text.secondary" gutterBottom>
-              {reporte.descripcion}
-            </Typography>
-            <Box sx={{ mt: 1, mb: 2 }}>
-              <Chip 
-                size="small" 
-                label={reporte.categoria} 
-                color="primary" 
-                variant="outlined" 
-                sx={{ mr: 1 }} 
-              />
-              <Chip 
-                size="small" 
-                label={`${reporte.consultasRealizadas} consultas`} 
-                color="default" 
-                variant="outlined" 
-              />
-            </Box>
-            <Divider />
+              </>
+            )}
           </Box>
+        </Box>
+        <Divider />
+      </Box>
 
-          {/* Alertas de éxito o error */}
-          {error && (
-            <AlertMessage 
-              severity="error" 
-              message={error}
-              onClose={() => setError(null)}
-            />
-          )}
-          {success && (
-            <AlertMessage 
-              severity="success" 
-              message={success}
-              onClose={() => setSuccess(null)}
-            />
-          )}
+      {/* Alertas */}
+      {error && (
+        <AlertMessage
+          severity="error"
+          message={error}
+          onClose={() => setError(null)}
+        />
+      )}
+      {success && (
+        <AlertMessage
+          severity="success"
+          message={success}
+          onClose={() => setSuccess(null)}
+        />
+      )}
 
-          {/* Sección de filtros */}
-          {reporte.filtrosDisponibles && reporte.filtrosDisponibles.length > 0 && (
-            <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 4 }}>
+      {/* Información del reporte */}
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={8}>
+          <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              Información del Reporte
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="subtitle2">Nombre:</Typography>
+                <Typography variant="body1">{reporte.nombre}</Typography>
+              </Grid>
+              {reporte.descripcion && (
+                <Grid item xs={12}>
+                  <Typography variant="subtitle2">Descripción:</Typography>
+                  <Typography variant="body1">{reporte.descripcion}</Typography>
+                </Grid>
+              )}
+              <Grid item xs={12} sm={6}>
+                <Typography variant="subtitle2">Tipo:</Typography>
+                <Typography variant="body1">{reporte.tipo_reporte}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="subtitle2">Módulo:</Typography>
+                <Typography variant="body1">{reporte.modulo}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="subtitle2">Estado:</Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', mt: 0.5 }}>
+                  {getEstadoIcon(reporte.estado)}
+                  <Chip
+                    label={reporte.estado}
+                    color={getEstadoColor(reporte.estado)}
+                    size="small"
+                    sx={{ ml: 1 }}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="subtitle2">Formato:</Typography>
+                <Typography variant="body1">{reporte.formato?.toUpperCase()}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="subtitle2">Fecha de Generación:</Typography>
+                <Typography variant="body1">
+                  {new Date(reporte.fecha_generacion).toLocaleDateString('es-ES')}
+                </Typography>
+              </Grid>
+              {reporte.usuario && (
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="subtitle2">Generado por:</Typography>
+                  <Typography variant="body1">
+                    {reporte.usuario.nombre} {reporte.usuario.apellido}
+                  </Typography>
+                </Grid>
+              )}
+            </Grid>
+          </Paper>
+
+          {/* Template information */}
+          {reporte.ReporteTemplate && (
+            <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 3 }}>
               <Typography variant="h6" gutterBottom>
-                Filtros
+                Plantilla Utilizada
               </Typography>
               <Grid container spacing={2}>
-                {reporte.requiereFechas && (
-                  <>
-                    <Grid item xs={12} sm={6} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={es}>
-                        <DatePicker
-                          label="Fecha inicio"
-                          value={filtros.fechaInicio}
-                          onChange={(newValue) => handleFiltroChange('fechaInicio', newValue)}
-                          renderInput={(params) => <TextField {...params} fullWidth />}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={es}>
-                        <DatePicker
-                          label="Fecha fin"
-                          value={filtros.fechaFin}
-                          onChange={(newValue) => handleFiltroChange('fechaFin', newValue)}
-                          renderInput={(params) => <TextField {...params} fullWidth />}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                  </>
-                )}
-                
-                {reporte.filtrosDisponibles.includes('estado') && (
-                  <Grid item xs={12} sm={6} md={3}>
-                    <FormControl fullWidth>
-                      <InputLabel id="estado-label">Estado</InputLabel>
-                      <Select
-                        labelId="estado-label"
-                        id="estado-select"
-                        value={filtros.estado}
-                        label="Estado"
-                        onChange={(e) => handleFiltroChange('estado', e.target.value)}
-                      >
-                        <MenuItem value="">Todos</MenuItem>
-                        {reporte.opcionesEstado?.map((opcion) => (
-                          <MenuItem key={opcion.valor} value={opcion.valor}>
-                            {opcion.etiqueta}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                )}
-                
-                {reporte.filtrosDisponibles.includes('categoria') && (
-                  <Grid item xs={12} sm={6} md={3}>
-                    <FormControl fullWidth>
-                      <InputLabel id="categoria-label">Categoría</InputLabel>
-                      <Select
-                        labelId="categoria-label"
-                        id="categoria-select"
-                        value={filtros.categoria}
-                        label="Categoría"
-                        onChange={(e) => handleFiltroChange('categoria', e.target.value)}
-                      >
-                        <MenuItem value="">Todas</MenuItem>
-                        {reporte.opcionesCategorias?.map((opcion) => (
-                          <MenuItem key={opcion.valor} value={opcion.valor}>
-                            {opcion.etiqueta}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                )}
-                
-                <Grid item xs={12} sm={6} md={3}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleAplicarFiltros}
-                    disabled={applyingFilters}
-                    fullWidth
-                    sx={{ height: '56px' }}
-                  >
-                    {applyingFilters ? <CircularProgress size={24} /> : 'Aplicar Filtros'}
-                  </Button>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle2">Nombre:</Typography>
+                  <Typography variant="body1">{reporte.ReporteTemplate.nombre}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle2">Descripción:</Typography>
+                  <Typography variant="body1">{reporte.ReporteTemplate.descripcion}</Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="subtitle2">Tipo:</Typography>
+                  <Typography variant="body1">{reporte.ReporteTemplate.tipo_reporte}</Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="subtitle2">Módulo:</Typography>
+                  <Typography variant="body1">{reporte.ReporteTemplate.modulo}</Typography>
                 </Grid>
               </Grid>
             </Paper>
           )}
+        </Grid>
 
-          {/* Resultados del reporte */}
-          {applyingFilters ? (
+        <Grid item xs={12} md={4}>
+          <Paper elevation={0} variant="outlined" sx={{ p: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Parámetros
+            </Typography>
+            {reporte.parametros && Object.keys(reporte.parametros).length > 0 ? (
+              <Box>
+                {Object.entries(reporte.parametros).map(([key, value]) => (
+                  <Box key={key} sx={{ mb: 2 }}>
+                    <Typography variant="subtitle2" sx={{ textTransform: 'capitalize' }}>
+                      {key.replace(/_/g, ' ')}:
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {Array.isArray(value) ? value.join(', ') :
+                       typeof value === 'object' ? JSON.stringify(value, null, 2) :
+                       String(value)}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              <Typography variant="body2" color="text.secondary">
+                No hay parámetros configurados
+              </Typography>
+            )}
+          </Paper>
+        </Grid>
+      </Grid>
+
+      {/* Datos del reporte */}
+      {reporte.estado === 'completado' && datos && (
+        <Paper elevation={0} variant="outlined" sx={{ p: 2, mt: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Datos del Reporte
+          </Typography>
+
+          {loadingDatos ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
               <CircularProgress />
             </Box>
-          ) : reporteData ? (
-            <Paper elevation={0} variant="outlined" sx={{ overflow: 'hidden' }}>
-              {reporteData.columnas && reporteData.filas && (
-                <DataTable
-                  columns={reporteData.columnas}
-                  rows={reporteData.filas}
-                  initialOrderBy={reporteData.columnas[0]?.id || ''}
-                  initialOrder="asc"
-                  defaultRowsPerPage={10}
-                />
-              )}
-              {(!reporteData.columnas || !reporteData.filas || reporteData.filas.length === 0) && (
-                <Box sx={{ p: 4, textAlign: 'center' }}>
-                  <Typography variant="h6">
-                    No hay datos disponibles
-                  </Typography>
+          ) : datos.datos && datos.datos.length > 0 ? (
+            <TableContainer>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    {reporte.parametros.campos.map((campo) => (
+                      <TableCell key={campo}>
+                        <Typography variant="subtitle2">
+                          {campo.replace(/_/g, ' ').replace(/\./g, ' - ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </Typography>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {datos.datos.slice(0, 100).map((fila, index) => (
+                    <TableRow key={index}>
+                      {reporte.parametros.campos.map((campo) => {
+                        // Obtener valor anidado (ej: Owner.nombre)
+                        const valor = campo.split('.').reduce((obj, key) => {
+                          return obj && obj[key] !== undefined ? obj[key] : null;
+                        }, fila);
+                        
+                        return (
+                          <TableCell key={campo}>
+                            {valor !== null && valor !== undefined 
+                              ? (typeof valor === 'object' 
+                                  ? JSON.stringify(valor) 
+                                  : String(valor))
+                              : '-'}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {datos.datos.length > 100 && (
+                <Box sx={{ p: 2, textAlign: 'center' }}>
                   <Typography variant="body2" color="text.secondary">
-                    Intente cambiar los filtros para obtener resultados.
+                    Mostrando las primeras 100 filas de {datos.datos.length} totales
                   </Typography>
                 </Box>
               )}
-            </Paper>
-          ) : null}
-        </>
+            </TableContainer>
+          ) : (
+            <Box sx={{ p: 4, textAlign: 'center' }}>
+              <Typography variant="h6">
+                No hay datos disponibles
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                El reporte no contiene datos para mostrar.
+              </Typography>
+            </Box>
+          )}
+        </Paper>
+      )}
+
+      {/* Estados de procesamiento */}
+      {reporte.estado === 'generando' && (
+        <Paper elevation={0} variant="outlined" sx={{ p: 3, mt: 3, textAlign: 'center' }}>
+          <HourglassEmptyIcon sx={{ fontSize: 48, color: 'warning.main', mb: 2 }} />
+          <Typography variant="h6" gutterBottom>
+            Generando Reporte
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            El reporte se está generando en segundo plano. Puede tardar unos minutos.
+          </Typography>
+          <Button
+            variant="outlined"
+            startIcon={<RefreshIcon />}
+            onClick={handleActualizarEstado}
+            sx={{ mt: 2 }}
+          >
+            Actualizar Estado
+          </Button>
+        </Paper>
+      )}
+
+      {reporte.estado === 'error' && (
+        <Paper elevation={0} variant="outlined" sx={{ p: 3, mt: 3, textAlign: 'center' }}>
+          <ErrorIcon sx={{ fontSize: 48, color: 'error.main', mb: 2 }} />
+          <Typography variant="h6" gutterBottom color="error">
+            Error en la Generación
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Ocurrió un error al generar el reporte. Por favor, inténtelo nuevamente.
+          </Typography>
+          {reporte.metadata?.error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {reporte.metadata.error}
+            </Alert>
+          )}
+        </Paper>
       )}
     </Container>
   );
 };
 
-export default ReporteDetail; 
+export default ReporteDetail;

@@ -54,6 +54,7 @@ import {
 // Pages - Reportes
 import ReportesList from './pages/reportes/ReportesList';
 import GeneradorReportes from './pages/reportes/GeneradorReportes';
+import ReporteDetail from './pages/reportes/ReporteDetail';
 
 // Pages - Administración
 import RolesList from './pages/administracion/roles/RolesList';
@@ -172,6 +173,7 @@ const AppRoutes = () => {
         <Route path="reportes">
           <Route index element={canViewReportes ? <ReportesList /> : <Navigate to="/dashboard" />} />
           <Route path="generador" element={canViewReportes ? <GeneradorReportes /> : <Navigate to="/dashboard" />} />
+          <Route path=":id" element={canViewReportes ? <ReporteDetail /> : <Navigate to="/dashboard" />} />
         </Route>
       </Route>
 

@@ -96,6 +96,28 @@ const reporteService = {
     }
   },
   
+  // Obtener estado de un reporte
+  getEstadoReporte: async (id) => {
+    try {
+      const response = await api.get(`/reportes/${id}/estado`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener estado del reporte:', error);
+      throw error;
+    }
+  },
+
+  // Obtener datos de un reporte completado
+  getDatosReporte: async (id) => {
+    try {
+      const response = await api.get(`/reportes/${id}/datos`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener datos del reporte:', error);
+      throw error;
+    }
+  },
+
   // Obtener estadísticas de reportes generados
   getEstadisticasReportes: async () => {
     try {

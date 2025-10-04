@@ -238,7 +238,7 @@ Usuario.hasMany(Reporte, { foreignKey: 'usuario_id' });
 Reporte.belongsTo(Usuario, { foreignKey: 'usuario_id' });
 
 Usuario.hasMany(ReporteTemplate, { foreignKey: 'usuario_id', as: 'TemplatesCreados' });
-ReporteTemplate.belongsTo(Usuario, { foreignKey: 'usuario_id' });
+ReporteTemplate.belongsTo(Usuario, { foreignKey: 'usuario_id', as: 'TemplatesCreados' });
 
 // Relaciones para roles y permisos
 Rol.belongsToMany(Permiso, { 

@@ -331,7 +331,15 @@ try {
   } catch (error) {
     console.error('❌ Error al cargar rutas de Usuarios Servicio de Impuestos Internos:', error);
   }
-  
+
+  try {
+    const reporteRoutes = require('./reporte.routes');
+    router.use('/reportes', reporteRoutes);
+    console.log('✅ Rutas de reportes cargadas correctamente');
+  } catch (error) {
+    console.error('❌ Error al cargar rutas de reportes:', error);
+  }
+
   console.log('Todas las rutas configuradas correctamente.');
 } catch (error) {
   console.error('Error crítico al cargar rutas:', error);

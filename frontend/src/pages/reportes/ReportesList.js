@@ -15,7 +15,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  CircularProgress
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -35,6 +36,8 @@ const ReportesList = () => {
   const [reporteToDelete, setReporteToDelete] = useState(null);
   const [exportarDialogOpen, setExportarDialogOpen] = useState(false);
   const [reporteToExport, setReporteToExport] = useState(null);
+  const [ejecutandoDialogOpen, setEjecutandoDialogOpen] = useState(false);
+  const [reporteEjecutandose, setReporteEjecutandose] = useState(null);
 
   useEffect(() => {
     const cargarReportes = async () => {
@@ -57,8 +60,57 @@ const ReportesList = () => {
     navigate('/reportes/generador');
   };
 
-  const handleVerReporte = (id) => {
-    navigate(`/reportes/${id}`);
+  const handleVerReporte = async (id) => {
+    try {
+      // Ejecutar el template y mostrar progreso en modal
+      const template = reportes.find(r => r.id === id);
+      if (!template) return;
+
+      setReporteEjecutandose(template);
+      setEjecutandoDialogOpen(true);
+
+      // Crear configuración del reporte basada en el template
+      const reporteConfig = {
+        entidad: template.opciones_configuracion?.entidad || 'proyectos',
+        campos: template.opciones_configuracion?.campos || ['id', 'nombre'],
+        filtros: template.opciones_configuracion?.filtros || {},
+        nombre: template.nombre,
+        descripcion: `Ejecutado desde template: ${template.nombre}`
+      };
+
+      // Generar el reporte
+      const response = await reporteService.generarReportePersonalizado(reporteConfig);
+
+      // Esperar un poco para que el reporte se procese
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Verificar estado del reporte
+      let estado = 'generando';
+      let intentos = 0;
+      while (estado === 'generando' && intentos < 10) {
+        try {
+          const estadoResponse = await reporteService.getEstadoReporte(response.reporte_id);
+          estado = estadoResponse.estado;
+          if (estado === 'completado') break;
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          intentos++;
+        } catch (e) {
+          break;
+        }
+      }
+
+      if (estado === 'completado') {
+        // Redirigir a la página de resultados
+        navigate(`/reportes/${response.reporte_id}`);
+      } else {
+        setError('El reporte está tardando más de lo esperado. Puede verificar el progreso en la página de reportes.');
+        setEjecutandoDialogOpen(false);
+      }
+
+    } catch (error) {
+      setError('Error al ejecutar el reporte: ' + error.message);
+      setEjecutandoDialogOpen(false);
+    }
   };
 
   const handleExportarDialog = (reporte) => {
@@ -166,7 +218,7 @@ const ReportesList = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'left', md: 'right' }}}>
-            <Tooltip title="Ejecutar reporte">
+            <Tooltip title="Generar reporte y ver resultados">
               <IconButton 
                 color="primary" 
                 onClick={() => handleVerReporte(reporte.id)}
@@ -271,6 +323,26 @@ const ReportesList = () => {
         title="Eliminar informe"
         description={`¿Está seguro de que desea eliminar el informe "${reporteToDelete?.nombre}"? Esta acción no se puede deshacer.`}
       />
+
+      {/* Diálogo de ejecución de reporte */}
+      <Dialog open={ejecutandoDialogOpen} onClose={() => setEjecutandoDialogOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Ejecutando Reporte</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 3 }}>
+            <CircularProgress size={60} sx={{ mb: 2 }} />
+            <Typography variant="h6" gutterBottom>
+              Generando reporte...
+            </Typography>
+            <Typography variant="body2" color="text.secondary" align="center">
+              {reporteEjecutandose && (
+                <>Procesando: <strong>{reporteEjecutandose.nombre}</strong></>
+              )}
+              <br />
+              Esto puede tomar unos segundos.
+            </Typography>
+          </Box>
+        </DialogContent>
+      </Dialog>
 
       {/* Diálogo para exportar */}
       <Dialog open={exportarDialogOpen} onClose={() => setExportarDialogOpen(false)}>
