@@ -186,12 +186,17 @@ async function crearTemplatesReportes() {
       console.log(`  - ${template.nombre} (${template.categoria})`);
     });
 
-    process.exit(0);
+    await sequelize.close();
 
   } catch (error) {
     console.error('❌ Error al crear templates:', error);
+    console.error('Stack:', error.stack);
+    // No fallar el inicio si no se pueden crear los templates
     process.exit(1);
   }
 }
 
-crearTemplatesReportes();
+// Ejecutar solo si se llama directamente (no desde otro script)
+if (require.main === module) {
+  crearTemplatesReportes();
+}

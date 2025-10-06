@@ -116,6 +116,34 @@ run_migrations() {
     echo ""
 }
 
+# Función para ejecutar seeders de datos iniciales
+seed_initial_data() {
+    echo ""
+    echo "=== Ejecutando Seeders de Datos Iniciales ==="
+    
+    # Ejecutar seeder de templates de reportes predefinidos
+    if [ -f "backend/scripts/crear-templates-reportes.js" ]; then
+        echo "✓ Ejecutando seeder de informes predefinidos..."
+        
+        node backend/scripts/crear-templates-reportes.js 2>&1 | while IFS= read -r line; do
+            echo "  $line"
+        done
+        
+        SEEDER_EXIT_CODE=${PIPESTATUS[0]}
+        
+        if [ $SEEDER_EXIT_CODE -eq 0 ]; then
+            echo "✓ Seeders ejecutados exitosamente"
+        else
+            echo "⚠️  Algunos seeders fallaron (código: $SEEDER_EXIT_CODE)"
+            echo "⚠️  Esto puede ser normal si los datos ya existen"
+        fi
+    else
+        echo "⚠️  No se encontró el seeder de informes predefinidos"
+    fi
+    
+    echo ""
+}
+
 # Función para crear usuario administrador por defecto
 create_default_admin() {
     echo ""
@@ -318,6 +346,9 @@ sync_database_schema
 
 # Ejecutar migraciones adicionales (si las hay)
 run_migrations
+
+# Ejecutar seeders de datos iniciales (informes predefinidos, etc.)
+seed_initial_data
 
 # Crear usuario admin si es el primer inicio
 if [ "$CREATE_DEFAULT_ADMIN" = "true" ]; then

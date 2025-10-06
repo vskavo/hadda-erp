@@ -13,11 +13,21 @@ Cuando despliegas o reinicias un contenedor, el sistema ejecuta automáticamente
 ```
 1. Esperar a que la BD esté lista
 2. Sincronizar esquema base (crear tablas si no existen)
-3. ✨ EJECUTAR MIGRACIONES PENDIENTES ✨  ← NUEVO
-4. Crear rol administrador y permisos
-5. Crear usuario admin (si no existe)
-6. Iniciar aplicación
+3. ✨ EJECUTAR MIGRACIONES PENDIENTES ✨
+4. ✨ EJECUTAR SEEDERS DE DATOS INICIALES ✨  ← NUEVO
+5. Crear rol administrador y permisos
+6. Crear usuario admin (si no existe)
+7. Iniciar aplicación
 ```
+
+### ¿Qué son los Seeders?
+
+Los **seeders** insertan datos iniciales necesarios para que la aplicación funcione correctamente:
+
+- **Informes Predefinidos**: 6 templates de reportes listos para usar (Proyectos Activos, Clientes Activos, Facturas Pendientes, Ventas del Mes, Cursos Activos, Resumen Financiero)
+- Otros datos de configuración del sistema que se agregarán en el futuro
+
+Los seeders son **idempotentes** - verifican si los datos ya existen antes de insertarlos, por lo que es seguro ejecutarlos múltiples veces.
 
 ### Tabla de Control
 
@@ -473,6 +483,101 @@ El sistema de migraciones es **seguro** porque:
 5. ✅ **Puedes revertir** - El método `down()` permite rollback
 
 **Recomendación**: Siempre ten backups de Supabase antes de desplegar cambios críticos.
+
+---
+
+## 🌱 Crear Nuevos Seeders
+
+Si necesitas agregar otros datos iniciales (ej: categorías, configuraciones, etc.), sigue este patrón:
+
+### 1. Crear el archivo del seeder
+
+```javascript
+// backend/scripts/seed-categorias.js
+require('dotenv').config();
+const { sequelize, Categoria } = require('../models');
+
+async function seedCategorias() {
+  try {
+    console.log('🌱 Creando categorías iniciales...');
+    
+    await sequelize.authenticate();
+    
+    const categorias = [
+      { nombre: 'Capacitación', activo: true, sistema: true },
+      { nombre: 'Consultoría', activo: true, sistema: true },
+      { nombre: 'Asesoría', activo: true, sistema: true }
+    ];
+    
+    for (const categoriaData of categorias) {
+      // Verificar si ya existe
+      const existe = await Categoria.findOne({
+        where: { nombre: categoriaData.nombre }
+      });
+      
+      if (!existe) {
+        await Categoria.create(categoriaData);
+        console.log(`✓ Categoría creada: ${categoriaData.nombre}`);
+      } else {
+        console.log(`⚠️  Categoría ya existe: ${categoriaData.nombre}`);
+      }
+    }
+    
+    console.log('✓ Categorías iniciales creadas');
+    await sequelize.close();
+    
+  } catch (error) {
+    console.error('❌ Error al crear categorías:', error);
+    process.exit(1);
+  }
+}
+
+// Ejecutar solo si se llama directamente
+if (require.main === module) {
+  seedCategorias();
+}
+
+module.exports = seedCategorias;
+```
+
+### 2. Agregar al docker-entrypoint.sh
+
+Edita la función `seed_initial_data()`:
+
+```bash
+seed_initial_data() {
+    echo ""
+    echo "=== Ejecutando Seeders de Datos Iniciales ==="
+    
+    # Seeder de informes predefinidos
+    if [ -f "backend/scripts/crear-templates-reportes.js" ]; then
+        echo "✓ Ejecutando seeder de informes predefinidos..."
+        node backend/scripts/crear-templates-reportes.js
+    fi
+    
+    # Seeder de categorías (NUEVO)
+    if [ -f "backend/scripts/seed-categorias.js" ]; then
+        echo "✓ Ejecutando seeder de categorías..."
+        node backend/scripts/seed-categorias.js
+    fi
+    
+    echo ""
+}
+```
+
+### 3. Probar localmente
+
+```bash
+node backend/scripts/seed-categorias.js
+```
+
+### 4. Commit y deploy
+
+```bash
+git add backend/scripts/seed-categorias.js docker-entrypoint.sh
+git commit -m "feat: Add categorias seeder"
+git push origin main
+```
 
 ---
 
