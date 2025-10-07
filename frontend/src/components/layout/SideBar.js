@@ -67,6 +67,7 @@ const adminMenuItems = [
   { name: 'Usuarios', icon: <ManageAccountsIcon />, path: '/admin/users', permission: 'admin:users:manage' },
   { name: 'Gestión de Roles', icon: <LockPersonIcon />, path: '/admin/roles', permission: 'admin:roles:manage' },
   { name: 'Configuraciones ERP', icon: <SettingsIcon />, path: '/admin/configuraciones-erp', permission: 'admin:settings:manage' },
+  { name: 'Cursos OTEC', icon: <SchoolIcon />, path: '/admin/cursos-otec', permission: 'admin:cursos-otec:manage' },
 ];
 
 const SideBar = ({ open, mobileOpen, drawerWidth, handleDrawerToggle }) => {

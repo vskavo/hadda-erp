@@ -60,6 +60,7 @@ import ReporteDetail from './pages/reportes/ReporteDetail';
 import RolesList from './pages/administracion/roles/RolesList';
 import RolForm from './pages/administracion/roles/RolForm';
 import ConfiguracionesERP from './pages/administracion/configuraciones/ConfiguracionesERP';
+import CursosOTEC from './pages/administracion/CursosOTEC';
 
 // Protección de rutas
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -103,6 +104,7 @@ const AppRoutes = () => {
           <Route path="roles/nuevo" element={isAdmin ? <RolForm /> : <Navigate to="/dashboard" />} />
           <Route path="roles/editar/:id" element={isAdmin ? <RolForm /> : <Navigate to="/dashboard" />} />
           <Route path="configuraciones-erp" element={isAdmin ? <ConfiguracionesERP /> : <Navigate to="/dashboard" />} />
+          <Route path="cursos-otec" element={isAdmin ? <CursosOTEC /> : <Navigate to="/dashboard" />} />
         </Route>
         
         {/* Clientes */}

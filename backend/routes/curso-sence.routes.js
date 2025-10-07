@@ -39,4 +39,39 @@ router.get('/modos', autenticar, apiLimiter, cursoSenceController.getModos);
  */
 router.get('/:id', autenticar, apiLimiter, cursoSenceController.getCursoSenceById);
 
+/**
+ * @route   POST /api/cursos-sence
+ * @desc    Crear un nuevo curso SENCE
+ * @access  Privado
+ */
+router.post('/', autenticar, apiLimiter, cursoSenceController.createCursoSence);
+
+/**
+ * @route   PUT /api/cursos-sence/:id
+ * @desc    Actualizar un curso SENCE
+ * @access  Privado
+ */
+router.put('/:id', autenticar, apiLimiter, cursoSenceController.updateCursoSence);
+
+/**
+ * @route   DELETE /api/cursos-sence/:id
+ * @desc    Eliminar un curso SENCE
+ * @access  Privado
+ */
+router.delete('/:id', autenticar, apiLimiter, cursoSenceController.deleteCursoSence);
+
+/**
+ * @route   POST /api/cursos-sence/bulk
+ * @desc    Crear múltiples cursos SENCE desde CSV
+ * @access  Privado
+ */
+router.post('/bulk', autenticar, apiLimiter, cursoSenceController.bulkCreateCursosSence);
+
+/**
+ * @route   GET /api/cursos-sence/template/download
+ * @desc    Descargar plantilla CSV para cursos SENCE
+ * @access  Privado
+ */
+router.get('/template/download', autenticar, apiLimiter, cursoSenceController.downloadTemplate);
+
 module.exports = router; 
