@@ -121,7 +121,29 @@ seed_initial_data() {
     echo ""
     echo "=== Ejecutando Seeders de Datos Iniciales ==="
     
-    # Ejecutar seeder de templates de reportes predefinidos
+    # 1. Ejecutar seeder de permisos del sistema (CRÍTICO)
+    if [ -f "backend/scripts/seed-permisos-sistema.js" ]; then
+        echo "✓ Ejecutando seeder de permisos del sistema..."
+        
+        node backend/scripts/seed-permisos-sistema.js 2>&1 | while IFS= read -r line; do
+            echo "  $line"
+        done
+        
+        PERMISOS_EXIT_CODE=${PIPESTATUS[0]}
+        
+        if [ $PERMISOS_EXIT_CODE -eq 0 ]; then
+            echo "✓ Permisos del sistema creados exitosamente"
+        else
+            echo "⚠️  Algunos permisos fallaron (código: $PERMISOS_EXIT_CODE)"
+            echo "⚠️  Esto puede ser normal si los permisos ya existen"
+        fi
+    else
+        echo "⚠️  No se encontró el seeder de permisos del sistema"
+    fi
+    
+    echo ""
+    
+    # 2. Ejecutar seeder de templates de reportes predefinidos
     if [ -f "backend/scripts/crear-templates-reportes.js" ]; then
         echo "✓ Ejecutando seeder de informes predefinidos..."
         
@@ -199,49 +221,42 @@ const { Sequelize } = require('sequelize');
         rolId = roles[0].id;
         console.log('✓ Rol administrador encontrado con ID:', rolId);
 
-        // 2. Crear permiso ADMIN_FULL_ACCESS si no existe
-        console.log('✓ Verificando permiso de acceso total...');
-        let [permisos] = await sequelize.query(
-            "SELECT id FROM permisos WHERE codigo = 'ADMIN_FULL_ACCESS' LIMIT 1"
+        // 2. Obtener todos los permisos del sistema
+        console.log('✓ Obteniendo todos los permisos del sistema...');
+        const [todosLosPermisosDisponibles] = await sequelize.query(
+            "SELECT id, codigo FROM permisos WHERE sistema = true AND activo = true"
         );
+        
+        console.log(\`✓ Se encontraron \${todosLosPermisosDisponibles.length} permisos del sistema\`);
 
-        let permisoId;
-        if (permisos.length === 0) {
-            console.log('✓ Creando permiso de acceso total...');
-            await sequelize.query(\`
-                INSERT INTO permisos (nombre, descripcion, modulo, codigo, sistema, activo, created_at, updated_at)
-                VALUES ('Acceso Total (Admin)', 'Permite realizar cualquier acción en el sistema.', 'Administración', 'ADMIN_FULL_ACCESS', true, true, NOW(), NOW())
-                ON CONFLICT (codigo) DO NOTHING
-            \`);
-            
-            [permisos] = await sequelize.query(
-                "SELECT id FROM permisos WHERE codigo = 'ADMIN_FULL_ACCESS' LIMIT 1"
+        // 3. Asociar TODOS los permisos al rol administrador
+        console.log('✓ Asignando todos los permisos al rol administrador...');
+        
+        let permisosAsignados = 0;
+        let permisosYaExistentes = 0;
+        
+        for (const permiso of todosLosPermisosDisponibles) {
+            // Verificar si ya existe la asociación
+            const [existingAssoc] = await sequelize.query(
+                "SELECT id FROM rol_permisos WHERE rol_id = :rolId AND permiso_id = :permisoId LIMIT 1",
+                { replacements: { rolId, permisoId: permiso.id } }
             );
+            
+            if (existingAssoc.length === 0) {
+                // No existe, crearla
+                await sequelize.query(\`
+                    INSERT INTO rol_permisos (rol_id, permiso_id, created_at, updated_at)
+                    VALUES (:rolId, :permisoId, NOW(), NOW())
+                \`, { replacements: { rolId, permisoId: permiso.id } });
+                permisosAsignados++;
+            } else {
+                permisosYaExistentes++;
+            }
         }
         
-        permisoId = permisos[0].id;
-        console.log('✓ Permiso ADMIN_FULL_ACCESS encontrado con ID:', permisoId);
-
-        // 3. Asociar permiso al rol (FORZAR asociación)
-        console.log(\`✓ Verificando asociación: Rol ID \${rolId} <-> Permiso ID \${permisoId}\`);
-        
-        // Verificar si ya existe la asociación
-        const [existingAssoc] = await sequelize.query(
-            "SELECT id FROM rol_permisos WHERE rol_id = :rolId AND permiso_id = :permisoId LIMIT 1",
-            { replacements: { rolId, permisoId } }
-        );
-        
-        if (existingAssoc.length === 0) {
-            // No existe, crearla
-            console.log('✓ Creando asociación rol-permiso...');
-            await sequelize.query(\`
-                INSERT INTO rol_permisos (rol_id, permiso_id, created_at, updated_at)
-                VALUES (:rolId, :permisoId, NOW(), NOW())
-            \`, { replacements: { rolId, permisoId } });
-            console.log('✓ Asociación creada exitosamente');
-        } else {
-            console.log(\`✓ Asociación ya existe (ID: \${existingAssoc[0].id})\`);
-        }
+        console.log(\`✓ Permisos asignados: \${permisosAsignados}\`);
+        console.log(\`✓ Permisos ya existentes: \${permisosYaExistentes}\`);
+        console.log(\`✓ Total de permisos del rol administrador: \${permisosAsignados + permisosYaExistentes}\`);
         
         // Verificación final: contar todos los permisos del rol administrador
         const [todosLosPermisos] = await sequelize.query(
