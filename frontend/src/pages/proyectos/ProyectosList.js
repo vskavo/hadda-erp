@@ -18,6 +18,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination,
   Collapse
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -356,7 +357,7 @@ const ProyectosList = () => {
   
   // Estados para paginación y ordenamiento
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [orderBy, setOrderBy] = useState('fecha_inicio');
   const [order, setOrder] = useState('desc');
   const [totalProyectos, setTotalProyectos] = useState(0);
@@ -644,39 +645,54 @@ const ProyectosList = () => {
             onAction={handleNuevoProyecto}
           />
         ) : (
-          <TableContainer component={Paper} sx={{ width: '100%', mb: 2 }}>
-            <Table aria-label="tabla expandible de proyectos">
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell>Nombre</TableCell>
-                  <TableCell>Cliente</TableCell>
-                  <TableCell>Estado</TableCell>
-                  <TableCell>Aprobación</TableCell>
-                  <TableCell>Acciones</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {proyectos.map((proyecto) => (
-                  <ExpandableRow 
-                    key={proyecto.id}
-                    proyecto={proyecto}
-                    onEdit={handleEditarProyecto}
-                    onDelete={(proyecto) => {
-                      setSelectedProyecto(proyecto);
-                      setOpenDeleteConfirm(true);
-                    }}
-                    onRentabilidad={handleVerRentabilidad}
-                    onSeguimiento={handleVerSeguimiento}
-                    onConvertirVenta={(proyecto) => {
-                      setSelectedProyecto(proyecto);
-                      setOpenVentaConfirm(true);
-                    }}
-                  />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <>
+            <TableContainer component={Paper} sx={{ width: '100%' }}>
+              <Table aria-label="tabla expandible de proyectos">
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>Nombre</TableCell>
+                    <TableCell>Cliente</TableCell>
+                    <TableCell>Estado</TableCell>
+                    <TableCell>Aprobación</TableCell>
+                    <TableCell>Acciones</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {proyectos.map((proyecto) => (
+                    <ExpandableRow 
+                      key={proyecto.id}
+                      proyecto={proyecto}
+                      onEdit={handleEditarProyecto}
+                      onDelete={(proyecto) => {
+                        setSelectedProyecto(proyecto);
+                        setOpenDeleteConfirm(true);
+                      }}
+                      onRentabilidad={handleVerRentabilidad}
+                      onSeguimiento={handleVerSeguimiento}
+                      onConvertirVenta={(proyecto) => {
+                        setSelectedProyecto(proyecto);
+                        setOpenVentaConfirm(true);
+                      }}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 50, 100]}
+                component="div"
+                count={totalProyectos}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                labelRowsPerPage="Proyectos por página:"
+                labelDisplayedRows={({ from, to, count }) => 
+                  `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
+                }
+              />
+            </TableContainer>
+          </>
         )}
       </Paper>
 
