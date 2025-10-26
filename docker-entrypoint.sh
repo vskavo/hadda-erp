@@ -7,6 +7,13 @@ echo ""
 # Función para esperar a que la base de datos esté lista
 wait_for_db() {
     echo "Esperando a que la base de datos esté lista..."
+    echo "Configuración de conexión:"
+    echo "  Host: $DB_HOST"
+    echo "  Port: ${DB_PORT:-5432}"
+    echo "  Database: $DB_NAME"
+    echo "  User: $DB_USER"
+    echo "  SSL: ${DB_SSL:-false}"
+    echo ""
     
     max_attempts=30
     attempt=0
@@ -14,14 +21,51 @@ wait_for_db() {
     # Determinar el puerto correcto (por defecto 5432)
     DB_PORT_CHECK=${DB_PORT:-5432}
     
-    until PGPASSWORD=$DB_PASSWORD psql -h "$DB_HOST" -p "$DB_PORT_CHECK" -U "$DB_USER" -d "$DB_NAME" -c '\q' --set=sslmode=require 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+    # Configurar SSL mode según DB_SSL
+    if [ "$DB_SSL" = "true" ]; then
+        SSL_MODE="require"
+    else
+        SSL_MODE="disable"
+    fi
+    
+    echo "Intentando conectar con SSL mode: $SSL_MODE"
+    echo ""
+    
+    while [ $attempt -lt $max_attempts ]; do
         attempt=$((attempt + 1))
-        echo "Intento $attempt/$max_attempts - Base de datos no está lista aún..."
+        
+        # Intentar conexión
+        if PGPASSWORD=$DB_PASSWORD psql -h "$DB_HOST" -p "$DB_PORT_CHECK" -U "$DB_USER" -d "$DB_NAME" -c '\q' --set=sslmode=$SSL_MODE 2>/tmp/psql_error.log; then
+            echo "✓ Conexión exitosa en intento $attempt"
+            break
+        fi
+        
+        # Mostrar error en intentos específicos
+        if [ $attempt -eq 5 ] || [ $attempt -eq 15 ] || [ $attempt -eq 25 ]; then
+            echo ""
+            echo "⚠️  Intento $attempt/$max_attempts fallido. Error:"
+            cat /tmp/psql_error.log 2>/dev/null || echo "No se pudo leer el log de error"
+            echo ""
+        else
+            echo "Intento $attempt/$max_attempts - Esperando conexión..."
+        fi
+        
         sleep 2
     done
     
     if [ $attempt -eq $max_attempts ]; then
+        echo ""
         echo "❌ ERROR: No se pudo conectar a la base de datos después de $max_attempts intentos"
+        echo ""
+        echo "Último error registrado:"
+        cat /tmp/psql_error.log 2>/dev/null || echo "No se pudo leer el log de error"
+        echo ""
+        echo "Verifica:"
+        echo "  1. Que la base de datos esté activa en Supabase"
+        echo "  2. Que las credenciales sean correctas"
+        echo "  3. Que el firewall de Supabase permita conexiones desde Azure"
+        echo "  4. Que uses el puerto correcto (5432 direct / 6543 pooler)"
+        echo ""
         exit 1
     fi
     

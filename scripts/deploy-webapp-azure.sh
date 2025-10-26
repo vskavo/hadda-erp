@@ -43,19 +43,49 @@ if [ -z "$GITHUB_USERNAME" ] || [ -z "$GITHUB_TOKEN" ]; then
 fi
 
 # Extraer información de Supabase connection string
-DB_USER=$(echo $SUPABASE_CONN | sed -n 's/.*:\/\/\([^:]*\):.*/\1/p')
-DB_PASSWORD=$(echo $SUPABASE_CONN | sed -n 's/.*:\([^@]*\)@.*/\1/p')
-DB_HOST=$(echo $SUPABASE_CONN | sed -n 's/.*@\([^:]*\):.*/\1/p')
-DB_PORT=$(echo $SUPABASE_CONN | sed -n 's/.*:\([0-9]*\)\/.*/\1/p')
-DB_NAME=$(echo $SUPABASE_CONN | sed -n 's/.*\/\([^?]*\).*/\1/p')
+# Método más robusto compatible con Git Bash en Windows
+
+# Remover el prefijo postgresql://
+CONN_WITHOUT_PREFIX="${SUPABASE_CONN#postgresql://}"
+
+# Extraer user:password (antes de @)
+USER_PASS="${CONN_WITHOUT_PREFIX%%@*}"
+DB_USER="${USER_PASS%%:*}"
+DB_PASSWORD="${USER_PASS#*:}"
+
+# Extraer host:port/database (después de @)
+HOST_PORT_DB="${CONN_WITHOUT_PREFIX#*@}"
+HOST_PORT="${HOST_PORT_DB%%/*}"
+DB_HOST="${HOST_PORT%%:*}"
+DB_PORT="${HOST_PORT#*:}"
+
+# Extraer database (después de /)
+DB_NAME="${HOST_PORT_DB#*/}"
+# Remover query params si existen
+DB_NAME="${DB_NAME%%\?*}"
 
 echo -e "${YELLOW}Cliente:${NC} $CLIENTE_NAME"
+echo -e "${YELLOW}Database User:${NC} $DB_USER"
+echo -e "${YELLOW}Database Password:${NC} ${DB_PASSWORD:0:3}***${DB_PASSWORD: -3} (${#DB_PASSWORD} chars)"
 echo -e "${YELLOW}Database Host:${NC} $DB_HOST"
 echo -e "${YELLOW}Database Port:${NC} $DB_PORT"
+echo -e "${YELLOW}Database Name:${NC} $DB_NAME"
 echo -e "${YELLOW}App Service Plan:${NC} $APP_SERVICE_PLAN"
 echo -e "${YELLOW}Resource Group:${NC} $RESOURCE_GROUP"
 echo -e "${YELLOW}Image:${NC} $REGISTRY"
 echo ""
+
+# Validación de que todos los datos fueron extraídos
+if [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ] || [ -z "$DB_HOST" ] || [ -z "$DB_PORT" ] || [ -z "$DB_NAME" ]; then
+    echo -e "${RED}❌ ERROR: No se pudieron extraer todos los datos de la connection string${NC}"
+    echo -e "${RED}Connection string recibida: ${SUPABASE_CONN}${NC}"
+    echo -e "${RED}DB_USER: '$DB_USER'${NC}"
+    echo -e "${RED}DB_PASSWORD: '$DB_PASSWORD'${NC}"
+    echo -e "${RED}DB_HOST: '$DB_HOST'${NC}"
+    echo -e "${RED}DB_PORT: '$DB_PORT'${NC}"
+    echo -e "${RED}DB_NAME: '$DB_NAME'${NC}"
+    exit 1
+fi
 
 # Generar JWT secret único
 JWT_SECRET=$(openssl rand -base64 32)
