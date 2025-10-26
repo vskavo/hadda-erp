@@ -175,13 +175,37 @@ Si prefieres hacer build local:
 
 5. Obtener Connection String:
    - Settings → Database → Connection string
+   - **MUY IMPORTANTE:** Selecciona **"Transaction" en el modo de conexión**
    - Selecciona **"URI"**
    - Copia el string completo
 
-**Formato esperado:**
+**⚠️ CRÍTICO: Usa Transaction Pooler, NO Direct Connection**
+
+Supabase ofrece dos tipos de connection strings:
+
+**✅ CORRECTO - Transaction Pooler (puerto 6543):**
 ```
-postgresql://postgres.abcxyz:tu-password@aws-0-sa-east-1.pooler.supabase.com:6543/postgres
+postgresql://postgres.svogecgysoxfcpcfkhtf:[YOUR-PASSWORD]@aws-1-us-east-2.pooler.supabase.com:6543/postgres
 ```
+- ✅ Puerto: `6543`
+- ✅ Dominio: `*.pooler.supabase.com`
+- ✅ Usuario: `postgres.proyecto_id`
+- ✅ **Este es el que DEBES usar para deployment**
+
+**❌ INCORRECTO - Direct Connection (puerto 5432):**
+```
+postgresql://postgres:[YOUR-PASSWORD]@db.svogecgysoxfcpcfkhtf.supabase.co:5432/postgres
+```
+- ❌ Puerto: `5432`
+- ❌ Dominio: `db.*.supabase.co`
+- ❌ Usuario: `postgres`
+- ❌ **NO usar para aplicaciones web (puede ser bloqueado)**
+
+**¿Por qué usar Transaction Pooler?**
+- Optimizado para múltiples conexiones concurrentes
+- Mejor rendimiento en aplicaciones web
+- No tiene límites de conexión restrictivos
+- Recomendado por Supabase para producción
 
 #### Paso 2: Ejecutar Script de Web App Deployment
 
@@ -357,6 +381,35 @@ done
 ---
 
 ## 🆘 Troubleshooting
+
+### Error: "No se pudo conectar a la base de datos después de 30 intentos" ⚠️ MÁS COMÚN
+
+**Causa:** Estás usando Direct Connection en lugar de Transaction Pooler.
+
+**Síntomas:**
+- El contenedor se reinicia constantemente
+- Logs muestran: "Base de datos no está lista aún..."
+- Nunca se crean las tablas en Supabase
+
+**Solución:**
+1. Ve a Supabase Dashboard → Settings → Database → Connection string
+2. Cambia el modo de **"Direct"** a **"Transaction"**
+3. Copia la nueva connection string (puerto 6543)
+4. Re-deploya con la connection string correcta:
+
+```bash
+# ❌ INCORRECTO (puerto 5432):
+'postgresql://postgres:pass@db.xxx.supabase.co:5432/postgres'
+
+# ✅ CORRECTO (puerto 6543):
+'postgresql://postgres.xxx:pass@aws-1-us-east-2.pooler.supabase.com:6543/postgres'
+```
+
+**Diferencias clave:**
+- Transaction Pooler: `*.pooler.supabase.com:6543`
+- Direct Connection: `db.*.supabase.co:5432`
+
+---
 
 ### Error: "argument --registry-username: expected one argument"
 

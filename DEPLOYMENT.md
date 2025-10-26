@@ -77,14 +77,32 @@ source ~/.bashrc
 az login
 
 # 3A. Deploy con Web App (Producción)
-./scripts/deploy-webapp-azure.sh cliente-nombre 'postgresql://...'
+# ⚠️ IMPORTANTE: Usa Transaction Pooler (puerto 6543), NO Direct Connection (5432)
+./scripts/deploy-webapp-azure.sh cliente-nombre 'postgresql://postgres.xxx:pass@aws-X.pooler.supabase.com:6543/postgres'
 
 # 3B. O deploy con Container Instance (Desarrollo)
-./scripts/deploy-cliente-azure.sh cliente-nombre 'postgresql://...'
+./scripts/deploy-cliente-azure.sh cliente-nombre 'postgresql://postgres.xxx:pass@aws-X.pooler.supabase.com:6543/postgres'
 
 # 4. Verificar
 ./scripts/check-cliente.sh cliente-nombre
 ```
+
+## ⚠️ NOTA CRÍTICA: Connection String de Supabase
+
+**SIEMPRE usa Transaction Pooler:**
+```
+✅ postgresql://postgres.xxx:pass@aws-X.pooler.supabase.com:6543/postgres
+```
+
+**NUNCA uses Direct Connection:**
+```
+❌ postgresql://postgres:pass@db.xxx.supabase.co:5432/postgres
+```
+
+**Dónde encontrarlo en Supabase:**
+- Settings → Database → Connection string
+- Modo: **"Transaction"** (no "Direct")
+- URI
 
 ---
 
@@ -128,15 +146,23 @@ Si encuentras problemas, la guía incluye una sección de troubleshooting comple
 
 ### Problemas Comunes
 
-**1. "argument --registry-username: expected one argument"**
+**1. "No se pudo conectar a la base de datos después de 30 intentos"** ⚠️ MÁS FRECUENTE
+- **Causa:** Usaste Direct Connection (puerto 5432) en lugar de Transaction Pooler (puerto 6543)
+- **Solución:** 
+  - Ve a Supabase → Settings → Database → Connection string
+  - Cambia de "Direct" a **"Transaction"**
+  - Usa el connection string con `*.pooler.supabase.com:6543`
+  - Re-deploya con la connection string correcta
+
+**2. "argument --registry-username: expected one argument"**
 - Solución: Configura `GITHUB_USERNAME` y `GITHUB_TOKEN` en `~/.bashrc`
 
-**2. "DB_PASSWORD: null en Azure"**
+**3. "DB_PASSWORD: null en Azure"**
 - Solución: Usa los scripts corregidos (ya aplicado)
 
-**3. "No se crearon las tablas en Supabase"**
-- Causa: Password no configurado correctamente
-- Solución: Re-deploy con script corregido
+**4. "No se crearon las tablas en Supabase"**
+- Causa: Problema de conexión (ver problema #1)
+- Solución: Verifica connection string y usa Transaction Pooler
 
 ---
 
