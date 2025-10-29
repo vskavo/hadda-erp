@@ -682,7 +682,7 @@ const manualSenceSync = async (cursoId) => {
     error.statusCode = 400;
     throw error;
   }
-  return await sincronizarConSence(curso.id_sence);
+  return await sincronizarConSence(curso.id);
 };
 
 /**

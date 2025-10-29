@@ -309,8 +309,8 @@ exports.create = async (req, res) => {
           }, { transaction: t });
 
           // Sincronizar con SENCE si el id_sence no está vacío
-          if (cursoData.id_sence) {
-            await sincronizarConSence(cursoData.id_sence);
+          if (cursoData.id_sence && curso.id) {
+            await sincronizarConSence(curso.id);
           }
         }
       } catch (cursoError) {
@@ -600,7 +600,7 @@ exports.update = async (req, res) => {
 
             // Sincronizar con SENCE si el id_sence no está vacío y es nuevo o cambió
             if (cursoData.id_sence && cursoData.id_sence !== idSenceAnterior) {
-              await sincronizarConSence(cursoData.id_sence);
+              await sincronizarConSence(cursoData.id);
             }
          }
 
@@ -635,8 +635,8 @@ exports.update = async (req, res) => {
             }, { transaction: t });
 
             // Sincronizar con SENCE si el id_sence no está vacío
-            if (cursoData.id_sence) {
-              await sincronizarConSence(cursoData.id_sence);
+            if (cursoData.id_sence && curso.id) {
+              await sincronizarConSence(curso.id);
             }
         }
     }

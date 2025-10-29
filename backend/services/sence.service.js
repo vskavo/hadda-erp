@@ -15,7 +15,7 @@ class SenceService {
   /**
    * Obtener declaraciones juradas desde SENCE
    * @param {Object} params - Parámetros para la consulta
-   * @param {string} params.username - RUT de persona autorizada en SENCE sin puntos ni guiones
+   * @param {string} params.username - RUT del OTEC completo con dígito verificador
    * @param {string} params.password - Clave única para iniciar sesión
    * @param {string} params.email - Correo electrónico para recibir CSV
    * @param {string} params.otec - RUT del OTEC sin dígito verificador
