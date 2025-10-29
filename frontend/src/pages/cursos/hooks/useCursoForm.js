@@ -266,7 +266,7 @@ export function useCursoForm({ id } = {}) {
   }, [formik.values.valor_hora, formik.values.duracion_horas, isEditing]);
 
   // Función para sincronizar manualmente con SENCE
-  const handleSyncSence = async () => {
+  const handleSyncSence = async (onSuccessCallback) => {
     setSyncLoading(true);
     setSyncResult(null);
     setError('');
@@ -280,6 +280,11 @@ export function useCursoForm({ id } = {}) {
       setSyncResult(response.data);
       if (response.data.success) {
         setSuccessMessage('Sincronización con SENCE exitosa.');
+
+        // Ejecutar callback si se proporciona (para recargar participantes)
+        if (onSuccessCallback && typeof onSuccessCallback === 'function') {
+          onSuccessCallback(response.data);
+        }
       } else {
         setError(response.data.message || 'Error al sincronizar con SENCE');
       }

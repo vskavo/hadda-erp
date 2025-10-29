@@ -101,6 +101,16 @@ const CursoForm = () => {
             sx={{ mb: 2 }}
           />
         )}
+
+        {cursoForm.syncResult && cursoForm.syncResult.success && (
+          <AlertMessage
+            type="success"
+            message={`Sincronización completada: ${cursoForm.syncResult.participantes_procesados || 0} participantes procesados, ${cursoForm.syncResult.asistencias_creadas || 0} asistencias creadas.`}
+            show={!!cursoForm.syncResult}
+            onClose={() => cursoForm.setSyncResult(null)}
+            sx={{ mb: 2 }}
+          />
+        )}
         
         {participantesHook.successMessage && (
           <AlertMessage
@@ -116,7 +126,13 @@ const CursoForm = () => {
           <Grid container spacing={3}>
             {/* Información del curso */}
             <Grid item xs={12} md={6}>
-              <CursoInfoSection {...cursoForm} />
+              <CursoInfoSection
+                {...cursoForm}
+                handleSyncSence={() => cursoForm.handleSyncSence(() => {
+                  // Recargar participantes después de sincronización exitosa
+                  participantesHook.loadParticipantes();
+                })}
+              />
             </Grid>
             
             {/* Información financiera y proyecto */}
