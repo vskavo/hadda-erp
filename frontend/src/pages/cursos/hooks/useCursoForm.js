@@ -40,6 +40,7 @@ export function useCursoForm({ id } = {}) {
   const [declaracionesSyncMessage, setDeclaracionesSyncMessage] = useState('');
   const pollingIntervalRef = useRef(null);
   const syncStartTimeRef = useRef(null);
+  const senceWindowRef = useRef(null); // Referencia a la ventana de SENCE para cerrarla automáticamente
   
   // Estado para usuarios
   const [usuarios, setUsuarios] = useState([]);
@@ -316,6 +317,18 @@ export function useCursoForm({ id } = {}) {
         // Actualizar el progreso
         setDeclaracionesSyncProgress(response.data.data.progress || 0);
         
+        // 🎯 Cerrar ventana de SENCE cuando el scraping comience (backup si content script no pudo cerrarla)
+        if (response.data.data.estado === 'en_progreso' || response.data.data.estado === 'completado') {
+          if (senceWindowRef.current && !senceWindowRef.current.closed) {
+            console.log('[Sync] Cerrando ventana de SENCE (scraping iniciado)...');
+            try {
+              senceWindowRef.current.close();
+            } catch (e) {
+              console.log('[Sync] No se pudo cerrar la ventana:', e);
+            }
+          }
+        }
+        
         // Verificar si ha terminado
         if (response.data.data.estado === 'completado') {
           clearInterval(pollingIntervalRef.current);
@@ -396,13 +409,13 @@ export function useCursoForm({ id } = {}) {
       const left = (window.screen.width - popupWidth) / 2;
       const top = (window.screen.height - popupHeight) / 2;
       
-      const senceWindow = window.open(
+      senceWindowRef.current = window.open(
         senceUrl,
         'SenceAuth',
         `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`
       );
       
-      if (!senceWindow) {
+      if (!senceWindowRef.current) {
         throw new Error('No se pudo abrir la ventana de SENCE. Por favor, permite las ventanas emergentes.');
       }
       
@@ -412,7 +425,7 @@ export function useCursoForm({ id } = {}) {
       // Esperamos a que el popup cargue y luego enviamos los datos
       const sendDataInterval = setInterval(() => {
         try {
-          senceWindow.postMessage({
+          senceWindowRef.current.postMessage({
             type: 'SENCE_SCRAPER_DATA',
             data: scraperData
           }, 'https://lce.sence.cl');
@@ -436,7 +449,7 @@ export function useCursoForm({ id } = {}) {
       
       // Verificar si la ventana se cierra sin completar el proceso
       const windowCheckInterval = setInterval(() => {
-        if (senceWindow.closed) {
+        if (senceWindowRef.current && senceWindowRef.current.closed) {
           clearInterval(windowCheckInterval);
           // Si la ventana se cierra y aún estamos esperando, mostrar mensaje
           if (declaracionesSyncStatus === 'waiting_auth') {
