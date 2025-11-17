@@ -357,12 +357,12 @@ export function useCursoForm({ id } = {}) {
     }
   };
 
-  // Función mejorada para sincronizar declaraciones juradas
+  // Función mejorada para sincronizar declaraciones juradas con extensión de Chrome
   const handleSyncDeclaraciones = async () => {
     // Limpiar estados previos
     setDeclaracionesSyncStatus('initializing');
     setDeclaracionesSyncProgress(0);
-    setDeclaracionesSyncMessage('Iniciando sincronización...');
+    setDeclaracionesSyncMessage('Preparando sincronización...');
     setSyncLoading(true);
     setError('');
     
@@ -372,35 +372,97 @@ export function useCursoForm({ id } = {}) {
     }
     
     try {
-      // Iniciar la sincronización
-      const response = await axios.post(`/api/declaraciones-juradas/sincronizar/${id}`);
+      // Paso 1: Obtener datos necesarios para la extensión
+      console.log('[Sync] Obteniendo datos para sincronización...');
+      const preparacionResponse = await axios.get(`/api/declaraciones-juradas/preparar-sincronizacion/${id}`);
       
-      if (response.data.success) {
-        // La sincronización se ha iniciado correctamente
-        setDeclaracionesSyncStatus('polling');
-        setDeclaracionesSyncMessage('Sincronización en progreso...');
-        
-        // Guardar tiempo de inicio
-        syncStartTimeRef.current = Date.now();
-        
-        // Iniciar polling cada 10 segundos
-        pollingIntervalRef.current = setInterval(checkSyncStatus, 10000);
-        
-        // Hacer una primera verificación inmediata
-        setTimeout(checkSyncStatus, 1000);
-      } else {
-        // Si el backend indica que no se pudo iniciar la sincronización
-        setDeclaracionesSyncStatus('error');
-        setDeclaracionesSyncMessage(response.data.message || 'No se pudo iniciar la sincronización');
-        setSyncLoading(false);
-        setError('Error al iniciar sincronización: ' + response.data.message);
+      if (!preparacionResponse.data.success) {
+        throw new Error(preparacionResponse.data.message || 'No se pudieron obtener los datos para sincronización');
       }
+      
+      const scraperData = preparacionResponse.data.data;
+      console.log('[Sync] Datos de scraper obtenidos:', scraperData);
+      
+      // Paso 2: Guardar datos en sessionStorage para que la extensión pueda acceder
+      sessionStorage.setItem('sence_scraper_data', JSON.stringify(scraperData));
+      sessionStorage.setItem('erp_origin', window.location.origin);
+      
+      // Paso 3: Abrir popup de SENCE
+      setDeclaracionesSyncMessage('Por favor, inicia sesión en SENCE en la ventana emergente...');
+      
+      const senceUrl = 'https://lce.sence.cl/CertificadoAsistencia/';
+      const popupWidth = 800;
+      const popupHeight = 700;
+      const left = (window.screen.width - popupWidth) / 2;
+      const top = (window.screen.height - popupHeight) / 2;
+      
+      const senceWindow = window.open(
+        senceUrl,
+        'SenceAuth',
+        `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`
+      );
+      
+      if (!senceWindow) {
+        throw new Error('No se pudo abrir la ventana de SENCE. Por favor, permite las ventanas emergentes.');
+      }
+      
+      console.log('[Sync] Ventana de SENCE abierta');
+      
+      // 🎯 Enviar datos del curso al popup mediante postMessage
+      // Esperamos a que el popup cargue y luego enviamos los datos
+      const sendDataInterval = setInterval(() => {
+        try {
+          senceWindow.postMessage({
+            type: 'SENCE_SCRAPER_DATA',
+            data: scraperData
+          }, 'https://lce.sence.cl');
+          console.log('[Sync] Datos enviados al popup de SENCE');
+        } catch (e) {
+          console.log('[Sync] Esperando a que el popup cargue...');
+        }
+      }, 1000);
+      
+      // Detener después de 10 segundos (suficiente tiempo para que cargue)
+      setTimeout(() => clearInterval(sendDataInterval), 10000);
+      
+      setDeclaracionesSyncStatus('waiting_auth');
+      setDeclaracionesSyncMessage('Esperando autenticación en SENCE... La extensión capturará automáticamente las cookies después del login.');
+      
+      // Paso 4: Esperar a que se complete el scraping
+      // La extensión enviará las cookies directamente al backend
+      // Iniciamos polling para verificar el estado
+      syncStartTimeRef.current = Date.now();
+      pollingIntervalRef.current = setInterval(checkSyncStatus, 5000);
+      
+      // Verificar si la ventana se cierra sin completar el proceso
+      const windowCheckInterval = setInterval(() => {
+        if (senceWindow.closed) {
+          clearInterval(windowCheckInterval);
+          // Si la ventana se cierra y aún estamos esperando, mostrar mensaje
+          if (declaracionesSyncStatus === 'waiting_auth') {
+            console.log('[Sync] Ventana de SENCE cerrada sin completar');
+            setDeclaracionesSyncMessage('Ventana cerrada. Verificando si se completó la sincronización...');
+            // Hacer una verificación inmediata
+            setTimeout(checkSyncStatus, 1000);
+          }
+        }
+      }, 1000);
+      
+      // Limpiar el intervalo después de 10 minutos máximo
+      setTimeout(() => {
+        clearInterval(windowCheckInterval);
+      }, 600000);
+      
     } catch (err) {
       console.error('Error al sincronizar declaraciones juradas:', err);
       setDeclaracionesSyncStatus('error');
       setDeclaracionesSyncMessage('Error al iniciar la sincronización');
       setSyncLoading(false);
       setError('Error al sincronizar declaraciones juradas: ' + (err.response?.data?.message || err.message));
+      
+      // Limpiar sessionStorage
+      sessionStorage.removeItem('sence_scraper_data');
+      sessionStorage.removeItem('erp_origin');
     }
   };
 

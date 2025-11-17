@@ -31,6 +31,9 @@ router.patch('/:id/estado', auth, tienePermiso('CURSOS_DECLARACIONES'), declarac
 // Eliminar una declaración jurada
 router.delete('/:id', auth, tienePermiso('CURSOS_DECLARACIONES'), declaracionJuradaController.deleteDeclaracionJurada);
 
+// Preparar sincronización con extensión de Chrome (obtener datos necesarios)
+router.get('/preparar-sincronizacion/:cursoId', auth, tienePermiso('CURSOS_DECLARACIONES'), declaracionJuradaController.prepararSincronizacionConExtension);
+
 // Sincronizar declaraciones juradas de un curso
 router.post('/sincronizar/:cursoId', auth, tienePermiso('CURSOS_DECLARACIONES'), declaracionJuradaController.sincronizarDeclaracionesJuradas);
 

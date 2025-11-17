@@ -340,6 +340,14 @@ try {
     console.error('❌ Error al cargar rutas de reportes:', error);
   }
 
+  try {
+    const scrapingRoutes = require('./scraping.routes');
+    router.use('/scraping', scrapingRoutes);
+    console.log('✅ Rutas de scraping cargadas correctamente');
+  } catch (error) {
+    console.error('❌ Error al cargar rutas de scraping:', error);
+  }
+
   console.log('Todas las rutas configuradas correctamente.');
 } catch (error) {
   console.error('Error crítico al cargar rutas:', error);

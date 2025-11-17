@@ -52,9 +52,46 @@ app.use(globalLimiter); // Rate limiting global
 
 // Middlewares estándar
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: function(origin, callback) {
+    console.log('[CORS] Origen de la solicitud:', origin);
+    
+    // Permitir requests sin origin (como las de extensiones de Chrome)
+    if (!origin) {
+      console.log('[CORS] ✅ Sin origen - permitido');
+      return callback(null, true);
+    }
+    
+    // PRIORIDAD: Permitir extensiones de Chrome SIEMPRE
+    if (origin.startsWith('chrome-extension://')) {
+      console.log('[CORS] ✅ Extensión de Chrome detectada - permitido:', origin);
+      return callback(null, true);
+    }
+    
+    // Permitir el origen configurado en .env
+    const allowedOrigin = process.env.CORS_ORIGIN || '*';
+    console.log('[CORS] CORS_ORIGIN configurado:', allowedOrigin);
+    
+    if (allowedOrigin === '*') {
+      console.log('[CORS] ✅ Wildcard (*) - permitiendo todos los orígenes');
+      return callback(null, true);
+    }
+    
+    // Verificar si el origen está en la lista de permitidos
+    const allowedOrigins = allowedOrigin.split(',').map(o => o.trim());
+    if (allowedOrigins.includes(origin)) {
+      console.log('[CORS] ✅ Origen en lista de permitidos:', origin);
+      return callback(null, true);
+    }
+    
+    // Durante desarrollo, permitir todo
+    console.log('[CORS] ⚠️ Origen no en lista, pero permitiendo en desarrollo:', origin);
+    callback(null, true);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Permitir cookies y headers de autenticación
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 app.use(cookieParser()); // Para gestionar cookies
 app.use(express.json({ limit: '10mb' })); // Limitar tamaño del payload

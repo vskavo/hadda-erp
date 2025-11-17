@@ -501,12 +501,85 @@ exports.getSyncStatus = (req, res) => {
 };
 
 /**
+ * Preparar datos para sincronización con extensión de Chrome
+ * Este endpoint proporciona los datos necesarios para que el frontend abra el popup
+ * y la extensión pueda capturar las cookies
+ */
+exports.prepararSincronizacionConExtension = async (req, res) => {
+  try {
+    const { cursoId } = req.params;
+    
+    // Obtener curso
+    const curso = await Curso.findByPk(cursoId);
+    if (!curso) {
+      return res.status(404).json({
+        success: false,
+        message: 'Curso no encontrado'
+      });
+    }
+    
+    if (!curso.id_sence) {
+      return res.status(400).json({
+        success: false,
+        message: 'El curso no tiene id_sence asignado'
+      });
+    }
+    
+    // Obtener OTEC
+    const OtecData = require('../models').OtecData;
+    const otec = await OtecData.findOne();
+    if (!otec) {
+      return res.status(400).json({
+        success: false,
+        message: 'No hay datos de OTEC configurados'
+      });
+    }
+    
+    // Determinar djtype
+    let djtype = 3; // Por defecto elearning
+    if (curso.modalidad && curso.modalidad.toLowerCase().includes('elearning')) {
+      djtype = 2;
+    }
+    
+    // Ajustar el RUT de la OTEC: quitar guion y dígito verificador
+    const rutOtecLimpio = otec.rut.split('-')[0];
+    
+    // Responder con los datos necesarios para la extensión
+    return res.json({
+      success: true,
+      data: {
+        cursoId: curso.id,
+        otec: rutOtecLimpio,
+        djtype: String(djtype),
+        input_data: [String(curso.id_sence)],
+        email: req.usuario?.email || process.env.SENCE_DEFAULT_EMAIL,
+        user_id: req.usuario?.id
+      }
+    });
+  } catch (error) {
+    console.error('Error al preparar sincronización:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al preparar sincronización',
+      error: error.message
+    });
+  }
+};
+
+/**
  * Sincronizar declaraciones juradas de un curso con el endpoint externo (ahora asíncrono)
+ * NOTA: Este método mantiene el flujo antiguo para compatibilidad.
+ * El nuevo flujo usa prepararSincronizacionConExtension + extensión de Chrome
  */
 exports.sincronizarDeclaracionesJuradas = async (req, res) => {
   try {
     const { cursoId } = req.params;
-    const { usuarioSenceRut } = req.body; // Permite seleccionar el usuario SENCE si hay más de uno
+    const { usuarioSenceRut, useExtension } = req.body; // Permite seleccionar el usuario SENCE si hay más de uno
+
+    // Si se solicita usar la extensión, redirigir al nuevo flujo
+    if (useExtension) {
+      return exports.prepararSincronizacionConExtension(req, res);
+    }
 
     // Marcar como en progreso
     syncStatus[cursoId] = { status: 'en_progreso', startedAt: new Date() };

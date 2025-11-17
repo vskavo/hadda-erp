@@ -25,6 +25,7 @@ frontend/build/
 # Variables de entorno
 .env
 .env.*
+.env.github
 !/.env.example # A menudo se versiona un .env.example para mostrar las variables necesarias
 
 # Archivos de IDE y sistema operativo
@@ -66,3 +67,6 @@ clientes.json
 clientes.txt
 **/secrets/
 credentials/
+
+# Extensión de Chrome (se entrega por separado a cada cliente)
+chrome-extension/
