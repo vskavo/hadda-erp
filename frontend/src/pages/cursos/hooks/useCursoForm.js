@@ -371,6 +371,7 @@ export function useCursoForm({ id } = {}) {
   };
 
   // Función mejorada para sincronizar declaraciones juradas con extensión de Chrome
+  // 🆕 NUEVO FLUJO: El backend recibe datos del ERP y cookies de la extensión por separado
   const handleSyncDeclaraciones = async () => {
     // Limpiar estados previos
     setDeclaracionesSyncStatus('initializing');
@@ -385,8 +386,11 @@ export function useCursoForm({ id } = {}) {
     }
     
     try {
-      // Paso 1: Obtener datos necesarios para la extensión
-      console.log('[Sync] Obteniendo datos para sincronización...');
+      // Paso 1: Obtener datos necesarios para la sincronización
+      console.log('[Sync] ========================================');
+      console.log('[Sync] 🚀 Iniciando sincronización...');
+      console.log('[Sync] Paso 1: Obteniendo datos del curso...');
+      
       const preparacionResponse = await axios.get(`/api/declaraciones-juradas/preparar-sincronizacion/${id}`);
       
       if (!preparacionResponse.data.success) {
@@ -394,20 +398,42 @@ export function useCursoForm({ id } = {}) {
       }
       
       const scraperData = preparacionResponse.data.data;
-      console.log('[Sync] Datos de scraper obtenidos:', scraperData);
+      console.log('[Sync] ✅ Datos de scraper obtenidos:', scraperData);
       
-      // Paso 2: Guardar datos en sessionStorage para que la extensión pueda acceder
-      sessionStorage.setItem('sence_scraper_data', JSON.stringify(scraperData));
-      sessionStorage.setItem('erp_origin', window.location.origin);
+      // 🆕 Paso 2: Enviar datos al backend y obtener syncId
+      console.log('[Sync] Paso 2: Preparando sesión de sincronización en el backend...');
+      setDeclaracionesSyncMessage('Preparando sesión de sincronización...');
       
-      // Paso 3: Abrir popup de SENCE
+      const prepareResponse = await axios.post('/api/scraping/prepare-sync', {
+        cursoId: scraperData.cursoId,
+        otec: scraperData.otec,
+        djtype: scraperData.djtype,
+        input_data: scraperData.input_data,
+        email: scraperData.email,
+        user_id: scraperData.user_id,
+        erpOrigin: window.location.origin
+      });
+      
+      if (!prepareResponse.data.success) {
+        throw new Error(prepareResponse.data.error || 'No se pudo preparar la sesión de sincronización');
+      }
+      
+      const syncId = prepareResponse.data.syncId;
+      console.log('[Sync] ✅ Sesión de sincronización creada:', syncId);
+      console.log('[Sync] ✅ URL de SENCE:', prepareResponse.data.senceUrl);
+      
+      // 🆕 Paso 3: Abrir popup de SENCE con el syncId en la URL
       setDeclaracionesSyncMessage('Por favor, inicia sesión en SENCE en la ventana emergente...');
       
-      const senceUrl = 'https://lce.sence.cl/CertificadoAsistencia/';
+      // La URL incluye el syncId para que la extensión lo lea
+      const senceUrl = `https://lce.sence.cl/CertificadoAsistencia/?syncId=${syncId}`;
       const popupWidth = 800;
       const popupHeight = 700;
       const left = (window.screen.width - popupWidth) / 2;
       const top = (window.screen.height - popupHeight) / 2;
+      
+      console.log('[Sync] Paso 3: Abriendo ventana de SENCE...');
+      console.log('[Sync] URL:', senceUrl);
       
       senceWindowRef.current = window.open(
         senceUrl,
@@ -419,24 +445,14 @@ export function useCursoForm({ id } = {}) {
         throw new Error('No se pudo abrir la ventana de SENCE. Por favor, permite las ventanas emergentes.');
       }
       
-      console.log('[Sync] Ventana de SENCE abierta');
-      
-      // 🎯 Enviar datos del curso al popup mediante postMessage
-      // Esperamos a que el popup cargue y luego enviamos los datos
-      const sendDataInterval = setInterval(() => {
-        try {
-          senceWindowRef.current.postMessage({
-            type: 'SENCE_SCRAPER_DATA',
-            data: scraperData
-          }, 'https://lce.sence.cl');
-          console.log('[Sync] Datos enviados al popup de SENCE');
-        } catch (e) {
-          console.log('[Sync] Esperando a que el popup cargue...');
-        }
-      }, 1000);
-      
-      // Detener después de 10 segundos (suficiente tiempo para que cargue)
-      setTimeout(() => clearInterval(sendDataInterval), 10000);
+      console.log('[Sync] ✅ Ventana de SENCE abierta');
+      console.log('[Sync] ========================================');
+      console.log('[Sync] 📋 Resumen:');
+      console.log('[Sync]   - syncId:', syncId);
+      console.log('[Sync]   - Los datos del curso YA están en el backend');
+      console.log('[Sync]   - La extensión solo necesita enviar las cookies + syncId');
+      console.log('[Sync]   - El backend combinará ambos');
+      console.log('[Sync] ========================================');
       
       setDeclaracionesSyncStatus('waiting_auth');
       setDeclaracionesSyncMessage('Esperando autenticación en SENCE... La extensión capturará automáticamente las cookies después del login.');
