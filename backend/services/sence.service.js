@@ -127,19 +127,19 @@ class SenceService {
         throw new Error('No hay URL de Azure Function configurada. Verifica DECLARACIONES_JURADAS_SYNC_URL en .env');
       }
       
+      // IMPORTANTE: Solo enviar los campos que la función Python espera
+      // La función espera: cookies, otec, djtype, input_data
+      // NO enviar: email, user_id, login_data
       const requestData = {
         cookies: params.cookies,
         otec: params.otec || this.defaultOtec,
-        djtype: params.djtype || 'Emitir Declaración Jurada – E-learning',
-        input_data: params.input_data || [],
-        email: params.email || this.defaultEmail,
-        user_id: params.user_id
-        // NO incluir login_data cuando usamos cookies
+        djtype: params.djtype || '3',
+        input_data: params.input_data || []
       };
 
       console.log(`[SenceService] Enviando ${params.cookies.length} cookies a Azure Function`);
       console.log(`[SenceService] OTEC: ${requestData.otec}, DJ Type: ${requestData.djtype}, Cursos: ${requestData.input_data.length}`);
-      console.log('[SenceService] Payload completo:', JSON.stringify({
+      console.log('[SenceService] Payload:', JSON.stringify({
         ...requestData,
         cookies: `[${requestData.cookies.length} cookies]` // No logear cookies completas
       }));
@@ -160,7 +160,8 @@ class SenceService {
       
       // Mejorar el mensaje de error
       if (error.response) {
-        throw new Error(`Error de Azure Function (${error.response.status}): ${error.response.data?.message || error.message}`);
+        console.error('[SenceService] Respuesta de error:', error.response.data);
+        throw new Error(`Error de Azure Function (${error.response.status}): ${JSON.stringify(error.response.data) || error.message}`);
       } else if (error.code === 'ECONNABORTED') {
         throw new Error('Timeout: El scraping tomó demasiado tiempo. Inténtelo nuevamente.');
       } else {
